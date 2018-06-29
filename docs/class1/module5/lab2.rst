@@ -1,247 +1,459 @@
-Lab 5.2 - Test and Troubleshoot the Extension
----------------------------------------------
+Lab 4.2 - Updating the HelloWorld iControl LX Extension
+-------------------------------------------------------
 
-Task 1 - Deploy Services via the Extension
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Now that we have a first version of our extension, let's update it so that it
+will be able to do a few more things:
 
-To deploy services, we need to push ``POST`` requests to
-``/mgmt/share/my-app-interface``.
+* Handle ``POST`` requests
+* Add logging information. Always useful to add logging information to track
+  behaviour and help troubleshooting any issue
+* Send a REST API call to a 3rd system
 
-Just like for the RPM installation process, we can either use a Postman
-collection or use newman.
+Task 1 - Update our iControl LX Extension - Handle POST Requests
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To see what the extension is doing:
+Here we will add some more code to our extension to handle ``POST`` requests
+but also add some troubleshooting statements
 
-* You can monitor its logs in ``/var/log/restnoded/restnoded.log``: Open a
-  Putty session on BIG-IP and let the following command run:
-  ``tail -f /var/log/restnoded/restnoded.log``. This way you should see all
-  action logged by the extension.
-
-* Connect to your BIG-IP UI (login ``admin``, password ``admin``) 
-  to see services being added/deleted. You have shortcuts in your Chrome browser
-
-.. NOTE:: Some limitations of the extension / IPAM solution to be aware of:
-
-  * Only 8 IPs have been allocated to deploy services in the IPAM simulator
-    (10.1.20.100-10.1.20.107) so don't try to deploy more services, it will fail
-
-  * Here we only handle the use case where we deploy 2 pool members for each
-    app. Don't try to push only one server or more than 2
-
-Use Postman
-~~~~~~~~~~~
+First thing to do is enable our ``f5-logger``. This will log messages to
+`/var/log/restnoded/restnoded.log`
 
 Perform the following steps to complete this task:
 
-#. Open your Postman application in your JumpHost and select the collection
-   called ``My-App-Interface``
+#. Execute ``vi /var/config/rest/iapps/HelloWorld/nodejs/hello_world.js`` to
+   edit the file
 
-   .. image:: ../../_static/class1/module5/lab2-image001.png
-      :align: center
-      :scale: 50%
-
-
-#. Select also ``My-App-Interface`` environment variables
-
-   .. image:: ../../_static/class1/module5/lab2-image002.png
-      :align: center
-      :scale: 50%
-
-
-#. In this collection you have different things you can do:
-
-   * Deploy an HTTP and/or TCP Service
-   * Delete a Service
-
-
-#. For each workflow you want to trigger, make sure that you do the Calls in
-   the order they are set in the folder. Make sure to review the response payload
-
-   For example to deploy an HTTP Service, in the folder ``Create-Service-HTTP``:
-
-   1. Click ``Request a token from BIG-IP`` and click :guilabel:`Send`
-   2. Click ``Increase Auth token timeout`` and click :guilabel:`Send`
-   3. Click ``Create HTTP Service`` and click :guilabel:`Send`
-   4. Click ``Get HTTP Service`` and click :guilabel:`Send`
-
-You can review that everything happened as expected through the BIG-IP UI.
-
-.. NOTE:: Your service definition is done in your ``My-App-Interface``
-   environment. So if you want to deploy multiple services, make sure you
-   update it accordingly.
-
-Use Postman - Create HTTP Service Example
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#. Here is an example of deploying the HTTP Service (``Create-Service-HTTP``
-   folder in POSTMAN):
-
-   .. image:: ../../_static/class1/module5/lab2-image004.png
-      :align: center
-      :scale: 50%
-
-
-#. Here is the response from the POST Request:
-
-   .. image:: ../../_static/class1/module5/lab2-image005.png
-      :align: center
-      :scale: 50%
-
-
-#. Output from ``/var/log/restnoded/restnoded.log`` on BIG-IP:
+#. Below the first comment
 
    .. code::
 
-      Mon, 13 Nov 2017 14:51:40 GMT - info: DEBUG: my-app-interface- onPost - the retrieved IP is: 10.1.20.100
-      Mon, 13 Nov 2017 14:51:40 GMT - info: DEBUG: my-app-interfaceretrieve connector ID - onPost - the connector name is : BIG-IP-student
-      Mon, 13 Nov 2017 14:51:40 GMT - info: DEBUG: my-app-interface onPost - connector ID is : 58df07a5-f51c-45ac-a35b-406cfb35840c
-      Mon, 13 Nov 2017 14:51:40 GMT - info: DEBUG: my-app-interface update service BODY is: "{ \"name\": \"my-application\", \"tenantTemplateReference\": { \"link\": \"https://localhost/mgmt/cm/cloud/tenant/templates/iapp/f5-http-lb\"}, \"tenantReference\": { \"link\": \"https://localhost/mgmt/cm/cloud/tenants/student\"},\"vars\": [ { \"name\" : \"pool__port\", \"value\" : \"80\"},{\"name\": \"pool__addr\",\"value\": \"10.1.20.100\"}], \"tables\": [\n\t{\n\t\t\"name\": \"pool__Members\",\n\t\t\"columns\": [\n\t\t\t\"IPAddress\",\n\t\t\t\"State\"\n\t\t],\n\t\t\"rows\": [\n\t\t\t[\n\t\t\t\t\"10.1.10.10\",\n\t\t\t\t\"enabled\"\n\t\t\t],\n\t\t\t[\n\t\t\t\t\"10.1.10.11\",\n\t\t\t\t\"enabled\"\n\t\t\t]\n\t\t]\n\t}\n],\"properties\": [{\"id\": \"cloudConnectorReference\",\"isRequired\": false, \"value\": \"https://localhost/mgmt/cm/cloud/connectors/local/58df07a5-f51c-45ac-a35b-406cfb35840c\"}],\"selfLink\": \"https://localhost/mgmt/cm/cloud/tenants/student/services/iapp/my-application\"}"
-      Mon, 13 Nov 2017 14:51:40 GMT - info: DEBUG: my-app-interface - function RestPostRequest, Service created successfully
+      /**
+       * A simple iControl LX extension that handles only HTTP GET
+       */
+
+   add the following:
+
+   .. code-block:: javascript
+
+      var logger = require('f5-logger').getInstance();
+      var DEBUG = true;
+
+#. Save the changes (``ESC ESC :wq`` if you use ``vi`)
+
+#. Now we will be able to use ``logger`` statement to print information to the
+   `/var/log/restnoded/restnoded.log` log file.  We can also turn on/off all
+   logging by changing the value of the DEBUG variable to false
 
 
-#. Logging as ``student`` on the BIG-IP UI:
+   .. NOTE:: Here is an EXAMPLE of a logger statement (DO NOT PUT THIS INTO
+      YOUR CODE)
 
-   .. image:: ../../_static/class1/module5/lab2-image006.png
-      :align: center
-      :scale: 50%
+      .. code-block:: javascript
 
+         if (DEBUG === true) {
+            logger.info("DEBUG: HelloWorld - onGet request");
+         }
 
-#. Check our BIG-IP configuration via the UI:
+#. We may also want to create a VARIABLE for our default JSON response of
+   ``Hello World!``. This way, if we need to change it at some point, we only
+   need to change it in a single location.
 
-   .. image:: ../../_static/class1/module5/lab2-image007.png
-      :align: center
-      :scale: 50%
-
-
-#. You can review the configuration via Postman (``Get HTTP Service`` in the same folder):
-
-   .. image:: ../../_static/class1/module5/lab2-image014.png
-      :align: center
-      :scale: 50%
-
-
-Use Newman
-~~~~~~~~~~
-
-#. Launch the command prompt that is pinned in your taskbar
-
-   .. image:: ../../_static/class1/module5/lab1-image006.png
-      :align: center
-      :scale: 50%
-
-
-#. You already have a few scripts setup to deploy/delete services:
-
-   * ``2_Create_HTTP_Service``: will create an HTTP based service
-   * ``3_Create_TCP_Service``:  will create a TCP based service
-   * ``4_Delete_HTTP_Service``: will delete the created HTTP based service
-   * ``5_Delete_TCP_Service``: will delete the created TCP based service
-
-   .. NOTE:: If you want to change the service that is created a little bit,
-      you can edit the relevant bat script. You’ll find all the parameters
-      related to the service in the script. You can open the folder containing
-      all the scripts, right click on the script you want to update and
-      edit it with ``Notepad++``
-
-   .. image:: ../../_static/class1/module5/lab2-image003.png
-      :align: center
-      :scale: 50%
-
-Use Newman - Create HTTP Service Example
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#. We launch the command prompt that is pinned in your taskbar
-
-   .. image:: ../../_static/class1/module5/lab1-image006.png
-      :align: center
-      :scale: 50%
-
-
-#. We will launch the script called ``2_Create_HTTP_Service`` and review the
-   output
-
-   .. image:: ../../_static/class1/module5/lab2-image010.png
-      :align: center
-      :scale: 50%
-
-
-#. Here is the ``/var/log/restnoded/restnoded.log`` output on BIG-IP:
+#. Under ``var DEBUG = true;`` add:
 
    .. code::
 
-      Sun, 29 Oct 2017 12:50:32 GMT - info: DEBUG: my-app-interfaceIPAM REST Call - onPost -
-      Sun, 29 Oct 2017 12:50:32 GMT - finest: socket 5 closed
-      Sun, 29 Oct 2017 12:50:32 GMT - info: DEBUG: my-app-interfaceIPAM REST Call - onPost - the retrieved IP is: 10.1.20.104
-      Sun, 29 Oct 2017 12:50:32 GMT - info: DEBUG: my-app-interface update service BODY is: "{ \"name\": \"my-web-app\", \"tenantTemplateReference\": { \"link\": \"https://localhost/mgmt/cm/cloud/tenant/templates/iapp/f5-http-lb\"}, \"tenantReference\": { \"link\": \"https://localhost/mgmt/cm/cloud/tenants/student\"},\"vars\": [ { \"name\" : \"pool__port\", \"value\" : \"80\"},{\"name\": \"pool__addr\",\"value\": \"10.1.20.104\"}], \"tables\": [\n\t{\n\t\t\"name\": \"pool__Members\",\n\t\t\"columns\": [\n\t\t\t\"IPAddress\",\n\t\t\t\"State\"\n\t\t],\n\t\t\"rows\": [\n\t\t\t[\n\t\t\t\t\"10.1.10.10\",\n\t\t\t\t\"enabled\"\n\t\t\t],\n\t\t\t[\n\t\t\t\t\"10.1.10.11\",\n\t\t\t\t\"enabled\"\n\t\t\t]\n\t\t]\n\t}\n],\"properties\": [{\"id\": \"cloudConnectorReference\",\"isRequired\": false, \"value\": \"https://localhost/mgmt/cm/cloud/connectors/local/58df07a5-f51c-45ac-a35b-406cfb35840c\"}],\"selfLink\": \"https://localhost/mgmt/cm/cloud/tenants/student/services/iapp/my-web-app\"}"
-      Sun, 29 Oct 2017 12:50:32 GMT - info: DEBUG: my-app-interface - function RestPostRequest, Service created successfully
+      var DEFAULT_MSG = {"value": "Hello World!"};
 
+   It should look like this:
 
-#. You can check the service got deployed properly on BIG-IP (student tenant) and on your BIG-IP
+   .. code::
 
-   .. image:: ../../_static/class1/module5/lab2-image011.png
-      :align: center
-      :scale: 50%
+      var logger = require('f5-logger').getInstance();
+      var DEBUG = true;
+      var DEFAULT_MSG = {"value": "Hello World!"};
 
-   .. image:: ../../_static/class1/module5/lab2-image012.png
-      :align: center
-      :scale: 50%
+#. Next, let's update your onGET prototype.  Right now you should have this:
 
+   .. code-block:: javascript
 
-Task 2 - Delete services via the extension
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      HelloWorld.prototype.onGet = function(restOperation) {
+        restOperation.setBody(JSON.stringify( { value: "Hello World!" } ));
+        this.completeRestOperation(restOperation);
+      };
 
-Use Postman - Delete HTTP Service Example
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#. Replace this code with the following:
 
-Here is an example of removing the HTTP service (``Delete-Service`` folder in
-Postman):
+   .. code-block:: javascript
 
-.. image:: ../../_static/class1/module5/lab2-image008.png
-   :align: center
-   :scale: 50%
+      HelloWorld.prototype.onGet = function(restOperation) {
+        if (DEBUG === true) {
+          logger.info("DEBUG: HelloWorld - onGet request");
+        }
+        restOperation.setBody(JSON.stringify(DEFAULT_MSG));
+        this.completeRestOperation(restOperation);
+      };
 
-Here is the response when we delete the service:
+   Here the only thing we did was to:
 
-.. image:: ../../_static/class1/module5/lab2-image009.png
-   :align: center
-   :scale: 50%
+   * Add a ``logger`` statement so that we can track when our extension is
+     called with a ``GET`` request
 
-Output from ``/var/log/restnoded/restnoded.log`` on BIG-IP:
+   * Replace our static response ``{ value: "Hello World!" }`` with our variable
 
-.. code::
+#. *Under* our ``onGet`` prototype, we will now add an OnPost prototype to
+   handle ``POST`` request with our extension.
 
-   Sun, 29 Oct 2017 12:47:38 GMT - finest: socket 4 opened
-   Sun, 29 Oct 2017 12:47:38 GMT - info: my-app-interface - onDelete()
-   Sun, 29 Oct 2017 12:47:38 GMT - finest: socket 4 closed
-   Sun, 29 Oct 2017 12:47:38 GMT - info: DEBUG: my-app-interface - onDelete : VS_IP is: 10.1.20.104
-   Sun, 29 Oct 2017 12:47:39 GMT - info: DEBUG: my-app-interface - onDelete : Service Deleted, release IP from IPAM: 10.1.20.104
+   Add the following code below the ``onGet`` prototype:
 
-Check that your service disappeared from BIG-IP and BIG-IP
+   .. code-block:: javascript
 
-Use newman - Delete HTTP Service Example
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      /**
+      *handle onPost HTTP request
+      */
+      HelloWorld.prototype.onPost = function(restOperation) {
 
-We will launch the script called ``4_Delete_HTTP_Service`` and review the output
+        //we retrieve the payload sent with the POST request
+        var newState = restOperation.getBody();
 
-.. image:: ../../_static/class1/module5/lab2-image013.png
-   :align: center
-   :scale: 50%
+        if (DEBUG === true) {
+          logger.info("DEBUG: HelloWorld - onPost received Body is: " + JSON.stringify(newState,' ','\t'));
+        }
+        //we extract the variable name from the payload
+        var name = newState.name;
 
+        //if it's empty, we just print Hello World, otherwise Hello <name>
+        if (name) {
+          if (DEBUG === true) {
+            logger.info("DEBUG: HelloWorld - onPost request, the extracted name is : " + name);
+          }
+          restOperation.setBody(JSON.stringify({ "value": "Hello " + name + "!"}));
+        } else {
+          if (DEBUG === true) {
+            logger.info("DEBUG: HelloWorld - onPost request, no name parameter provided... using default value");
+          }
+          restOperation.setBody(JSON.stringify(DEFAULT_MSG));
+        }
+        this.completeRestOperation(restOperation);
+      };
 
-Here is the ``/var/log/restnoded/restnoded.log`` output on BIG-IP:
+#. Let's review the code we have now, it should look like this:
 
-.. code::
+   .. code-block:: javascript
 
-   Sun, 29 Oct 2017 13:00:53 GMT - info: my-app-interface - onDelete()
-   Sun, 29 Oct 2017 13:00:53 GMT - finest: socket 6 closed
-   Sun, 29 Oct 2017 13:00:54 GMT - info: DEBUG: my-app-interface - onDelete : VS_IP is: 10.1.20.104
-   Sun, 29 Oct 2017 13:00:54 GMT - info: DEBUG: my-app-interface - onDelete : Service Deleted, release IP from IPAM: 10.1.20.104
+      /**
+      * A simple iControl LX extension that handles only HTTP GET
+      */
 
+      var logger = require('f5-logger').getInstance();
+      var DEBUG = true;
+      var DEFAULT_MSG = {"value": "Hello World!"};
 
-You can check the service got deleted properly on BIG-IP (student tenant)
-and on your BIG-IP
+      function HelloWorld() {}
 
-.. NOTE:: In the postman collection we also have an example on how to update
-   the deployed HTTP/TCP service. The folders are called ``Update-HTTP-Service`` 
-   and ``Update-TCP-Service``. It shows how you can update an existing service
-   to disable the first server, for example.
+      HelloWorld.prototype.WORKER_URI_PATH = "ilxe_lab/hello_world";
+      HelloWorld.prototype.isPublic = true;
+
+      /**
+      * handle onGet HTTP request
+      */
+      HelloWorld.prototype.onGet = function(restOperation) {
+        if (DEBUG === true) {
+          logger.info("DEBUG: HelloWorld - onGet request");
+        }
+        restOperation.setBody(JSON.stringify(DEFAULT_MSG));
+        this.completeRestOperation(restOperation);
+      };
+
+      /**
+      *handle onPost HTTP request
+      */
+      HelloWorld.prototype.onPost = function(restOperation) {
+        //we retrieve the payload sent with the POST request
+       var newState = restOperation.getBody();
+
+       if (DEBUG === true) {
+          logger.info("DEBUG: HelloWorld - onPost received Body is: " + JSON.stringify(newState,' ','\t'));
+        }
+        //we extract the variable name from the payload
+        var name = newState.name;
+
+        //if it's empty, we just print Hello World, otherwise Hello <name>
+        if (name) {
+          if (DEBUG === true) {
+            logger.info("DEBUG: HelloWorld - onPost request, the extracted name is : " + name);
+          }
+          restOperation.setBody(JSON.stringify({ "value": "Hello " + name + "!"}));
+        } else {
+          if (DEBUG === true) {
+            logger.info("DEBUG: HelloWorld - onPost request, no name parameter provided... using default value");
+          }
+          restOperation.setBody(JSON.stringify(DEFAULT_MSG));
+        }
+        this.completeRestOperation(restOperation);
+      };
+
+      /**
+      * handle /example HTTP request
+      */
+      HelloWorld.prototype.getExampleState = function () {
+        return {
+          "value": "your_string"
+        };
+      };
+
+      module.exports = HelloWorld;
+
+   * The lines starting with ``//`` are comments. It's always good to add
+     comments to your code to help people read/understand your code... the
+     bigger the code is, the more important it is to provide proper commented
+     code
+   * ``var newState = restOperation.getBody();`` - with this statement, we
+     retrieve the PAYLOAD that was sent in the POST request and we show this
+     payload in the following logger command
+   * ``var name = newState.name;`` - with this, we assign the name parameter's
+     value (send with the POST request) to the name variable.
+   * The following if/else statement determines whether the variable name is
+     empty or not (if the POST payload didn't contain a name parameter) and
+     depending on this will do the following:
+
+     - If the variable name is not empty: reply to the ``POST`` request with
+       Hello and the name of the user
+     - If the variable name is empty: reply to the ``POST`` request with
+       ``Hello World!``
+
+#. Make sure you save your updated file.
+
+#. Time to test our code!  Open another ssh session to your BIG-IP
+   platform and run the following command:
+
+   ``bigstart restart restnoded ; tail -f /var/log/restnoded/restnoded.log``
+
+#. Review the logs and make sure that it doesn't mention any error/issue in
+   your updated file.
+
+   .. NOTE::
+
+    Keep this ssh session open just to monitor your logs and open a new one.
+    Easier to have one window to track/monitor your logging information and
+    use another one to update your code/send curl command
+
+#. You should have something like this:
+
+   .. code::
+
+      Tue, 17 Oct 2017 13:11:19 GMT - finest: [LoaderWorker] triggered at path:  /var/config/rest/iapps/HelloWorld
+      Tue, 17 Oct 2017 13:11:19 GMT - finest: [LoaderWorker] triggered at path:  /var/config/rest/iapps/HelloWorld/nodejs
+      Tue, 17 Oct 2017 13:11:19 GMT - finest: [LoaderWorker] triggered at path:  /var/config/rest/iapps/HelloWorld/nodejs/hello_world.js
+      Tue, 17 Oct 2017 13:11:19 GMT - config: [RestWorker] /ilxe_lab/hello_world has started. Name:HelloWorld
+
+#. You can now test your updated extension with the following commands:
+
+   ``curl -k -u admin:admin https://10.1.1.245/mgmt/ilxe_lab/hello_world``
+
+   The console output should look like this:
+
+   ``{"value":"Hello World!"}``
+
+#. The ``/var/log/restnoded/restnoded.log`` output should look like this:
+
+   ``Tue, 17 Oct 2017 13:33:45 GMT - info: DEBUG: HelloWorld - onGet request``
+
+#. Run this command:
+
+   ``curl -H "Content-Type: application/json" -k -u admin:admin -X POST -d '{"name":"iControl LX Lab"}' https://10.1.1.245/mgmt/ilxe_lab/hello_world``
+
+#. The console output should look like this:
+
+   ``{"value":"Hello iControl LX Lab!"}``
+
+#. The ``/var/log/restnoded/restnoded.log`` output should look like this:
+
+   .. code::
+
+      Tue, 17 Oct 2017 13:36:46 GMT - info: DEBUG: HelloWorld - onPost received Body is: {
+      "name": "iControl LX Lab"
+      }
+      Tue, 17 Oct 2017 13:36:46 GMT - info: DEBUG: HelloWorld - onPost request, the extracted name is : iControl LX Lab
+
+#. Run this command:
+
+   ``curl -H "Content-Type: application/json" -k -u admin:admin -X POST -d '{"other":"iControl LX Lab"}' https://10.1.1.245/mgmt/ilxe_lab/hello_world``
+
+#. The console output should look like this (the name parameter wasn't found in
+   the POST payload):
+
+   ``{"value":"Hello World!"}``
+
+#. The ``/var/log/restnoded/restnoded.log`` output should look like this:
+
+   .. code::
+
+      Tue, 17 Oct 2017 13:38:24 GMT - info: DEBUG: HelloWorld - onPost received Body is: {
+      "other": "iControl LX Lab"
+      }
+      Tue, 17 Oct 2017 13:38:24 GMT - info: DEBUG: HelloWorld - onPost request, no name parameter provided... using default value
+
+We now have an iControl LX extension that is able to handle ``GET`` and ``POST``
+requests but also provide debugging information.
+
+Task 2 - Update our iControl LX Extension - Perform a REST API Call
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Right now, our iControl LX extension provides a default message that is set at
+the beginning of our code. If this "content" is owned by someone else, it may
+be inefficient to have it directly in the code. Let's see how we could leverage
+a HTTP request to retrieve our default message.
+
+For this task, we will do 3 things:
+
+* Add the ``http`` module to our extension
+* Add a new prototype ``onStart`` to our code
+* Perform a HTTP request to GitHub to retrieve our default message
+
+Perform the following tasks to complete this task:
+
+#. To add the http module to our extension, we need to add the following at the
+   top of your code
+
+   .. code-block:: javascript
+
+      var http = require('http');
+
+   Add this below this existing line:
+
+   .. code-block:: javascript
+
+      var DEFAULT_MSG = {"value": "Hello World!"};
+
+#. The prototype ``onStart`` is something you can leverage to do some
+   processing when your iControl LX extension is loaded in ``restnoded``. It
+   is triggered only once, when your extension is loaded. It's a good prototype
+   to leverage to retrieve our default message.
+
+#. Under the line ``HelloWorld.prototype.isPublic = true;``, add the following
+   code:
+
+   .. code-block:: javascript
+
+      /**
+       * Perform worker start functions
+       */
+
+      HelloWorld.prototype.onStart = function(success, error) {
+
+      if (DEBUG === true) {
+        logger.info("DEBUG: HelloWorld - onStart request");
+      }
+
+      var options = {
+        "method": "GET",
+        "hostname": "s3-eu-west-1.amazonaws.com",
+        "port": 80,
+        "path": "/nicolas-labs/helloworld_resp.json",
+        "headers": {
+          "cache-control": "no-cache"
+        }
+      };
+
+      var req = http.request(options, function (res) {
+
+        var chunks = [];
+
+        res.on("data", function (chunk) {
+          chunks.push(chunk);
+        });
+
+        res.on("end", function () {
+          var body = Buffer.concat(chunks);
+          if (DEBUG === true) {
+            logger.info("DEBUG: HelloWorld - onStart - the default message body is: " + body);
+          }
+          DEFAULT_MSG = JSON.parse(body);
+        });
+      });
+
+      req.end();
+
+      if (DEBUG === true) {
+        logger.info("DEBUG: HelloWorld - onStart - the default message is: " + this.state);
+      }
+      success();
+      };
+
+#. The purpose of this code is to retrieve the file:
+   `helloworld_resp <http://s3-eu-west-1.amazonaws.com/nicolas-labs/helloworld_resp.json>`_
+
+#. This file will give us the default payload we should return when we receive
+   a request
+
+#. Make sure you save your updated file. Once it's done, run the following
+   command:
+
+   ``bigstart restart restnoded ; tail -f /var/log/restnoded/restnoded.log``
+
+#. Review the logs and make sure that it doesn't mention any error/issue in
+   your updated file.
+
+   You should have something like this:
+
+   .. code::
+
+      Wed, 18 Oct 2017 09:30:08 GMT - finest: [LoaderWorker] triggered at path:  /var/config/rest/iapps/HelloWorld/nodejs
+      Wed, 18 Oct 2017 09:30:08 GMT - finest: [LoaderWorker] triggered at path:  /var/config/rest/iapps/HelloWorld/nodejs/hello_world.js
+      Wed, 18 Oct 2017 09:30:08 GMT - info: DEBUG: HelloWorld - onStart request
+      Wed, 18 Oct 2017 09:30:08 GMT - config: [RestWorker] /ilxe_lab/hello_world has started. Name:HelloWorld
+      Wed, 18 Oct 2017 09:30:08 GMT - info: DEBUG: HelloWorld - onStart - the default message body is: { "value": "Congratulations on your lab!" }
+
+#. You can now test your updated extension with the following command:
+
+   ``curl -k -u admin:admin https://10.1.1.245/mgmt/ilxe_lab/hello_world``
+
+#. The console output should look like this:
+
+   ``{"value":"Congratulations on your lab!"}``
+
+#. The ``/var/log/restnoded/restnoded.log`` output should look like this:
+
+   ``Tue, 17 Oct 2017 13:33:45 GMT - info: DEBUG: HelloWorld - onGet request``
+
+#. Run this command:
+
+   ``curl -H "Content-Type: application/json" -k -u admin:admin -X POST -d '{"name":"iControl LX Lab"}' https://10.1.1.245/mgmt/ilxe_lab/hello_world``
+
+#. The console output should look like this:
+
+   ``{"value":"Hello iControl LX Lab!"}``
+
+#. The ``/var/log/restnoded/restnoded.log`` output should look like this:
+
+   .. code::
+
+      Wed, 18 Oct 2017 09:32:40 GMT - info: DEBUG: HelloWorld - onPost received Body is: {
+      "name": "iControl LX Lab"
+      }
+      Wed, 18 Oct 2017 09:32:40 GMT - info: DEBUG: HelloWorld - onPost request, the extracted name is : iControl LX Lab
+
+#. Run this command:
+
+   ``curl -H "Content-Type: application/json" -k -u admin:admin -X POST -d '{"other":"iControl LX Lab"}' https://10.1.1.245/mgmt/ilxe_lab/hello_world``
+
+#. The console output should look like this (the name parameter wasn't found in
+   the ``POST`` payload):
+
+   ``{"value":"Congratulations on your lab!"}``
+
+#. The ``/var/log/restnoded/restnoded.log`` output should look like this:
+
+   .. code::
+
+      Wed, 18 Oct 2017 09:33:38 GMT - info: DEBUG: HelloWorld - onPost received Body is: {
+      "other": "iControl LX Lab"
+      }
+      Wed, 18 Oct 2017 09:33:38 GMT - info: DEBUG: HelloWorld - onPost request, no name parameter provided... using default value
+
+Task 3 - Take a (5min) break!
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Congratulations!!!! You've just modified the behavior of the F5 iControl LX
+extension. Now, take a moment to think about what workflows you could implement
+to make life easier.

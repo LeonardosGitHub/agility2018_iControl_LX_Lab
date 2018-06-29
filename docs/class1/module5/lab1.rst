@@ -1,213 +1,153 @@
-Lab 5.1 - Install the iControl LX package
------------------------------------------
+Lab 4.1 - Creating the HelloWorld iControl LX Extension
+-------------------------------------------------------
 
-Task 1 - Install the iControl LX RPM Package
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+iControl LX extensions are distributed as RPMs (RedHat Package Management
+system) when you want to leverage something existing. However when you start
+from scratch, you'll need to create your extension and then build a RPM that
+you can distribute accordingly.
 
-To save some time, we already have pushed the iControl LX RPM on your
-BIG-IP platform.
+Task 1 - Create our iControl LX Extension on BIG-IP
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can connect to your BIG-IP platform (``10.1.1.245``) and check the
-directory ``/var/config/rest/downloads``:
-
-.. code::
-
-   # ls /var/config/rest/downloads/
-   my-app-interface-1.0-002.noarch.rpm  tmp
-
-To install your RPM, you have two different options:
-
-* Use the Postman application and the collection already setup in it and do the
-  calls one by one
-* Use the newman scripts that will automatically run all the required API calls
-
-Use the Postman application
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+iControl LX extensions can be installed on either the BIG-IP or iWorkflow
+platform. For this lab, we will use BIG-IP.
 
 Perform the following steps to complete this task:
 
-#. Click on the Postman icon in the task bar (or on the Desktop)
-
-   .. image:: ../../_static/class1/module5/lab1-image001.png
-      :scale: 50%
-      :align: center
+#. Connect to your BIG-IP platform  via ssh/Putty(``10.1.10.20``)
 
 
-#. You should see this:
+#. iControl LX extensions reside in ``/var/config/rest/iapps/``. This is where
+   you need to create your iControl LX extension. Usually you will create:
 
-   .. image:: ../../_static/class1/module5/lab1-image002.png
-      :align: center
-      :scale: 50%
+   * A folder that is the name of your app: ``HelloWorld``
 
+   .. NOTE:: This folder name is important since this is what will be used as
+      the RPM name when we will create our package later.
 
-#. Click on the collection ``iWF-RPM-package-management`` and then on the
-   ``2A_Install_RPM`` folder
+   * inside the app folder, another folder called ``nodejs`` that will contain
+     your extension
 
-   .. image:: ../../_static/class1/module5/lab1-image003.png
-      :align: center
-      :scale: 50%
+#. Let's create our directory tree. On your BIG-IP platform, execute:
 
-#. Here you can see that this folder has 4 different API calls:
+   ``mkdir -p /var/config/rest/iapps/HelloWorld/nodejs/``
 
-   * Get an Auth token from iWF
-   * Extend the timeout of this token
-   * Install our RPM
-   * Check whether it installed successfully or not (you may need to do play
-     this requests a few times before it's fully installed)
+#. Now that we have our directory, we need to create our extension. Use your
+   preferred editor and create a file named ``hello_world.js`` in
+   ``/var/config/rest/iapps/HelloWorld/nodejs/``:
 
-#. Select the ``iWF-RPM-package-Management`` environment (top right of the window)
+   ``nano /var/config/rest/iapps/HelloWorld/nodejs/hello_world.js``
 
-   .. image:: ../../_static/class1/module5/lab1-image004.png
-      :align: center
-      :scale: 50%
+   .. NOTE:: If you have not used nano before:  After you paste in the contents below, you will type ``CTRL-X`` to exit the editor.  You will then be prompted to save the file, type ``Y`` to confirm.
 
-#. Now, we are ready to execute our calls.
+#. Copy/Paste the following content into your file:
 
-#. Here is the procedure:
+   .. code-block:: javascript
 
-   * Select the call: ``Request a Token from BIG-IP`` and click on
-     :guilabel:`Send`, you may review the response to ensure it was successful
+      /**
+      * A simple iControl LX extension that handles only HTTP GET
+      */
+      function HelloWorld() {}
 
-   * Select the call: ``Increase Auth Token Timeout`` and click on
-     :guilabel:`Send`, you may review the response
+      HelloWorld.prototype.WORKER_URI_PATH = "ilxe_lab/hello_world";
+      HelloWorld.prototype.isPublic = true;
 
-   * Select the call: ``Install RPM`` and click on :guilabel:`Send`, you may
-     review the response
+      /**
+      * handle onGet HTTP request
+      */
+      HelloWorld.prototype.onGet = function(restOperation) {
+        restOperation.setBody(JSON.stringify( { value: "Hello World!" } ));
+        this.completeRestOperation(restOperation);
+      };
 
-   * Select the call: ``Check RPM install process status`` and click on
-     :guilabel:`Send`
+      /**
+      * handle /example HTTP request
+      */
+      HelloWorld.prototype.getExampleState = function () {
+        return {
+          "value": "your_string"
+        };
+      };
 
-#. With the final call, you should see something like this (check the status
-   value, it should be ``FINISHED``):
+      module.exports = HelloWorld;
+
+#. Save the changes (``ESC ESC :wq`` if you use ``vi`)
+
+#. Once our extension is created, we need to load it into ``restnoded``. When
+   an extension is loaded from a RPM, it is done automatically. However here,
+   we will need to do it ourselves
+
+   Use the following command on BIG-IP to make ``restnoded`` aware of our
+   extension:
+
+   ``restcurl shared/nodejs/loader-path-config -d '{"workerPath": "/var/config/rest/iapps/HelloWorld"}'``
+
+   .. NOTE:: ``restcurl`` is a utility that allows you to communicate with iControl REST via the CLI.
+
+   The output should look like this:
 
    .. code::
 
-      {
-        "packageFilePath": "/var/config/rest/downloads/my-app-interface-1.0-002.noarch.rpm",
-        "packageName": "my-app-interface-1.0-002.noarch",
-        "operation": "INSTALL",
-        "packageManifest": {
-            "tags": [
-                "IAPP"
-            ]
-        },
-        "id": "73a9097e-b78a-4693-8ebe-961e27049a84",
-        "status": "FINISHED",
-        "startTime": "2017-11-13T06:45:20.957-0800",
-        "endTime": "2017-11-13T06:45:21.567-0800",
-        "userReference": {
-            "link": "https://localhost/mgmt/shared/authz/users/admin"
-        },
-        "identityReferences": [
-            {
-              "link": "https://localhost/mgmt/shared/authz/users/admin"
-           }
-        ],
-        "ownerMachineId": "075786c3-27a2-45da-8b06-86dcbb73a1c5",
-        "generation": 3,
-        "lastUpdateMicros": 1510584321566822,
-        "kind": "shared:iapp:package-management-tasks:iapppackagemanagementtaskstate",
-        "selfLink": "https://localhost/mgmt/shared/iapp/package-management-tasks/73a9097e-b78a-4693-8ebe-961e27049a84"
-    }
+     $ restcurl shared/nodejs/loader-path-config -d '{"workerPath": "/var/config/rest/iapps/HelloWorld"}'
+     {
+       "id": "ad130c79-59a0-49c7-a7e7-ff39efe956b5",
+       "workerPath": "/var/config/rest/iapps/HelloWorld",
+       "generation": 1,
+       "lastUpdateMicros": 1508242306312732,
+       "kind": "shared:nodejs:loader-path-config:loaderpathstate",
+       "selfLink": "https://localhost/mgmt/shared/nodejs/loader-path-config/ad130c79-59a0-49c7-a7e7-ff39efe956b5"
+     }
 
-Use the newman script
-~~~~~~~~~~~~~~~~~~~~~
+#. The logfile ``/var/log/restnoded/restnoded.0.log`` will give you the ability to track
+   whether your extension is loaded as expected. Run the following command to
+   ensure everything went smoothly:
 
-.. WARNING:: If you've already setup the extension by following the Postman
-   process, this will fail. You'll need to delete the extension first. You can
-   use the relevant postman collection/folder to do this
+   ``grep HelloWorld /var/log/restnoded/restnoded.log``
 
-``newman`` gives you the capability to run a Postman collection or a specific
-folder. When you have multiple calls to do, it may be easier to use ``newman``.
+   The output should look like this:
 
-If you want more information about newman, you can review this `newman_overview`_
+   .. code::
 
-.. _newman_overview: https://www.getpostman.com/docs/postman/collection_runs/command_line_integration_with_newman
+      Tue, 17 Oct 2017 12:11:46 GMT - finest: [LoaderWorker] triggered at path:  /var/config/rest/iapps/HelloWorld
+      Tue, 17 Oct 2017 12:11:46 GMT - finest: [LoaderWorker] triggered at path:  /var/config/rest/iapps/HelloWorld/nodejs
+      Tue, 17 Oct 2017 12:11:46 GMT - finest: [LoaderWorker] triggered at path:  /var/config/rest/iapps/HelloWorld/nodejs/hello_world.js
+      Tue, 17 Oct 2017 12:11:46 GMT - config: [RestWorker] /ilxe_lab/hello_world has started. Name:HelloWorld
 
-``newman`` is already installed and setup in your JumpHost. All the different
-scripts that will be used in this lab are stored in the ``Lab`` folder on your
-desktop.
+Task 2 - Check our iControl LX Extension is Working
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Perform the following steps to complete this task:
 
-#. To execute ``newman``, launch a MS Command Prompt. You have a shortcut in your
-   taskbar that will be launched in the right folder automatically
+#. In your web browser, navigate to ``https://10.1.10.20/mgmt/ilxe_lab/hello_world``
 
-   .. image:: ../../_static/class1/module5/lab1-image005.png
-      :align: center
+#. You should see something like this:
 
-#. You should see this:
-
-   .. image:: ../../_static/class1/module5/lab1-image006.png
+   .. image:: ../../_static/class1/module4/lab1-image001.png
       :align: center
       :scale: 50%
 
-#. To launch the ``newman`` script that installs the RPM, run the following
-   command:
+#. You could also use ``curl`` in CLI (from BIG-IP CLI for example):
 
-   ``1_Install_RPM``
+   ``curl -k -u admin:admin https://10.1.10.20/mgmt/ilxe_lab/hello_world``
 
-   .. code::
+   Or a REST client like POSTMAN.
 
-      C:\Users\Administrator\Desktop\Lab\Postman>1_Install_RPM.bat
+#. Another test is to connect to our ``/example`` uri. Navigate with your
+   browser to ``https://10.1.10.20/mgmt/ilxe_lab/hello_world/example``
 
-#. This script will execute all the API calls in the ``2A_Install_RPM`` folder,
-   you should see this:
+#. You should see something like this:
 
-   .. image:: ../../_static/class1/module5/lab1-image007.png
+   .. image:: ../../_static/class1/module4/lab1-image002.png
       :align: center
       :scale: 50%
 
-Task 2 - Check the Package was Successfully Installed
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#. You can also use curl in CLI:
 
-You can check that the extension was successfully installed in different ways:
+   ``curl -k -u admin:admin https://10.1.10.20/mgmt/ilxe_lab/hello_world/example``
 
-* Check that the extension is installed in ``/var/config/rest/iapps/`` on iWorflow
+.. NOTE:: You may NOT want to use admin priviledges to leverage an extension.
+   In many situation the extension may be needed only by a specific user and
+   then you should be able to enforce some RBAC policies here. BIG-IP 13.1 will
+   provide this capability (`BIG-IP RBAC API`_).
 
-  .. code::
-
-     # ls /var/config/rest/iapps/
-     my-app-interface  RPMS  tmp.7399485599133304707
-
-* Check ``/var/log/restnoded/restnoded.log``
-
-  .. code::
-
-     tail /var/log/restnoded/restnoded.log
-     Sun, 29 Oct 2017 09:53:14 GMT - finest: [LoaderWorker] triggered at path:  /var/config/rest/iapps/my-app-interface/nodejs
-     Sun, 29 Oct 2017 09:53:14 GMT - finest: [LoaderWorker] triggered at path:  /var/config/rest/iapps/my-app-interface/nodejs/ictrl-app-interface-ConfigProcessor.js
-     Sun, 29 Oct 2017 09:53:14 GMT - finest: socket 1 closed
-     Sun, 29 Oct 2017 09:53:14 GMT - info: my-app-interface - onStart()
-     Sun, 29 Oct 2017 09:53:14 GMT - config: [RestWorker] /shared/my-app-interface has started. Name:ipam_extension
-
-* Use Postman to test your extension. Try to access
-  ``https://10.1.1.245/mgmt/shared/my-app-interface/example``. You'll need to
-  authenticate yourself as ``student/student``. You have already a folder in
-  your imported postman collection to do it.  It's in the ``My-App-Interface``
-  collection and in the ``Test-Interface`` folder.
-
-  .. image:: ../../_static/class1/module5/lab1-image009.png
-     :align: center
-     :scale: 50%
-
-  .. NOTE:: Make sure to select the environment ``My-App-Interface``
-
-     .. image:: ../../_static/class1/module5/lab2-image002.png
-        :align: center
-        :scale: 50%
-
-  You should see something like this:
-
-  .. image:: ../../_static/class1/module5/lab1-image010.png
-    :align: center
-    :scale: 50%
-
-
-.. NOTE:: To protect who can use this extension, we updated BIG-IP to only
-   allow the ``student`` user to use this extension. This is done here in the
-   BIG-IP interface:
-
-   .. image:: ../../_static/class1/module5/lab1-image008.png
-      :align: center
-      :scale: 50%
+.. _BIG-IP RBAC API: https://hive.f5.com/docs/DOC-45844

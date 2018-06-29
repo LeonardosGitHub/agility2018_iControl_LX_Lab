@@ -16,7 +16,7 @@ illustrating the package management system.
 
 **Exercises in this Module**
 
-- Lab 4.1 - Creating the Hello-World iControl LX Extension
+- Lab 4.1 - TEST Creating the Hello-World iControl LX Extension
 
   - Task 1 - Create our iControl LX Extension on BIG-IP
   - Task 2 - Check our iControl LX Extension is Working

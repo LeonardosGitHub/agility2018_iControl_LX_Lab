@@ -1,101 +1,47 @@
-Module 5 - My First iControl LX Extension
-=========================================
+Module 4 - Installing the HelloWorld extension
+===============================================
 
-When you build a declarative interface, your interface should NOT ask for F5
-domain specific knowledge. The consumer of your service catalog should not have
-to know what is a F5 Virtual Server, an iRule, a L7 policy, etc... it should be
-as abstracted as possible and only focus on information the the consumer is
-aware of.
+In module 4, we are going to create our first iControl LX extension, the
+``HelloWorld`` extension. It doesn't do much but it's simple and perfect for
+illustrating the package management system.
 
-Usually if an application engineer wants to deploy an ADC configuration, here
-are the information he can provide:
+.. NOTE::
 
-* Service name
-* Service template to use
-* Service port
-* Servers IP Address
-* Servers port
-* Servers status
-* maybe some application specific attributes
-
-If such an application was to be deployed via a REST API interface, the POST
-request (to deploy the service) could look like this:
-
-.. code::
-
-   POST /.../my-app-interface
-   {
-       "name": "{{my-app-name}}",
-       "template" : "f5-http-lb",
-       "app-data": [
-                   {
-                       "name": "pool__port",
-                       "value": "{{service-port}}"
-                   }
-       ],
-       "servers-data": [{
-           "name": "pool__Members",
-           "columns": [
-               "IPAddress",
-               "State"
-           ],
-           "rows": [
-               [
-                   "{{server1-addr}}",
-                   "enabled"
-               ], [
-                   "{{server2-addr}}",
-                   "enabled"
-               ]
-           ]
-       }]
-   }
-
-Here you may also see that this payload does not use any iWF paramters. It's a
-custom build payload that is easier for an application engineer to understand.
-He doesn't want to have a deep understanding of F5 solution to deploy services.
-It's not his area of expertise.
-
-An example of an attribute that a consumer shouldn't have to provide is our
-Virtual Server IP. The consumer doesn't own this segment of the network and
-cannot know which IP to specify.  We see more and more requests where they
-expect the ADC solution to be able to retrieve this information on its own.
-
-In this lab, we will deploy an iControl LX extension that will communicate with
-an IPAM solution to populate automatically this information.
-
-BIG-IP is already setup with 2 service templates:
-
-* HTTP service
-* TCP service
-
-.. image:: ../../_static/class1/module5/image001.png
-   :align: center
-   :scale: 50%
-
-
-
-
-Our extension can do the following:
-
-* Receive GET/PUT/POST/DELETE requests
-* Retrieve an IP from our IPAM solution (we use an iRule to simulate this. It's
-  on the BIG-IP)
-* Translate the received payload with the information needed by BIG-IP to
-  trigger those templates
-
+  In this lab, we will make you do edits on the platform itself.
+  You'll connect on BIG-IP and do everything on it. It's not necessarily
+  a best practice. You could also have a local version on your JumpHost and use
+  ``Notepad++`` (already installed on your JumpHost, feel free to install
+  something else) to do the work. Once your file is updated accordingly,
+  you may use WinSCP to push the new version.
 
 **Exercises in this Module**
 
-- Lab 5.1 - Install the iControl LX Package
+- Lab 4.1 - TEST Creating the Hello-World iControl LX Extension
 
-  - Task 1 - Install the iControl LX RPM Package
-  - Task 2 - Check the Package was Successfully Installed
+  - Task 1 - Create our iControl LX Extension on BIG-IP
+  - Task 2 - Check our iControl LX Extension is Working
 
-- Lab 5.2 - Test and Troubleshoot the Extension
+- Lab 4.2 - Update our iControl LX Extension
 
-  - Task 1 - Deploy Services via the Extension
-  - Task 2 - Delete Services via the Extension
+  - Task 1 - Update our iControl LX Extension - Handle POST Requests
+  - Task 2 - Update our iControl LX Extension - Perform a REST API Call
+
+- Lab 4.3 - Create a new iControl LX RPM
+
+  - Task 1 - Create a new RPM for the Updated iControl LX Extension
+  - Task 2 - Retrieving your iControl LX Package
+
+- Lab 4.4 - Install our iControl LX RPM
+
+  - Task 1 - Review the Installed iControl LX Packages
+  - Task 2 - Install our RPM
+  - Task 3 - Test our iControl Extension
+
+- Lab 4.5 - Delete the iControl LX Extension
+
+  - Task 1 - Verify the 'packageName'
+  - Task 2 - Create the 'delete' task
+  - Task 3 - [OPTIONAL] Verify the iControl LX Extension was Deleted
 
 .. toctree::
    :maxdepth: 1
