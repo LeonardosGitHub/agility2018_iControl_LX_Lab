@@ -1,0 +1,324 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab 4.4 - Install our iControl LX RPM &#8212; Agility18 iControlLX Extensions Lab  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="lab-4-4-install-our-icontrol-lx-rpm">
+<h1>Lab 4.4 - Install our iControl LX RPM<a class="headerlink" href="#lab-4-4-install-our-icontrol-lx-rpm" title="Permalink to this headline">¶</a></h1>
+<p>Let’s try to install our iControl LX RPM on BIG-IP.</p>
+<p>To install the iControl LX extension, first you need to copy the iControl LX
+package onto your BIG-IP device in the right folder. It should be in the
+following directory: <code class="docutils literal notranslate"><span class="pre">/var/config/rest/downloads</span></code></p>
+<p>Use your BIG-IP ssh session and run the following command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mv</span> <span class="pre">/var/config/rest/iapps/RPMS/HelloWorld-0.1-001.noarch.rpm</span> <span class="pre">/var/config/rest/downloads/</span></code></p>
+<p>Here, we just had to move the RPM from a folder to another since already on the
+BIG-IP platform. You can ensure the transfer was successful by checking the
+folder <code class="docutils literal notranslate"><span class="pre">/var/config/rest/downloads</span></code>.</p>
+<div class="section" id="task-1-review-the-installed-icontrol-lx-packages">
+<h2>Task 1 - Review the installed iControl LX Packages<a class="headerlink" href="#task-1-review-the-installed-icontrol-lx-packages" title="Permalink to this headline">¶</a></h2>
+<p>First lets take a look at the packages installed on your BIG-IP platform.</p>
+<p>Perform the following steps to complete this task:</p>
+<ol class="arabic">
+<li><p class="first">From your <a href="#id1"><span class="problematic" id="id2">``</span></a>Linux Server`, run the following command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-k</span> <span class="pre">-u</span> <span class="pre">admin:admin</span> <span class="pre">https://10.1.1.245/mgmt/shared/iapp/global-installed-packages</span> <span class="pre">|</span> <span class="pre">jq</span></code></p>
+<p>Response:</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;generation&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;shared:iapp:global-installed-packages:installedpackagecollectionstate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;lastUpdateMicros&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">&quot;selfLink&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/iapp/global-installed-packages&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">We can see here that no RPM has been installed on this platform</p>
+</li>
+</ol>
+</div>
+<div class="section" id="task-2-install-our-rpm">
+<h2>Task 2 - Install our RPM<a class="headerlink" href="#task-2-install-our-rpm" title="Permalink to this headline">¶</a></h2>
+<p>The installation is performed via the iControl REST API
+<code class="docutils literal notranslate"><span class="pre">package-management-tasks</span></code> service. Performing an HTTP <code class="docutils literal notranslate"><span class="pre">POST</span></code> to this
+service with the <code class="docutils literal notranslate"><span class="pre">INSTALL</span></code> operation, the location and name of the
+iControlLX package is all it takes:</p>
+<p>Here is the syntax:</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">POST</span> <span class="o">/</span><span class="n">mgmt</span><span class="o">/</span><span class="n">shared</span><span class="o">/</span><span class="n">iapp</span><span class="o">/</span><span class="n">package</span><span class="o">-</span><span class="n">management</span><span class="o">-</span><span class="n">tasks</span>
+<span class="p">{</span>
+ <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;INSTALL&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;packageFilePath&quot;</span><span class="p">:</span> <span class="s2">&quot;/var/config/rest/downloads/HelloWorld-0.1-001.noarch.rpm&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Perform the following steps to complete this task:</p>
+<ol class="arabic">
+<li><p class="first">Let’s use your terminal to run the following command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-H</span> <span class="pre">&quot;Content-Type:</span> <span class="pre">application/json&quot;</span> <span class="pre">-k</span> <span class="pre">-u</span> <span class="pre">admin:admin</span> <span class="pre">-X</span> <span class="pre">POST</span> <span class="pre">-d</span> <span class="pre">'{&quot;operation&quot;:</span> <span class="pre">&quot;INSTALL&quot;,&quot;packageFilePath&quot;:</span> <span class="pre">&quot;/var/config/rest/downloads/HelloWorld-0.1-001.noarch.rpm&quot;}'</span> <span class="pre">https://10.1.1.245/mgmt/shared/iapp/package-management-tasks</span> <span class="pre">|</span> <span class="pre">jq</span></code></p>
+</li>
+<li><p class="first">The output should look like this:</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;packageFilePath&quot;</span><span class="p">:</span> <span class="s2">&quot;/var/config/rest/downloads/HelloWorld-0.1-001.noarch.rpm&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;INSTALL&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4d62ae98-5302-41ee-8057-479b28372b9f&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;CREATED&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;userReference&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="s2">&quot;link&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;identityReferences&quot;</span><span class="p">:</span> <span class="p">[</span>
+   <span class="p">{</span>
+     <span class="s2">&quot;link&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+   <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;ownerMachineId&quot;</span><span class="p">:</span> <span class="s2">&quot;2865e578-0460-44f4-910a-8dc7f220fce1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;generation&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">&quot;lastUpdateMicros&quot;</span><span class="p">:</span> <span class="mi">1508331598385044</span><span class="p">,</span>
+  <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;shared:iapp:package-management-tasks:iapppackagemanagementtaskstate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;selfLink&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/iapp/package-management-tasks/4d62ae98-5302-41ee-8057-479b28372b9f&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Note the <code class="docutils literal notranslate"><span class="pre">id</span></code>. If you now query the <code class="docutils literal notranslate"><span class="pre">package-managment-tasks</span></code> resource
+and append the <code class="docutils literal notranslate"><span class="pre">id</span></code>, you can get the status of the install.</p>
+<p>From your terminal:</p>
+<p><code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-k</span> <span class="pre">-u</span> <span class="pre">admin:admin</span>&#160; <span class="pre">https://10.1.1.245/mgmt/shared/iapp/package-management-tasks/4d62ae98-5302-41ee-8057-479b28372b9f</span> <span class="pre">|</span> <span class="pre">jq</span></code></p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Replace the ID in the curl command
+(<code class="docutils literal notranslate"><span class="pre">4d62ae98-5302-41ee-8057-479b28372b9f</span></code>) with your own <code class="docutils literal notranslate"><span class="pre">id</span></code></p>
+</div>
+<p>Output:</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;packageFilePath&quot;</span><span class="p">:</span> <span class="s2">&quot;/var/config/rest/downloads/HelloWorld-0.1-001.noarch.rpm&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;packageName&quot;</span><span class="p">:</span> <span class="s2">&quot;HelloWorld-0.1-001.noarch&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;INSTALL&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;packageManifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;IAPP&quot;</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4d62ae98-5302-41ee-8057-479b28372b9f&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;FINISHED&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;startTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-10-18T14:59:58.389+0200&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;endTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-10-18T14:59:58.897+0200&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;userReference&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;link&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;identityReferences&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;link&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;ownerMachineId&quot;</span><span class="p">:</span> <span class="s2">&quot;2865e578-0460-44f4-910a-8dc7f220fce1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;generation&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="s2">&quot;lastUpdateMicros&quot;</span><span class="p">:</span> <span class="mi">1508331598896783</span><span class="p">,</span>
+  <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;shared:iapp:package-management-tasks:iapppackagemanagementtaskstate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;selfLink&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/iapp/package-management-tasks/4d62ae98-5302-41ee-8057-479b28372b9f&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Check the status field in the output to know if everything happened as
+expected. If the package is already installed, you will see <code class="docutils literal notranslate"><span class="pre">FAILED</span></code>. For
+example:</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;packageFilePath&quot;</span><span class="p">:</span> <span class="s2">&quot;/var/config/rest/downloads/HelloWorld-0.1-001.noarch.rpm&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;packageName&quot;</span><span class="p">:</span> <span class="s2">&quot;HelloWorld-0.1-001.noarch.rpm&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;INSTALL&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;step&quot;</span><span class="p">:</span> <span class="s2">&quot;INSTALL_PACKAGE&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4d62ae98-5302-41ee-8057-479b28372b9f&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;FAILED&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;startTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-10-18T20:06:32.879-0700&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;endTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-10-18T20:06:33.184-0700&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;errorMessage&quot;</span><span class="p">:</span> <span class="s2">&quot;Failed to install /var/config/rest/downloads/HelloWorld-0.1-001.noarch.rpm - </span><span class="se">\t</span><span class="s2">package HelloWorld-0.1-001.noarch is already installed&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;userReference&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;link&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;identityReferences&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;link&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;ownerMachineId&quot;</span><span class="p">:</span> <span class="s2">&quot;2865e578-0460-44f4-910a-8dc7f220fce1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;generation&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+  <span class="s2">&quot;lastUpdateMicros&quot;</span><span class="p">:</span> <span class="mi">1494471993184210</span><span class="p">,</span>
+  <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;shared:iapp:package-management-tasks:iapppackagemanagementtaskstate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;selfLink&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/iapp/package-management-tasks/4d62ae98-5302-41ee-8057-479b28372b9f&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">You can check the installation by:</p>
+<ul>
+<li><p class="first">reviewing the folder <code class="docutils literal notranslate"><span class="pre">/var/config/rest/iapps/</span></code></p>
+</li>
+<li><p class="first">check the output of the command (from your Linux Server)</p>
+<p><code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-k</span> <span class="pre">-u</span> <span class="pre">admin:admin</span> <span class="pre">https://10.1.1.245/mgmt/shared/iapp/global-installed-packages</span> <span class="pre">|</span> <span class="pre">jq</span></code></p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls /var/config/rest/iapps/
+HelloWorld  RPMS
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first">We can see that the HelloWorld folder is back here.</p>
+<p><code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-k</span> <span class="pre">-u</span> <span class="pre">admin:admin</span> <span class="pre">https://10.1.1.245/mgmt/shared/iapp/global-installed-packages</span> <span class="pre">|</span> <span class="pre">jq</span></code></p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;68e109f0-f40c-372a-95e0-5cc22786f8e6&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;appName&quot;</span><span class="p">:</span> <span class="s2">&quot;HelloWorld&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;packageName&quot;</span><span class="p">:</span> <span class="s2">&quot;HelloWorld-0.1-001.noarch&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.1&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;release&quot;</span><span class="p">:</span> <span class="s2">&quot;001&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;arch&quot;</span><span class="p">:</span> <span class="s2">&quot;noarch&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;IAPP&quot;</span>
+      <span class="p">],</span>
+      <span class="s2">&quot;generation&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;lastUpdateMicros&quot;</span><span class="p">:</span> <span class="mi">1508331598882884</span><span class="p">,</span>
+      <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;shared:iapp:global-installed-packages:installedpackagestate&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;selfLink&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/iapp/global-installed-packages/68e109f0-f40c-372a-95e0-5cc22786f8e6&quot;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;generation&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;shared:iapp:global-installed-packages:installedpackagecollectionstate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;lastUpdateMicros&quot;</span><span class="p">:</span> <span class="mi">1508331598883142</span><span class="p">,</span>
+  <span class="s2">&quot;selfLink&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/iapp/global-installed-packages&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">You can also check your restnoded.log file:</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span> $ tail -10 /var/log/restnoded/restnoded.log
+
+ Wed, 18 Oct 2017 13:27:21 GMT - finest: socket 1 opened
+ Wed, 18 Oct 2017 13:27:21 GMT - finest: socket 2 opened
+ Wed, 18 Oct 2017 13:27:21 GMT - finest: socket 1 closed
+ Wed, 18 Oct 2017 13:27:21 GMT - finest: [LoaderWorker] triggered at path:  /var/config/rest/iapps/HelloWorld/nodejs
+ Wed, 18 Oct 2017 13:27:21 GMT - finest: socket 2 closed
+ Wed, 18 Oct 2017 13:27:21 GMT - finest: [LoaderWorker] triggered at path:  /var/config/rest/iapps/HelloWorld/nodejs/hello_world.js
+ Wed, 18 Oct 2017 13:27:21 GMT - info: DEBUG: HelloWorld - onStart request
+ Wed, 18 Oct 2017 13:27:21 GMT - config: [RestWorker] /ilxe_lab/hello_world has started. Name:HelloWorld
+Wed, 18 Oct 2017 13:27:21 GMT - info: DEBUG: HelloWorld - onStart - the default message body is: { &quot;value&quot;: &quot;Congratulations on your lab!&quot; }
+</pre></div>
+</div>
+</li>
+<li><p class="first">We can see here that our iControl LX extension has been added to <code class="docutils literal notranslate"><span class="pre">restnoded</span></code></p>
+</li>
+</ol>
+</div>
+<div class="section" id="task-3-test-our-icontrol-extension">
+<h2>Task 3 - Test our iControl Extension<a class="headerlink" href="#task-3-test-our-icontrol-extension" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">You can simply redo some of our previous tests to see the outcome:</p>
+<p><code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-k</span> <span class="pre">-u</span> <span class="pre">admin:admin</span> <span class="pre">https://10.1.1.245/mgmt/ilxe_lab/hello_world</span></code></p>
+</li>
+<li><p class="first">The console output should look like this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">{&quot;value&quot;:&quot;Congratulations</span> <span class="pre">on</span> <span class="pre">your</span> <span class="pre">lab!&quot;}</span></code></p>
+</li>
+<li><p class="first">Execute <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-H</span> <span class="pre">&quot;Content-Type:</span> <span class="pre">application/json&quot;</span> <span class="pre">-k</span> <span class="pre">-u</span> <span class="pre">admin:admin</span> <span class="pre">-X</span> <span class="pre">POST</span> <span class="pre">-d</span> <span class="pre">'{&quot;name&quot;:&quot;iControl</span> <span class="pre">LX</span> <span class="pre">Lab&quot;}'</span> <span class="pre">https://10.1.1.245/mgmt/ilxe_lab/hello_world</span></code></p>
+<p>The console output should look like this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">{&quot;value&quot;:&quot;Hello</span> <span class="pre">iControl</span> <span class="pre">LX</span> <span class="pre">Lab!&quot;}</span></code></p>
+</li>
+<li><p class="first">Execute <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-H</span> <span class="pre">&quot;Content-Type:</span> <span class="pre">application/json&quot;</span> <span class="pre">-k</span> <span class="pre">-u</span> <span class="pre">admin:admin</span> <span class="pre">-X</span> <span class="pre">POST</span> <span class="pre">-d</span> <span class="pre">'{&quot;other&quot;:&quot;iControl</span> <span class="pre">LX</span> <span class="pre">Lab&quot;}'</span> <span class="pre">https://10.1.1.245/mgmt/ilxe_lab/hello_world</span></code></p>
+</li>
+<li><p class="first">The console output should look like this (the name parameter wasn’t found in
+the POST payload):</p>
+<p><code class="docutils literal notranslate"><span class="pre">{&quot;value&quot;:&quot;Congratulations</span> <span class="pre">on</span> <span class="pre">your</span> <span class="pre">lab!&quot;}</span></code></p>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Lab 4.4 - Install our iControl LX RPM</a><ul>
+<li><a class="reference internal" href="#task-1-review-the-installed-icontrol-lx-packages">Task 1 - Review the installed iControl LX Packages</a></li>
+<li><a class="reference internal" href="#task-2-install-our-rpm">Task 2 - Install our RPM</a></li>
+<li><a class="reference internal" href="#task-3-test-our-icontrol-extension">Task 3 - Test our iControl Extension</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/class1/module4_5/lab4.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, F5 Networks.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="../../_sources/class1/module4_5/lab4.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

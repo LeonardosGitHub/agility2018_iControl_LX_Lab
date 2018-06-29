@@ -1,0 +1,281 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab 5.1 - Install the iControl LX package &#8212; Agility18 iControlLX Extensions Lab  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Lab 5.2 - Test and Troubleshoot the Extension" href="lab2.html" />
+    <link rel="prev" title="Module 5 - My First iControl LX Extension" href="module5.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="lab-5-1-install-the-icontrol-lx-package">
+<h1>Lab 5.1 - Install the iControl LX package<a class="headerlink" href="#lab-5-1-install-the-icontrol-lx-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="task-1-install-the-icontrol-lx-rpm-package">
+<h2>Task 1 - Install the iControl LX RPM Package<a class="headerlink" href="#task-1-install-the-icontrol-lx-rpm-package" title="Permalink to this headline">¶</a></h2>
+<p>To save some time, we already have pushed the iControl LX RPM on your
+BIG-IP platform.</p>
+<p>You can connect to your BIG-IP platform (<code class="docutils literal notranslate"><span class="pre">10.1.1.245</span></code>) and check the
+directory <code class="docutils literal notranslate"><span class="pre">/var/config/rest/downloads</span></code>:</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ls /var/config/rest/downloads/</span>
+<span class="n">my</span><span class="o">-</span><span class="n">app</span><span class="o">-</span><span class="n">interface</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="mf">002.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>  <span class="n">tmp</span>
+</pre></div>
+</div>
+<p>To install your RPM, you have two different options:</p>
+<ul class="simple">
+<li>Use the Postman application and the collection already setup in it and do the
+calls one by one</li>
+<li>Use the newman scripts that will automatically run all the required API calls</li>
+</ul>
+<div class="section" id="use-the-postman-application">
+<h3>Use the Postman application<a class="headerlink" href="#use-the-postman-application" title="Permalink to this headline">¶</a></h3>
+<p>Perform the following steps to complete this task:</p>
+<ol class="arabic">
+<li><p class="first">Click on the Postman icon in the task bar (or on the Desktop)</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image0015.png"><img alt="../../_images/lab1-image0015.png" class="align-center" src="../../_images/lab1-image0015.png" style="width: 83.0px; height: 81.0px;" /></a>
+</li>
+<li><p class="first">You should see this:</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image0024.png"><img alt="../../_images/lab1-image0024.png" class="align-center" src="../../_images/lab1-image0024.png" style="width: 1275.0px; height: 793.0px;" /></a>
+</li>
+<li><p class="first">Click on the collection <code class="docutils literal notranslate"><span class="pre">iWF-RPM-package-management</span></code> and then on the
+<code class="docutils literal notranslate"><span class="pre">2A_Install_RPM</span></code> folder</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image0031.png"><img alt="../../_images/lab1-image0031.png" class="align-center" src="../../_images/lab1-image0031.png" style="width: 356.0px; height: 345.0px;" /></a>
+</li>
+<li><p class="first">Here you can see that this folder has 4 different API calls:</p>
+<ul class="simple">
+<li>Get an Auth token from iWF</li>
+<li>Extend the timeout of this token</li>
+<li>Install our RPM</li>
+<li>Check whether it installed successfully or not (you may need to do play
+this requests a few times before it’s fully installed)</li>
+</ul>
+</li>
+<li><p class="first">Select the <code class="docutils literal notranslate"><span class="pre">iWF-RPM-package-Management</span></code> environment (top right of the window)</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image0041.png"><img alt="../../_images/lab1-image0041.png" class="align-center" src="../../_images/lab1-image0041.png" style="width: 371.0px; height: 205.0px;" /></a>
+</li>
+<li><p class="first">Now, we are ready to execute our calls.</p>
+</li>
+<li><p class="first">Here is the procedure:</p>
+<ul class="simple">
+<li>Select the call: <code class="docutils literal notranslate"><span class="pre">Request</span> <span class="pre">a</span> <span class="pre">Token</span> <span class="pre">from</span> <span class="pre">BIG-IP</span></code> and click on
+<span class="guilabel">Send</span>, you may review the response to ensure it was successful</li>
+<li>Select the call: <code class="docutils literal notranslate"><span class="pre">Increase</span> <span class="pre">Auth</span> <span class="pre">Token</span> <span class="pre">Timeout</span></code> and click on
+<span class="guilabel">Send</span>, you may review the response</li>
+<li>Select the call: <code class="docutils literal notranslate"><span class="pre">Install</span> <span class="pre">RPM</span></code> and click on <span class="guilabel">Send</span>, you may
+review the response</li>
+<li>Select the call: <code class="docutils literal notranslate"><span class="pre">Check</span> <span class="pre">RPM</span> <span class="pre">install</span> <span class="pre">process</span> <span class="pre">status</span></code> and click on
+<span class="guilabel">Send</span></li>
+</ul>
+</li>
+<li><p class="first">With the final call, you should see something like this (check the status
+value, it should be <code class="docutils literal notranslate"><span class="pre">FINISHED</span></code>):</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="p">{</span>
+    <span class="s2">&quot;packageFilePath&quot;</span><span class="p">:</span> <span class="s2">&quot;/var/config/rest/downloads/my-app-interface-1.0-002.noarch.rpm&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;packageName&quot;</span><span class="p">:</span> <span class="s2">&quot;my-app-interface-1.0-002.noarch&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;INSTALL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;packageManifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;IAPP&quot;</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;73a9097e-b78a-4693-8ebe-961e27049a84&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;FINISHED&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;startTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-13T06:45:20.957-0800&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;endTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-13T06:45:21.567-0800&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;userReference&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;link&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;identityReferences&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;link&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+       <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;ownerMachineId&quot;</span><span class="p">:</span> <span class="s2">&quot;075786c3-27a2-45da-8b06-86dcbb73a1c5&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;generation&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;lastUpdateMicros&quot;</span><span class="p">:</span> <span class="mi">1510584321566822</span><span class="p">,</span>
+    <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;shared:iapp:package-management-tasks:iapppackagemanagementtaskstate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;selfLink&quot;</span><span class="p">:</span> <span class="s2">&quot;https://localhost/mgmt/shared/iapp/package-management-tasks/73a9097e-b78a-4693-8ebe-961e27049a84&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="use-the-newman-script">
+<h3>Use the newman script<a class="headerlink" href="#use-the-newman-script" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you’ve already setup the extension by following the Postman
+process, this will fail. You’ll need to delete the extension first. You can
+use the relevant postman collection/folder to do this</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">newman</span></code> gives you the capability to run a Postman collection or a specific
+folder. When you have multiple calls to do, it may be easier to use <code class="docutils literal notranslate"><span class="pre">newman</span></code>.</p>
+<p>If you want more information about newman, you can review this <a class="reference external" href="https://www.getpostman.com/docs/postman/collection_runs/command_line_integration_with_newman">newman_overview</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">newman</span></code> is already installed and setup in your JumpHost. All the different
+scripts that will be used in this lab are stored in the <code class="docutils literal notranslate"><span class="pre">Lab</span></code> folder on your
+desktop.</p>
+<p>Perform the following steps to complete this task:</p>
+<ol class="arabic">
+<li><p class="first">To execute <code class="docutils literal notranslate"><span class="pre">newman</span></code>, launch a MS Command Prompt. You have a shortcut in your
+taskbar that will be launched in the right folder automatically</p>
+<img alt="../../_images/lab1-image0051.png" class="align-center" src="../../_images/lab1-image0051.png" />
+</li>
+<li><p class="first">You should see this:</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image0061.png"><img alt="../../_images/lab1-image0061.png" class="align-center" src="../../_images/lab1-image0061.png" style="width: 673.0px; height: 336.0px;" /></a>
+</li>
+<li><p class="first">To launch the <code class="docutils literal notranslate"><span class="pre">newman</span></code> script that installs the RPM, run the following
+command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">1_Install_RPM</span></code></p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">Administrator</span>\<span class="n">Desktop</span>\<span class="n">Lab</span>\<span class="n">Postman</span><span class="o">&gt;</span><span class="mi">1</span><span class="n">_Install_RPM</span><span class="o">.</span><span class="n">bat</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">This script will execute all the API calls in the <code class="docutils literal notranslate"><span class="pre">2A_Install_RPM</span></code> folder,
+you should see this:</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image0071.png"><img alt="../../_images/lab1-image0071.png" class="align-center" src="../../_images/lab1-image0071.png" style="width: 673.0px; height: 820.0px;" /></a>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="task-2-check-the-package-was-successfully-installed">
+<h2>Task 2 - Check the Package was Successfully Installed<a class="headerlink" href="#task-2-check-the-package-was-successfully-installed" title="Permalink to this headline">¶</a></h2>
+<p>You can check that the extension was successfully installed in different ways:</p>
+<ul>
+<li><p class="first">Check that the extension is installed in <code class="docutils literal notranslate"><span class="pre">/var/config/rest/iapps/</span></code> on iWorflow</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ls /var/config/rest/iapps/</span>
+<span class="n">my</span><span class="o">-</span><span class="n">app</span><span class="o">-</span><span class="n">interface</span>  <span class="n">RPMS</span>  <span class="n">tmp</span><span class="o">.</span><span class="mi">7399485599133304707</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Check <code class="docutils literal notranslate"><span class="pre">/var/log/restnoded/restnoded.log</span></code></p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tail</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">restnoded</span><span class="o">/</span><span class="n">restnoded</span><span class="o">.</span><span class="n">log</span>
+<span class="n">Sun</span><span class="p">,</span> <span class="mi">29</span> <span class="n">Oct</span> <span class="mi">2017</span> <span class="mi">09</span><span class="p">:</span><span class="mi">53</span><span class="p">:</span><span class="mi">14</span> <span class="n">GMT</span> <span class="o">-</span> <span class="n">finest</span><span class="p">:</span> <span class="p">[</span><span class="n">LoaderWorker</span><span class="p">]</span> <span class="n">triggered</span> <span class="n">at</span> <span class="n">path</span><span class="p">:</span>  <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">rest</span><span class="o">/</span><span class="n">iapps</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">app</span><span class="o">-</span><span class="n">interface</span><span class="o">/</span><span class="n">nodejs</span>
+<span class="n">Sun</span><span class="p">,</span> <span class="mi">29</span> <span class="n">Oct</span> <span class="mi">2017</span> <span class="mi">09</span><span class="p">:</span><span class="mi">53</span><span class="p">:</span><span class="mi">14</span> <span class="n">GMT</span> <span class="o">-</span> <span class="n">finest</span><span class="p">:</span> <span class="p">[</span><span class="n">LoaderWorker</span><span class="p">]</span> <span class="n">triggered</span> <span class="n">at</span> <span class="n">path</span><span class="p">:</span>  <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">rest</span><span class="o">/</span><span class="n">iapps</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">app</span><span class="o">-</span><span class="n">interface</span><span class="o">/</span><span class="n">nodejs</span><span class="o">/</span><span class="n">ictrl</span><span class="o">-</span><span class="n">app</span><span class="o">-</span><span class="n">interface</span><span class="o">-</span><span class="n">ConfigProcessor</span><span class="o">.</span><span class="n">js</span>
+<span class="n">Sun</span><span class="p">,</span> <span class="mi">29</span> <span class="n">Oct</span> <span class="mi">2017</span> <span class="mi">09</span><span class="p">:</span><span class="mi">53</span><span class="p">:</span><span class="mi">14</span> <span class="n">GMT</span> <span class="o">-</span> <span class="n">finest</span><span class="p">:</span> <span class="n">socket</span> <span class="mi">1</span> <span class="n">closed</span>
+<span class="n">Sun</span><span class="p">,</span> <span class="mi">29</span> <span class="n">Oct</span> <span class="mi">2017</span> <span class="mi">09</span><span class="p">:</span><span class="mi">53</span><span class="p">:</span><span class="mi">14</span> <span class="n">GMT</span> <span class="o">-</span> <span class="n">info</span><span class="p">:</span> <span class="n">my</span><span class="o">-</span><span class="n">app</span><span class="o">-</span><span class="n">interface</span> <span class="o">-</span> <span class="n">onStart</span><span class="p">()</span>
+<span class="n">Sun</span><span class="p">,</span> <span class="mi">29</span> <span class="n">Oct</span> <span class="mi">2017</span> <span class="mi">09</span><span class="p">:</span><span class="mi">53</span><span class="p">:</span><span class="mi">14</span> <span class="n">GMT</span> <span class="o">-</span> <span class="n">config</span><span class="p">:</span> <span class="p">[</span><span class="n">RestWorker</span><span class="p">]</span> <span class="o">/</span><span class="n">shared</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">app</span><span class="o">-</span><span class="n">interface</span> <span class="n">has</span> <span class="n">started</span><span class="o">.</span> <span class="n">Name</span><span class="p">:</span><span class="n">ipam_extension</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Use Postman to test your extension. Try to access
+<code class="docutils literal notranslate"><span class="pre">https://10.1.1.245/mgmt/shared/my-app-interface/example</span></code>. You’ll need to
+authenticate yourself as <code class="docutils literal notranslate"><span class="pre">student/student</span></code>. You have already a folder in
+your imported postman collection to do it.  It’s in the <code class="docutils literal notranslate"><span class="pre">My-App-Interface</span></code>
+collection and in the <code class="docutils literal notranslate"><span class="pre">Test-Interface</span></code> folder.</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image009.png"><img alt="../../_images/lab1-image009.png" class="align-center" src="../../_images/lab1-image009.png" style="width: 350.0px; height: 134.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Make sure to select the environment <code class="docutils literal notranslate"><span class="pre">My-App-Interface</span></code></p>
+<a class="last reference internal image-reference" href="../../_images/lab2-image0021.png"><img alt="../../_images/lab2-image0021.png" class="align-center" src="../../_images/lab2-image0021.png" style="width: 330.0px; height: 182.0px;" /></a>
+</div>
+<p>You should see something like this:</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image010.png"><img alt="../../_images/lab1-image010.png" class="align-center" src="../../_images/lab1-image010.png" style="width: 682.0px; height: 542.0px;" /></a>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>To protect who can use this extension, we updated BIG-IP to only
+allow the <code class="docutils literal notranslate"><span class="pre">student</span></code> user to use this extension. This is done here in the
+BIG-IP interface:</p>
+<a class="last reference internal image-reference" href="../../_images/lab1-image0081.png"><img alt="../../_images/lab1-image0081.png" class="align-center" src="../../_images/lab1-image0081.png" style="width: 1197.0px; height: 599.0px;" /></a>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Lab 5.1 - Install the iControl LX package</a><ul>
+<li><a class="reference internal" href="#task-1-install-the-icontrol-lx-rpm-package">Task 1 - Install the iControl LX RPM Package</a><ul>
+<li><a class="reference internal" href="#use-the-postman-application">Use the Postman application</a></li>
+<li><a class="reference internal" href="#use-the-newman-script">Use the newman script</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#task-2-check-the-package-was-successfully-installed">Task 2 - Check the Package was Successfully Installed</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../class1.html">Class 1 - F5 iControl LX extensions</a><ul>
+  <li><a href="module5.html">Module 5 - My First iControl LX Extension</a><ul>
+      <li>Previous: <a href="module5.html" title="previous chapter">Module 5 - My First iControl LX Extension</a></li>
+      <li>Next: <a href="lab2.html" title="next chapter">Lab 5.2 - Test and Troubleshoot the Extension</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/class1/module5/lab1.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, F5 Networks.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="../../_sources/class1/module5/lab1.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,180 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Module 5 - My First iControl LX Extension &#8212; Agility18 iControlLX Extensions Lab  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-5-my-first-icontrol-lx-extension">
+<h1>Module 5 - My First iControl LX Extension<a class="headerlink" href="#module-5-my-first-icontrol-lx-extension" title="Permalink to this headline">¶</a></h1>
+<p>When you build a declarative interface, your interface should NOT ask for F5
+domain specific knowledge. The consumer of your service catalog should not have
+to know what is a F5 Virtual Server, an iRule, a L7 policy, etc… it should be
+as abstracted as possible and only focus on information the the consumer is
+aware of.</p>
+<p>Usually if an application engineer wants to deploy an ADC configuration, here
+are the information he can provide:</p>
+<ul class="simple">
+<li>Service name</li>
+<li>Service template to use</li>
+<li>Service port</li>
+<li>Servers IP Address</li>
+<li>Servers port</li>
+<li>Servers status</li>
+<li>maybe some application specific attributes</li>
+</ul>
+<p>If such an application was to be deployed via a REST API interface, the POST
+request (to deploy the service) could look like this:</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">POST</span> <span class="o">/.../</span><span class="n">my</span><span class="o">-</span><span class="n">app</span><span class="o">-</span><span class="n">interface</span>
+<span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;{{my-app-name}}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;template&quot;</span> <span class="p">:</span> <span class="s2">&quot;f5-http-lb&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;app-data&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;pool__port&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;{{service-port}}&quot;</span>
+                <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;servers-data&quot;</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;pool__Members&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;IPAddress&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;State&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;rows&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;{{server1-addr}}&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;enabled&quot;</span>
+            <span class="p">],</span> <span class="p">[</span>
+                <span class="s2">&quot;{{server2-addr}}&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;enabled&quot;</span>
+            <span class="p">]</span>
+        <span class="p">]</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here you may also see that this payload does not use any iWF paramters. It’s a
+custom build payload that is easier for an application engineer to understand.
+He doesn’t want to have a deep understanding of F5 solution to deploy services.
+It’s not his area of expertise.</p>
+<p>An example of an attribute that a consumer shouldn’t have to provide is our
+Virtual Server IP. The consumer doesn’t own this segment of the network and
+cannot know which IP to specify.  We see more and more requests where they
+expect the ADC solution to be able to retrieve this information on its own.</p>
+<p>In this lab, we will deploy an iControl LX extension that will communicate with
+an IPAM solution to populate automatically this information.</p>
+<p>BIG-IP is already setup with 2 service templates:</p>
+<ul class="simple">
+<li>HTTP service</li>
+<li>TCP service</li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/image0011.png"><img alt="../../_images/image0011.png" class="align-center" src="../../_images/image0011.png" style="width: 226.0px; height: 191.0px;" /></a>
+<p>Our extension can do the following:</p>
+<ul class="simple">
+<li>Receive GET/PUT/POST/DELETE requests</li>
+<li>Retrieve an IP from our IPAM solution (we use an iRule to simulate this. It’s
+on the BIG-IP)</li>
+<li>Translate the received payload with the information needed by BIG-IP to
+trigger those templates</li>
+</ul>
+<p><strong>Exercises in this Module</strong></p>
+<ul class="simple">
+<li>Lab 5.1 - Install the iControl LX Package<ul>
+<li>Task 1 - Install the iControl LX RPM Package</li>
+<li>Task 2 - Check the Package was Successfully Installed</li>
+</ul>
+</li>
+<li>Lab 5.2 - Test and Troubleshoot the Extension<ul>
+<li>Task 1 - Deploy Services via the Extension</li>
+<li>Task 2 - Delete Services via the Extension</li>
+</ul>
+</li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html">Lab 5.1 - Install the iControl LX package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.html">Lab 5.2 - Test and Troubleshoot the Extension</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/class1/module5/module5.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, F5 Networks.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="../../_sources/class1/module5/module5.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

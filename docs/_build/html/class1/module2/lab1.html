@@ -1,0 +1,190 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab 2.1 - Interact with a REST Extension &#8212; Agility18 iControlLX Extensions Lab  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Lab 2.2 - Edit an iControl REST Resource via ToC" href="lab2.html" />
+    <link rel="prev" title="Module 2 - Interacting with an iControl LX extension" href="module2.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="lab-2-1-interact-with-a-rest-extension">
+<h1>Lab 2.1 - Interact with a REST Extension<a class="headerlink" href="#lab-2-1-interact-with-a-rest-extension" title="Permalink to this headline">¶</a></h1>
+<p>In this exercise, we are going to look at an iControl LX extension that ships
+with iControl. This is the iControl LX ‘presentation’ extension. This iControl
+LX extension present the REST API with a graphical interface. In this lab, we
+will test it.</p>
+<p>Typically, when you login to BIG-IP via the Web Interface you are redirected
+to <cite>/mgmt/xui</cite>. In this exercise we are going to review the REST API via the
+Web interface, which looks like this:</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image0012.png"><img alt="../../_images/lab1-image0012.png" class="align-center" src="../../_images/lab1-image0012.png" style="width: 524.0px; height: 32.0px;" /></a>
+<div class="section" id="task-1-view-the-api-via-web-browser">
+<h2>Task 1 - View the API via Web Browser<a class="headerlink" href="#task-1-view-the-api-via-web-browser" title="Permalink to this headline">¶</a></h2>
+<p>Perform the following steps to complete this task:</p>
+<ol class="arabic">
+<li><p class="first">In your browser, navigate to: <code class="docutils literal notranslate"><span class="pre">https://10.1.1.245/mgmt/toc</span></code>.</p>
+</li>
+<li><p class="first">Enter the <code class="docutils literal notranslate"><span class="pre">admin</span></code> user credentials (it should be <code class="docutils literal notranslate"><span class="pre">admin/admin</span></code>).</p>
+</li>
+<li><p class="first">You are now presented with the top level of REST collections/resources
+available on the BIG-IP platform.</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image0021.png"><img alt="../../_images/lab1-image0021.png" class="align-center" src="../../_images/lab1-image0021.png" style="width: 292.0px; height: 200.0px;" /></a>
+</li>
+</ol>
+</div>
+<div class="section" id="task-2-interact-with-a-rest-resource">
+<h2>Task 2 - Interact with a REST Resource<a class="headerlink" href="#task-2-interact-with-a-rest-resource" title="Permalink to this headline">¶</a></h2>
+<p>Perform the following steps to complete this task:</p>
+<ol class="arabic">
+<li><p class="first">To filter the list of iControl REST resources, navigate to the textbox at the
+top of the page and enter ‘echo’:</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image003.png"><img alt="../../_images/lab1-image003.png" class="align-center" src="../../_images/lab1-image003.png" style="width: 215.0px; height: 184.0px;" /></a>
+</li>
+<li><p class="first">Click on the <code class="docutils literal notranslate"><span class="pre">echo</span></code> resource.</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image004.png"><img alt="../../_images/lab1-image004.png" class="align-center" src="../../_images/lab1-image004.png" style="width: 489.0px; height: 462.0px;" /></a>
+</li>
+</ol>
+</div>
+<div class="section" id="task-3-the-presentation-extension">
+<h2>Task 3 - The ‘/presentation#’ Extension<a class="headerlink" href="#task-3-the-presentation-extension" title="Permalink to this headline">¶</a></h2>
+<p>Perform the following steps to complete this task:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The current URI has <code class="docutils literal notranslate"><span class="pre">/presentation#/</span></code> appended to the end of it. This is an
+iControl LX extension responsible for rendering the iControl REST resource in the
+web interface.</p>
+</div>
+<ol class="arabic">
+<li><p class="first">Remove the appended <code class="docutils literal notranslate"><span class="pre">presentation#/</span></code> and note the raw JSON representation (you will be re-prompted to enter your user credentials <code class="docutils literal notranslate"><span class="pre">admin/admin</span></code>):</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image005.png"><img alt="../../_images/lab1-image005.png" class="align-center" src="../../_images/lab1-image005.png" style="width: 1219.0px; height: 47.0px;" /></a>
+</li>
+<li><p class="first">Click the ‘Back’ button in your browser to return to the <code class="docutils literal notranslate"><span class="pre">/presentation#/</span></code>
+view. The URL should once again be:</p>
+<p><code class="docutils literal notranslate"><span class="pre">https://10.1.1.245/mgmt/shared/echo/presentation#/</span></code></p>
+</li>
+</ol>
+</div>
+<div class="section" id="task-4-editing-a-rest-resource">
+<h2>Task 4 - Editing a REST Resource<a class="headerlink" href="#task-4-editing-a-rest-resource" title="Permalink to this headline">¶</a></h2>
+<p>Perform the following steps to complete this task:</p>
+<ol class="arabic">
+<li><p class="first">Click the <span class="guilabel">Edit</span> button. You should now see the following:</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image006.png"><img alt="../../_images/lab1-image006.png" class="align-center" src="../../_images/lab1-image006.png" style="width: 359.0px; height: 257.0px;" /></a>
+</li>
+<li><p class="first">This allows you to edit the value of the <code class="docutils literal notranslate"><span class="pre">/mgmt/shared/echo</span></code> REST
+resource, via the <code class="docutils literal notranslate"><span class="pre">presentation</span></code> extension.</p>
+</li>
+<li><p class="first">Click on the <span class="guilabel">Advanced</span> button. Now you can see the raw JSON
+representation of the REST resource.</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image007.png"><img alt="../../_images/lab1-image007.png" class="align-center" src="../../_images/lab1-image007.png" style="width: 493.0px; height: 291.0px;" /></a>
+</li>
+<li><p class="first">Try editing the REST resource. In the <code class="docutils literal notranslate"><span class="pre">content</span></code> field enter
+<code class="docutils literal notranslate"><span class="pre">authentication</span> <span class="pre">works</span></code> (check the picture below).  Note that it
+synchronizes between the textboxes and the raw ‘JSON input’ textfield.
+They are both representations of the same resource.</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image008.png"><img alt="../../_images/lab1-image008.png" class="align-center" src="../../_images/lab1-image008.png" style="width: 504.0px; height: 524.0px;" /></a>
+</li>
+<li><p class="first">You are now interacting with the iControl REST resource <code class="docutils literal notranslate"><span class="pre">echo</span></code>, via the
+iControl LX ‘presentation’ extension.</p>
+</li>
+<li><p class="first">Click the <span class="guilabel">Cancel</span> button to discard your changes.</p>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Lab 2.1 - Interact with a REST Extension</a><ul>
+<li><a class="reference internal" href="#task-1-view-the-api-via-web-browser">Task 1 - View the API via Web Browser</a></li>
+<li><a class="reference internal" href="#task-2-interact-with-a-rest-resource">Task 2 - Interact with a REST Resource</a></li>
+<li><a class="reference internal" href="#task-3-the-presentation-extension">Task 3 - The ‘/presentation#’ Extension</a></li>
+<li><a class="reference internal" href="#task-4-editing-a-rest-resource">Task 4 - Editing a REST Resource</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../class1.html">Class 1 - F5 iControl LX extensions</a><ul>
+  <li><a href="module2.html">Module 2 - Interacting with an iControl LX extension</a><ul>
+      <li>Previous: <a href="module2.html" title="previous chapter">Module 2 - Interacting with an iControl LX extension</a></li>
+      <li>Next: <a href="lab2.html" title="next chapter">Lab 2.2 - Edit an iControl REST Resource via ToC</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/class1/module2/lab1.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, F5 Networks.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="../../_sources/class1/module2/lab1.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,181 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab 3.2 - Beyond “GET” &#8212; Agility18 iControlLX Extensions Lab  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Lab 3.3 - Interacting with 3rd Party Systems" href="lab3.html" />
+    <link rel="prev" title="Lab 3.1 - Review the HelloWorld iControl LX Extension" href="lab1.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="lab-3-2-beyond-get">
+<h1>Lab 3.2 - Beyond “GET”<a class="headerlink" href="#lab-3-2-beyond-get" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="task-1-understand-the-other-http-verbs">
+<h2>Task 1 - Understand the ‘other’ HTTP Verbs<a class="headerlink" href="#task-1-understand-the-other-http-verbs" title="Permalink to this headline">¶</a></h2>
+<p>The iControl LX Framework also provides access to the following HTTP verbs:
+<code class="docutils literal notranslate"><span class="pre">POST</span></code>, <code class="docutils literal notranslate"><span class="pre">PUT</span></code>, <code class="docutils literal notranslate"><span class="pre">PATCH</span></code> and <code class="docutils literal notranslate"><span class="pre">DELETE</span></code>.</p>
+<p>In this lab you will learn which HTTP verb to use.</p>
+<div class="section" id="post-is-for-creating-resources">
+<h3>POST is for Creating Resources<a class="headerlink" href="#post-is-for-creating-resources" title="Permalink to this headline">¶</a></h3>
+<p>In the previous exercise we created a new user in the
+<code class="docutils literal notranslate"><span class="pre">/mgmt/shared/authz/users/</span></code> collection. This was done by sending a <code class="docutils literal notranslate"><span class="pre">POST</span></code> to
+<code class="docutils literal notranslate"><span class="pre">https://&lt;ip_address&gt;/mgmt/shared/authz/users/</span></code> and resulted in a new REST
+resource under the <code class="docutils literal notranslate"><span class="pre">users</span></code> collection.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">onPost()</span></code> HTTP Method processor must be implemented to handle an HTTP <code class="docutils literal notranslate"><span class="pre">POST</span></code> in your iControl LX Extension.</p>
+</div>
+<div class="section" id="put-is-for-replacing-a-resources-properties">
+<h3>PUT is for Replacing a Resources Properties<a class="headerlink" href="#put-is-for-replacing-a-resources-properties" title="Permalink to this headline">¶</a></h3>
+<p>Think of <code class="docutils literal notranslate"><span class="pre">PUT</span></code> as a special type of <code class="docutils literal notranslate"><span class="pre">POST</span></code> for existing REST resources.
+Let’s say we have the following REST resource:</p>
+<p><code class="docutils literal notranslate"><span class="pre">/mgmt/shared/authz/users/new_user</span></code></p>
+<p>with the properties:</p>
+<div class="code json highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;new_user&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;manager&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;password&quot;</span><span class="p">:</span><span class="s2">&quot;xyz1234&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If we were to perform the following <code class="docutils literal notranslate"><span class="pre">PUT</span></code>, the <code class="docutils literal notranslate"><span class="pre">role</span></code> would no longer exist:</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PUT</span> <span class="o">/</span><span class="n">mgmt</span><span class="o">/</span><span class="n">shared</span><span class="o">/</span><span class="n">authz</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="n">new_user</span>
+<span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;new_user&quot;</span>
+    <span class="s2">&quot;password&quot;</span><span class="p">:</span><span class="s2">&quot;xyz1234&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Performing a <code class="docutils literal notranslate"><span class="pre">PUT</span></code> on a REST resource is like performing a ‘select-all’ and
+then ‘replace’.</p>
+<p>For your iControl LX extension to handle an HTTP <code class="docutils literal notranslate"><span class="pre">PUT</span></code>, you must implement the
+<code class="docutils literal notranslate"><span class="pre">onPut()</span></code> HTTP Method processor.</p>
+</div>
+<div class="section" id="patch-is-for-editing-parts-of-a-rest-resource">
+<h3>PATCH is for Editing Parts of a REST Resource<a class="headerlink" href="#patch-is-for-editing-parts-of-a-rest-resource" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">PATCH</span></code> is for situations where you may want to change only parts of a REST
+resource. For example, let’s say I want to change the <code class="docutils literal notranslate"><span class="pre">role</span></code> of our
+<code class="docutils literal notranslate"><span class="pre">new_user</span></code> resource:</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PATCH</span> <span class="o">/</span><span class="n">mgmt</span><span class="o">/</span><span class="n">shared</span><span class="o">/</span><span class="n">authz</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="n">new_user</span>
+<span class="p">{</span>
+    <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;manager&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The other properties of the REST resource, in this case <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">password</span></code>, would be unchanged.</p>
+<p>For your iControl LX extension to handle an HTTP <code class="docutils literal notranslate"><span class="pre">PATCH</span></code>, you must implement
+the <code class="docutils literal notranslate"><span class="pre">onPatch()</span></code> HTTP Method processor.</p>
+</div>
+<div class="section" id="delete-a-rest-resource">
+<h3>DELETE a REST Resource<a class="headerlink" href="#delete-a-rest-resource" title="Permalink to this headline">¶</a></h3>
+<p>In the event that you want to delete a resource you would implement the
+<code class="docutils literal notranslate"><span class="pre">onDelete()</span></code> HTTP Method processor.</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DELETE</span> <span class="o">/</span><span class="n">mgmt</span><span class="o">/</span><span class="n">shared</span><span class="o">/</span><span class="n">authz</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="n">new_user</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can delete a resource but not a collection. For example, you can
+<code class="docutils literal notranslate"><span class="pre">DELETE</span></code> <code class="docutils literal notranslate"><span class="pre">/mgmt/shared/authz/users/new_user</span></code>, but not
+<code class="docutils literal notranslate"><span class="pre">/mgmt/shared/authz/users</span></code>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Lab 3.2 - Beyond “GET”</a><ul>
+<li><a class="reference internal" href="#task-1-understand-the-other-http-verbs">Task 1 - Understand the ‘other’ HTTP Verbs</a><ul>
+<li><a class="reference internal" href="#post-is-for-creating-resources">POST is for Creating Resources</a></li>
+<li><a class="reference internal" href="#put-is-for-replacing-a-resources-properties">PUT is for Replacing a Resources Properties</a></li>
+<li><a class="reference internal" href="#patch-is-for-editing-parts-of-a-rest-resource">PATCH is for Editing Parts of a REST Resource</a></li>
+<li><a class="reference internal" href="#delete-a-rest-resource">DELETE a REST Resource</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../class1.html">Class 1 - F5 iControl LX extensions</a><ul>
+  <li><a href="module3.html">Module 3 - Understanding iControl LX Extensions</a><ul>
+      <li>Previous: <a href="lab1.html" title="previous chapter">Lab 3.1 - Review the HelloWorld iControl LX Extension</a></li>
+      <li>Next: <a href="lab3.html" title="next chapter">Lab 3.3 - Interacting with 3rd Party Systems</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/class1/module3/lab2.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, F5 Networks.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="../../_sources/class1/module3/lab2.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

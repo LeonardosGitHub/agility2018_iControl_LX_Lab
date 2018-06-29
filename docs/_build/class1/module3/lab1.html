@@ -1,0 +1,235 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab 3.1 - Review the HelloWorld iControl LX Extension &#8212; Agility18 iControlLX Extensions Lab  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="lab-3-1-review-the-helloworld-icontrol-lx-extension">
+<h1>Lab 3.1 - Review the HelloWorld iControl LX Extension<a class="headerlink" href="#lab-3-1-review-the-helloworld-icontrol-lx-extension" title="Permalink to this headline">¶</a></h1>
+<p>iControl LX extensions are provided as RPM (RedHat Package Manager) files.  An RPM is similar to a <code class="docutils literal notranslate"><span class="pre">.tar</span></code> or <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file for installing application files.</p>
+<p>Let’s begin by reviewing the JavaScript contents of the HelloWorld RPM.
+In this module we will be reviewing the contents of an extension. In the next module we will be creating our own.</p>
+<div class="section" id="overview-of-the-helloworld-extension">
+<h2>Overview of the HelloWorld Extension<a class="headerlink" href="#overview-of-the-helloworld-extension" title="Permalink to this headline">¶</a></h2>
+<p>To help us get started we’ve kept this extension very simple:</p>
+<ol class="arabic simple">
+<li>It only supports HTTP <code class="docutils literal notranslate"><span class="pre">GET</span></code> requests.</li>
+<li>It only responds to <code class="docutils literal notranslate"><span class="pre">GET</span></code> requests with <code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">World!</span></code>.</li>
+<li>There are <em>only</em> 13 lines of JavaScript (the rest are comments and documentation).</li>
+</ol>
+<p>The JavaScript code for the HelloWorld extension is as follows:</p>
+<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm">* A simple iControl LX extension that handles only HTTP GET</span>
+<span class="cm">*/</span>
+<span class="kd">function</span> <span class="nx">HelloWorld</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="nx">HelloWorld</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">WORKER_URI_PATH</span> <span class="o">=</span> <span class="s2">&quot;ilxe_lab/hello_world&quot;</span><span class="p">;</span>
+<span class="nx">HelloWorld</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">isPublic</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm">* handle onGet HTTP request</span>
+<span class="cm">*/</span>
+<span class="nx">HelloWorld</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">onGet</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">restOperation</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">restOperation</span><span class="p">.</span><span class="nx">setBody</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&quot;Hello World!&quot;</span> <span class="p">}</span> <span class="p">));</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">completeRestOperation</span><span class="p">(</span><span class="nx">restOperation</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="cm">/**</span>
+<span class="cm">* handle /example HTTP request</span>
+<span class="cm">*/</span>
+<span class="nx">HelloWorld</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getExampleState</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;your_string&quot;</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">HelloWorld</span><span class="p">;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="key-parts-of-the-helloworld-extension">
+<h2>Key Parts of the HelloWorld Extension<a class="headerlink" href="#key-parts-of-the-helloworld-extension" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="worker-uri-path">
+<h3>WORKER_URI_PATH<a class="headerlink" href="#worker-uri-path" title="Permalink to this headline">¶</a></h3>
+<p>Note the following line:</p>
+<p><code class="docutils literal notranslate"><span class="pre">HelloWorld.prototype.WORKER_URI_PATH</span> <span class="pre">=</span> <span class="pre">&quot;ilxe_lab/hello_world&quot;;</span></code></p>
+<p>This specifies where the iControl LX extension will appear within iControl REST.
+Adding the <code class="docutils literal notranslate"><span class="pre">/mgmt</span></code> prefix, this would result in:</p>
+<p><code class="docutils literal notranslate"><span class="pre">https://10.1.1.245/mgmt/ilxe_lab/hello_world</span></code></p>
+</div>
+<div class="section" id="ispublic">
+<h3>isPublic<a class="headerlink" href="#ispublic" title="Permalink to this headline">¶</a></h3>
+<p>By default, the <code class="docutils literal notranslate"><span class="pre">WORKER_URI_PATH</span></code> would only be accessible to other
+extensions. To make it accessible to remote devices/systems, you must specify
+that it should be publicly available using:</p>
+<p><code class="docutils literal notranslate"><span class="pre">HelloWorld.prototype.isPublic</span> <span class="pre">=</span> <span class="pre">true;</span></code></p>
+</div>
+<div class="section" id="accepting-an-http-get-transaction">
+<h3>Accepting an HTTP GET transaction<a class="headerlink" href="#accepting-an-http-get-transaction" title="Permalink to this headline">¶</a></h3>
+<p>To process an HTTP <code class="docutils literal notranslate"><span class="pre">GET</span></code> sent to the <code class="docutils literal notranslate"><span class="pre">WORKER_URI_PATH</span></code> you must use
+<code class="docutils literal notranslate"><span class="pre">onGet</span></code> as follows:</p>
+<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nx">HelloWorld</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">onGet</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">restOperation</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">restOperation</span><span class="p">.</span><span class="nx">setBody</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&quot;Hello World!&quot;</span> <span class="p">}</span> <span class="p">));</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">completeRestOperation</span><span class="p">(</span><span class="nx">restOperation</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table></div>
+<p>This function performs the following actions:</p>
+<ul class="simple">
+<li>Accepts the HTTP <code class="docutils literal notranslate"><span class="pre">GET</span></code> sent to our <code class="docutils literal notranslate"><span class="pre">WORKER_URI_PATH</span></code> (<code class="docutils literal notranslate"><span class="pre">/mgmt/ilxe_lab/hello_world</span></code>)</li>
+<li>Sets the body of the response to <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">value:</span> <span class="pre">&quot;Hello</span> <span class="pre">World!&quot;</span> <span class="pre">}</span></code></li>
+<li>Completes the transaction by sending the response back to the client</li>
+</ul>
+</div>
+<div class="section" id="icontrol-lx-example-transaction">
+<h3>iControl LX Example Transaction<a class="headerlink" href="#icontrol-lx-example-transaction" title="Permalink to this headline">¶</a></h3>
+<p>This is a special service that will come in handy in the next lab.
+If you have an iControl LX extension that supports an HTTP <code class="docutils literal notranslate"><span class="pre">POST</span></code>, <code class="docutils literal notranslate"><span class="pre">PATCH</span></code>,
+or <code class="docutils literal notranslate"><span class="pre">PUT</span></code>, then the client will need to know what data to send and in what
+format.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">getExampleState</span></code> function responds when the user appends <code class="docutils literal notranslate"><span class="pre">/example</span></code> to
+the end of the <code class="docutils literal notranslate"><span class="pre">WORKER_URI_PATH</span></code> (<code class="docutils literal notranslate"><span class="pre">/mgmt/ilxe_lab/hello_world/example</span></code>):</p>
+<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nx">HelloWorld</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getExampleState</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+  <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;your_string&quot;</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table></div>
+<p>As our <code class="docutils literal notranslate"><span class="pre">HelloWorld</span></code> extension does not require any inputs we haven’t put in
+any data here.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">/example</span></code> must always be used with an HTTP <code class="docutils literal notranslate"><span class="pre">GET</span></code>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Lab 3.1 - Review the HelloWorld iControl LX Extension</a><ul>
+<li><a class="reference internal" href="#overview-of-the-helloworld-extension">Overview of the HelloWorld Extension</a></li>
+<li><a class="reference internal" href="#key-parts-of-the-helloworld-extension">Key Parts of the HelloWorld Extension</a><ul>
+<li><a class="reference internal" href="#worker-uri-path">WORKER_URI_PATH</a></li>
+<li><a class="reference internal" href="#ispublic">isPublic</a></li>
+<li><a class="reference internal" href="#accepting-an-http-get-transaction">Accepting an HTTP GET transaction</a></li>
+<li><a class="reference internal" href="#icontrol-lx-example-transaction">iControl LX Example Transaction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/class1/module3/lab1.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, F5 Networks.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="../../_sources/class1/module3/lab1.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
