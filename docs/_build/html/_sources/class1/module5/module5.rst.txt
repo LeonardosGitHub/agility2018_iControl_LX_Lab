@@ -1,101 +1,31 @@
-Module 5 - My First iControl LX Extension
-=========================================
+Module 5 - Installing and Using iControlLX extension to create an ASM policy
+============================================================================
 
-When you build a declarative interface, your interface should NOT ask for F5
-domain specific knowledge. The consumer of your service catalog should not have
-to know what is a F5 Virtual Server, an iRule, a L7 policy, etc... it should be
-as abstracted as possible and only focus on information the the consumer is
-aware of.
-
-Usually if an application engineer wants to deploy an ADC configuration, here
-are the information he can provide:
-
-* Service name
-* Service template to use
-* Service port
-* Servers IP Address
-* Servers port
-* Servers status
-* maybe some application specific attributes
-
-If such an application was to be deployed via a REST API interface, the POST
-request (to deploy the service) could look like this:
-
-.. code::
-
-   POST /.../my-app-interface
-   {
-       "name": "{{my-app-name}}",
-       "template" : "f5-http-lb",
-       "app-data": [
-                   {
-                       "name": "pool__port",
-                       "value": "{{service-port}}"
-                   }
-       ],
-       "servers-data": [{
-           "name": "pool__Members",
-           "columns": [
-               "IPAddress",
-               "State"
-           ],
-           "rows": [
-               [
-                   "{{server1-addr}}",
-                   "enabled"
-               ], [
-                   "{{server2-addr}}",
-                   "enabled"
-               ]
-           ]
-       }]
-   }
-
-Here you may also see that this payload does not use any iWF paramters. It's a
-custom build payload that is easier for an application engineer to understand.
-He doesn't want to have a deep understanding of F5 solution to deploy services.
-It's not his area of expertise.
-
-An example of an attribute that a consumer shouldn't have to provide is our
-Virtual Server IP. The consumer doesn't own this segment of the network and
-cannot know which IP to specify.  We see more and more requests where they
-expect the ADC solution to be able to retrieve this information on its own.
-
-In this lab, we will deploy an iControl LX extension that will communicate with
-an IPAM solution to populate automatically this information.
-
-BIG-IP is already setup with 2 service templates:
-
-* HTTP service
-* TCP service
-
-.. image:: ../../_static/class1/module5/image001.png
-   :align: center
-   :scale: 50%
-
-
-
-
-Our extension can do the following:
-
-* Receive GET/PUT/POST/DELETE requests
-* Retrieve an IP from our IPAM solution (we use an iRule to simulate this. It's
-  on the BIG-IP)
-* Translate the received payload with the information needed by BIG-IP to
-  trigger those templates
-
+In module 5, we are going to install an iControl LX extension that has already
+been written. Once installed we will use Postman to interact with the extension
+to build an ASM rapid deployment policy.
 
 **Exercises in this Module**
 
-- Lab 5.1 - Install the iControl LX Package
+- Lab 5.1 - Enable iControlLX extension management via GUI
 
-  - Task 1 - Install the iControl LX RPM Package
-  - Task 2 - Check the Package was Successfully Installed
+  - Task 1 - View iControlLX management is NOT natively available via the GUI
+  - Task 2 - SSH to BIG-IP to enable iControlLX management via the GUI
+  - Task 3 - View iControlLX management is now available via the GUI
 
-- Lab 5.2 - Test and Troubleshoot the Extension
+- Lab 5.2 - Upload rpm package to BIG-IP
 
-  - Task 1 - Deploy Services via the Extension
-  - Task 2 - Delete Services via the Extension
+  - Task 1 - Upload rpm package to BIG-IP using the GUI
+
+- Lab 5.3 - Setup Postman to interact with the iControlLX extension
+
+  - Task 1 - Setup Postman client
+
+- Lab 5.4 - Creating an ASM Policy by calling the iControlLX extension
+
+  - Task 1 - Check BIG-IP for existing ASM policies
+  - Task 2 - Perform REST call using Postman to create policy
+  - Task 3 - Verify ASM policy has been created
 
 .. toctree::
    :maxdepth: 1

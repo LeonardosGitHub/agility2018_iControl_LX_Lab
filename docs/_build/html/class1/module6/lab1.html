@@ -1,0 +1,152 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab 6.1 - Brief overview of our Ansible setup &#8212; Agility18 iControlLX Extensions Lab  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Lab 6.2 - Run playbook to create ASM policy and associate with virtual server" href="lab2.html" />
+    <link rel="prev" title="Module 6 - Using Ansible to create an ASM policy and associate it with a Virtual Server" href="module6.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="lab-6-1-brief-overview-of-our-ansible-setup">
+<h1>Lab 6.1 - Brief overview of our Ansible setup<a class="headerlink" href="#lab-6-1-brief-overview-of-our-ansible-setup" title="Permalink to this headline">¶</a></h1>
+<p>In this lesson we will look at a high-level overview of our Ansible setup.
+We’ll also view what ASM policies currently exist on the BIG-IP and what ASM
+policy, if any, are associated with <code class="docutils literal notranslate"><span class="pre">hackazon_virtual</span></code> virtual server.</p>
+<div class="section" id="task-1-inventory-playbooks-ansible-cfg">
+<h2>Task 1 - Inventory, playbooks, ansible.cfg<a class="headerlink" href="#task-1-inventory-playbooks-ansible-cfg" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">SSH to the Ubuntu host using the putty shorcut that can be found on the Desktop.</p>
+</li>
+<li><p class="first">Perform the following command to change the directory to the <code class="docutils literal notranslate"><span class="pre">f5-ansible</span></code> directory.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">f5-ansible</span></code></p>
+</li>
+<li><p class="first">Perform the following command to view the contents of the directory.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code></p>
+<a class="reference internal image-reference" href="../../_images/lab1-image0015.png"><img alt="../../_images/lab1-image0015.png" class="align-center" src="../../_images/lab1-image0015.png" style="width: 256.0px; height: 281.0px;" /></a>
+</li>
+</ol>
+</div>
+<div class="section" id="task-2-ssh-to-big-ip-to-enable-icontrollx-management-via-the-gui">
+<h2>Task 2 - SSH to BIG-IP to enable iControlLX management via the GUI<a class="headerlink" href="#task-2-ssh-to-big-ip-to-enable-icontrollx-management-via-the-gui" title="Permalink to this headline">¶</a></h2>
+<p>Perform the following steps to complete this task:</p>
+<ol class="arabic">
+<li><p class="first">Using putty SSH to the BIG-IP_A.</p>
+</li>
+<li><p class="first">At the bash shell enter the following command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">/var/config/rest/iapps/enable</span></code></p>
+</li>
+<li><p class="first">Once the above command is issued, the BIG-IP can now manage iControlLX extensions via the GUI.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="task-3-view-icontrollx-management-is-now-available-via-the-gui">
+<h2>Task 3 - View iControlLX management is now available via the GUI<a class="headerlink" href="#task-3-view-icontrollx-management-is-now-available-via-the-gui" title="Permalink to this headline">¶</a></h2>
+<p>Perform the following steps to complete this task:</p>
+<ol class="arabic">
+<li><p class="first">In your web browser, navigate to BIG-IP: <code class="docutils literal notranslate"><span class="pre">https://10.1.10.20/</span></code></p>
+</li>
+<li><p class="first">Navigate to Main &gt; iApps</p>
+<ul class="simple">
+<li>You’ll notice that iControlLX extension management is now available.</li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/lab1-image0024.png"><img alt="../../_images/lab1-image0024.png" class="align-center" src="../../_images/lab1-image0024.png" style="width: 264.0px; height: 272.0px;" /></a>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Lab 6.1 - Brief overview of our Ansible setup</a><ul>
+<li><a class="reference internal" href="#task-1-inventory-playbooks-ansible-cfg">Task 1 - Inventory, playbooks, ansible.cfg</a></li>
+<li><a class="reference internal" href="#task-2-ssh-to-big-ip-to-enable-icontrollx-management-via-the-gui">Task 2 - SSH to BIG-IP to enable iControlLX management via the GUI</a></li>
+<li><a class="reference internal" href="#task-3-view-icontrollx-management-is-now-available-via-the-gui">Task 3 - View iControlLX management is now available via the GUI</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../class1.html">Class 1 - F5 iControl LX extensions</a><ul>
+  <li><a href="module6.html">Module 6 - Using Ansible to create an ASM policy and associate it with a Virtual Server</a><ul>
+      <li>Previous: <a href="module6.html" title="previous chapter">Module 6 - Using Ansible to create an ASM policy and associate it with a Virtual Server</a></li>
+      <li>Next: <a href="lab2.html" title="next chapter">Lab 6.2 - Run playbook to create ASM policy and associate with virtual server</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/class1/module6/lab1.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, F5 Networks.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="../../_sources/class1/module6/lab1.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

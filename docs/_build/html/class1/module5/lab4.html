@@ -1,0 +1,174 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab 5.4 - Creating an ASM Policy by calling the iControlLX extension &#8212; Agility18 iControlLX Extensions Lab  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Module 5 - Installing and Using iControlLX extension to create an ASM policy" href="../module6/module5.html" />
+    <link rel="prev" title="Lab 5.3 - Setup Postman to interact with the iControlLX extension" href="lab3.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="lab-5-4-creating-an-asm-policy-by-calling-the-icontrollx-extension">
+<h1>Lab 5.4 -  Creating an ASM Policy by calling the iControlLX extension<a class="headerlink" href="#lab-5-4-creating-an-asm-policy-by-calling-the-icontrollx-extension" title="Permalink to this headline">¶</a></h1>
+<p>In this lab we will use the Postman client to create an ASM policy in a single
+call to the BIG-IP.</p>
+<div class="section" id="task-1-check-big-ip-for-existing-asm-policies">
+<h2>Task 1 - Check BIG-IP for existing ASM policies<a class="headerlink" href="#task-1-check-big-ip-for-existing-asm-policies" title="Permalink to this headline">¶</a></h2>
+<p>First lets take a look at the existing policies on the BIG-IP</p>
+<ol class="arabic">
+<li><p class="first">In your web browser, navigate to BIG-IP: <code class="docutils literal notranslate"><span class="pre">https://10.1.10.20/</span></code></p>
+</li>
+<li><p class="first">Navigate to Main &gt; Security &gt; Application Security &gt; Security Policies</p>
+<a class="reference internal image-reference" href="../../_images/lab4-image001.png"><img alt="../../_images/lab4-image001.png" class="align-center" src="../../_images/lab4-image001.png" style="width: 566.0px; height: 271.0px;" /></a>
+</li>
+<li><p class="first">As seen in the sceenshot above there are no existing policies on the BIG-IP.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="task-2-perform-rest-call-using-postman-to-create-policy">
+<h2>Task 2 - Perform REST call using Postman to create policy<a class="headerlink" href="#task-2-perform-rest-call-using-postman-to-create-policy" title="Permalink to this headline">¶</a></h2>
+<p>Now lets use Postman to create an ASM policy.</p>
+<p>First we have to authenticate to the BIG-IP and obtain a token using Postman.</p>
+<ol class="arabic">
+<li><p class="first">Select <code class="docutils literal notranslate"><span class="pre">Step1:</span> <span class="pre">Request</span> <span class="pre">token</span> <span class="pre">from</span> <span class="pre">BIG-IP</span></code> from the collections tab, then select <code class="docutils literal notranslate"><span class="pre">Send</span></code>.</p>
+<a class="reference internal image-reference" href="../../_images/lab4-image002.png"><img alt="../../_images/lab4-image002.png" class="align-center" src="../../_images/lab4-image002.png" style="width: 1163.0px; height: 300.0px;" /></a>
+</li>
+<li><p class="first">This will generate a token used to authenticate future REST calls from Postman.</p>
+</li>
+<li><p class="first">Select <code class="docutils literal notranslate"><span class="pre">Step2:</span> <span class="pre">Increase</span> <span class="pre">token</span> <span class="pre">from</span> <span class="pre">BIG-IP</span></code> from the collections tab, which will
+extend the token timeout to 36000 seconds.</p>
+<a class="reference internal image-reference" href="../../_images/lab4-image003.png"><img alt="../../_images/lab4-image003.png" class="align-center" src="../../_images/lab4-image003.png" style="width: 1173.0px; height: 317.0px;" /></a>
+</li>
+<li><p class="first">Select <code class="docutils literal notranslate"><span class="pre">iControl</span> <span class="pre">LX</span> <span class="pre">ASM</span> <span class="pre">Create</span> <span class="pre">Policy</span> <span class="pre">POST</span></code> from the collections tab, which will
+create an ASM polciy.  Note the POST body contains only a name for the policy, in this
+case the name is “iControlLX_Agility2018”.  This will be the name of the ASM policy that’s
+created on the BIG-IP.</p>
+<a class="reference internal image-reference" href="../../_images/lab4-image004.png"><img alt="../../_images/lab4-image004.png" class="align-center" src="../../_images/lab4-image004.png" style="width: 1172.0px; height: 302.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It will take about 15-20 seconds to generate the policy after hitting the
+<code class="docutils literal notranslate"><span class="pre">Send</span></code> button in Postman.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="task-3-verify-asm-policy-has-been-created">
+<h2>Task 3 - Verify ASM policy has been created<a class="headerlink" href="#task-3-verify-asm-policy-has-been-created" title="Permalink to this headline">¶</a></h2>
+<p>There are two different ways we will verify the ASM policy has been created. We will check
+using Postman and will also check via the GUI.</p>
+<ol class="arabic">
+<li><p class="first">To check if the policy has been created using Postman. Select <code class="docutils literal notranslate"><span class="pre">iControl</span> <span class="pre">LX</span> <span class="pre">ASM</span> <span class="pre">Create</span> <span class="pre">Policy</span> <span class="pre">GET</span></code>
+from the collections tab. Look for the field <code class="docutils literal notranslate"><span class="pre">id:&lt;unique_id&gt;</span></code> in the response. This will tell you
+the policy has been created.</p>
+<a class="reference internal image-reference" href="../../_images/lab4-image005.png"><img alt="../../_images/lab4-image005.png" class="align-center" src="../../_images/lab4-image005.png" style="width: 873.0px; height: 197.0px;" /></a>
+</li>
+<li><p class="first">To check if the policy has been created using the GUI. In your web browser,
+navigate to BIG-IP: <code class="docutils literal notranslate"><span class="pre">https://10.1.10.20/</span></code>.  Then navigate to
+Main &gt; Security &gt; Application Security &gt; Security Policies.  You will see the newly created policy.</p>
+<a class="reference internal image-reference" href="../../_images/lab4-image006.png"><img alt="../../_images/lab4-image006.png" class="align-center" src="../../_images/lab4-image006.png" style="width: 747.0px; height: 388.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">What have we accomplished??  We used Postman to create an ASM policy by only sending the
+name of the policy. The iControlLX extension that we installed on the BIG-IP, <code class="docutils literal notranslate"><span class="pre">SecurityAdd-0.2-002.noarch.rpm</span></code>,
+accepts the name of the policy then executes the rest of the requirments to build the policy.
+The policy is now ready to be associated with a Virtual Server.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Lab 5.4 -  Creating an ASM Policy by calling the iControlLX extension</a><ul>
+<li><a class="reference internal" href="#task-1-check-big-ip-for-existing-asm-policies">Task 1 - Check BIG-IP for existing ASM policies</a></li>
+<li><a class="reference internal" href="#task-2-perform-rest-call-using-postman-to-create-policy">Task 2 - Perform REST call using Postman to create policy</a></li>
+<li><a class="reference internal" href="#task-3-verify-asm-policy-has-been-created">Task 3 - Verify ASM policy has been created</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../class1.html">Class 1 - F5 iControl LX extensions</a><ul>
+  <li><a href="module5.html">Module 5 - Installing and Using iControlLX extension to create an ASM policy</a><ul>
+      <li>Previous: <a href="lab3.html" title="previous chapter">Lab 5.3 - Setup Postman to interact with the iControlLX extension</a></li>
+      <li>Next: <a href="../module6/module5.html" title="next chapter">Module 5 - Installing and Using iControlLX extension to create an ASM policy</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/class1/module5/lab4.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, F5 Networks.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="../../_sources/class1/module5/lab4.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

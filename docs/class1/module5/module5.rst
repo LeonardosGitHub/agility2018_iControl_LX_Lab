@@ -1,47 +1,31 @@
-Module 4 - Installing the HelloWorld extension
-===============================================
+Module 5 - Installing and Using iControlLX extension to create an ASM policy
+============================================================================
 
-In module 4, we are going to create our first iControl LX extension, the
-``HelloWorld`` extension. It doesn't do much but it's simple and perfect for
-illustrating the package management system.
-
-.. NOTE::
-
-  In this lab, we will make you do edits on the platform itself.
-  You'll connect on BIG-IP and do everything on it. It's not necessarily
-  a best practice. You could also have a local version on your JumpHost and use
-  ``Notepad++`` (already installed on your JumpHost, feel free to install
-  something else) to do the work. Once your file is updated accordingly,
-  you may use WinSCP to push the new version.
+In module 5, we are going to install an iControl LX extension that has already
+been written. Once installed we will use Postman to interact with the extension
+to build an ASM rapid deployment policy.
 
 **Exercises in this Module**
 
-- Lab 4.1 - TEST Creating the Hello-World iControl LX Extension
+- Lab 5.1 - Enable iControlLX extension management via GUI
 
-  - Task 1 - Create our iControl LX Extension on BIG-IP
-  - Task 2 - Check our iControl LX Extension is Working
+  - Task 1 - View iControlLX management is NOT natively available via the GUI
+  - Task 2 - SSH to BIG-IP to enable iControlLX management via the GUI
+  - Task 3 - View iControlLX management is now available via the GUI
 
-- Lab 4.2 - Update our iControl LX Extension
+- Lab 5.2 - Upload rpm package to BIG-IP
 
-  - Task 1 - Update our iControl LX Extension - Handle POST Requests
-  - Task 2 - Update our iControl LX Extension - Perform a REST API Call
+  - Task 1 - Upload rpm package to BIG-IP using the GUI
 
-- Lab 4.3 - Create a new iControl LX RPM
+- Lab 5.3 - Setup Postman to interact with the iControlLX extension
 
-  - Task 1 - Create a new RPM for the Updated iControl LX Extension
-  - Task 2 - Retrieving your iControl LX Package
+  - Task 1 - Setup Postman client
 
-- Lab 4.4 - Install our iControl LX RPM
+- Lab 5.4 - Creating an ASM Policy by calling the iControlLX extension
 
-  - Task 1 - Review the Installed iControl LX Packages
-  - Task 2 - Install our RPM
-  - Task 3 - Test our iControl Extension
-
-- Lab 4.5 - Delete the iControl LX Extension
-
-  - Task 1 - Verify the 'packageName'
-  - Task 2 - Create the 'delete' task
-  - Task 3 - [OPTIONAL] Verify the iControl LX Extension was Deleted
+  - Task 1 - Check BIG-IP for existing ASM policies
+  - Task 2 - Perform REST call using Postman to create policy
+  - Task 3 - Verify ASM policy has been created
 
 .. toctree::
    :maxdepth: 1
