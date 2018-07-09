@@ -44,12 +44,27 @@ to an existing virtual server.</p>
 <p>You should be in the “f5-ansible” directory.</p>
 </li>
 <li><p class="first">At the prompt type the following:</p>
-<p><code class="docutils literal notranslate"><span class="pre">ansible-playbook</span> <span class="pre">playbooks/ASM_create_apply.ym</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">ansible-playbook</span> <span class="pre">playbooks/ASM_create_apply.yml</span></code></p>
+<p>Once you execute the above command you will see the playbook executing, you’ll be able
+to view each task executing and the status of each task.  The last two lines will give
+you a summary of the playbook execution and will indicate if it was ok or failed.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">information</p>
+<p>To view the contents of the playbook you can use the following command</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">playbooks/ASM_create_apply.yml</span></code></p>
 </div>
-<a class="reference internal image-reference" href="../../_images/lab2-image0032.png"><img alt="../../_images/lab2-image0032.png" class="align-center" src="../../_images/lab2-image0032.png" style="width: 994.0px; height: 313.0px;" /></a>
+</li>
+<li><p class="first">First lets look to see if an ASM policy has been created, it should have the name
+<code class="docutils literal notranslate"><span class="pre">iControlLX_Agility2018_Ansible</span></code>. Navigate to Main &gt; Security &gt; Application Security &gt;
+Security Policies to view the ASM policies.</p>
+<a class="reference internal image-reference" href="../../_images/lab2-image0012.png"><img alt="../../_images/lab2-image0012.png" class="align-center" src="../../_images/lab2-image0012.png" style="width: 738.0px; height: 313.0px;" /></a>
+</li>
+<li><p class="first">Now lets look at the virtual server to see if the policy has been associated. Navigate
+to Main &gt; Local Traffic &gt; Virtual Server &gt; Virtual Server List then select <code class="docutils literal notranslate"><span class="pre">hackazon_virtual</span></code>.
+Once selected navigate to Security &gt; Policies.</p>
+<a class="reference internal image-reference" href="../../_images/lab2-image0022.png"><img alt="../../_images/lab2-image0022.png" class="align-center" src="../../_images/lab2-image0022.png" style="width: 728.0px; height: 436.0px;" /></a>
+</li>
+<li><p class="first">Congrats you’ve now created an ASM policy and associated it with a virtual server all in one step!!</p>
 </li>
 </ol>
 </div>
