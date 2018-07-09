@@ -1,5 +1,5 @@
 Lab 6.2 - Run playbook to create ASM policy and associate with virtual server
-----------------------------------------------------
+-----------------------------------------------------------------------------
 
 In this lesson we will use Ansible to deploy a new ASM policy and attach that policy
 to an existing virtual server. 

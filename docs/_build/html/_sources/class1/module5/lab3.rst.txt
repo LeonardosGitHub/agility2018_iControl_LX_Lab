@@ -1,5 +1,5 @@
 Lab 5.3 - Setup Postman to interact with the iControlLX extension
--------------------------------------------------------------
+-----------------------------------------------------------------
 
 In this lab we will setup the Postman client to be able to interact
 with the iControlLX Extension we installed in lab 2.

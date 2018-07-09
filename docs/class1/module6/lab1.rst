@@ -30,11 +30,16 @@ Task 1 - Inventory, playbooks, ansible.cfg
    * Inventory_ - this is where we store our ``hosts`` file. The ``hosts`` file is where 
      you store the hosts that we will target when executing our playbooks. In our case this 
      is the BIG-IP, 10.1.1.245.
+
    .. _Inventory: https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html
+
    * Playbooks_ - this is where we store our ``playbooks`` which are used to deploy the code
      we've written to execute on our BIG-IP.
+
    .. _Playbooks: https://docs.ansible.com/ansible/latest/user_guide/playbooks.html
+
    * ansible.cfg_ - this is the configuration file for various settings to use with Ansible.  
+
    .. _ansible.cfg : https://docs.ansible.com/ansible/latest/reference_appendices/config.html#ansible-configuration-settings-locations
 
 
