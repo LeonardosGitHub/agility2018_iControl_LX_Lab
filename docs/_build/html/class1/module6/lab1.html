@@ -48,34 +48,43 @@ policy, if any, are associated with <code class="docutils literal notranslate"><
 </li>
 <li><p class="first">Perform the following command to view the contents of the directory.</p>
 <p><code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code></p>
-<a class="reference internal image-reference" href="../../_images/lab1-image0015.png"><img alt="../../_images/lab1-image0015.png" class="align-center" src="../../_images/lab1-image0015.png" style="width: 256.0px; height: 281.0px;" /></a>
+<p>You’ll see output similar to the following screenshot:</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image0015.png"><img alt="../../_images/lab1-image0015.png" class="align-center" src="../../_images/lab1-image0015.png" style="width: 619.0px; height: 163.0px;" /></a>
+</li>
+<li><p class="first">You’ll see the inventory directory, the playbooks directory, and the ansible.cfg file.</p>
+<ul class="simple">
+<li><a class="reference external" href="https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html">Inventory</a> - this is where we store our <code class="docutils literal notranslate"><span class="pre">hosts</span></code> file. The <code class="docutils literal notranslate"><span class="pre">hosts</span></code> file is where
+you store the hosts that we will target when executing our playbooks. In our case this
+is the BIG-IP, 10.1.1.245.</li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="https://docs.ansible.com/ansible/latest/user_guide/playbooks.html">Playbooks</a> - this is where we store our <code class="docutils literal notranslate"><span class="pre">playbooks</span></code> which are used to deploy the code
+we’ve written to execute on our BIG-IP.</li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="https://docs.ansible.com/ansible/latest/reference_appendices/config.html#ansible-configuration-settings-locations">ansible.cfg</a> - this is the configuration file for various settings to use with Ansible.</li>
+</ul>
 </li>
 </ol>
 </div>
-<div class="section" id="task-2-ssh-to-big-ip-to-enable-icontrollx-management-via-the-gui">
-<h2>Task 2 - SSH to BIG-IP to enable iControlLX management via the GUI<a class="headerlink" href="#task-2-ssh-to-big-ip-to-enable-icontrollx-management-via-the-gui" title="Permalink to this headline">¶</a></h2>
-<p>Perform the following steps to complete this task:</p>
-<ol class="arabic">
-<li><p class="first">Using putty SSH to the BIG-IP_A.</p>
-</li>
-<li><p class="first">At the bash shell enter the following command:</p>
-<p><code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">/var/config/rest/iapps/enable</span></code></p>
-</li>
-<li><p class="first">Once the above command is issued, the BIG-IP can now manage iControlLX extensions via the GUI.</p>
-</li>
-</ol>
-</div>
-<div class="section" id="task-3-view-icontrollx-management-is-now-available-via-the-gui">
-<h2>Task 3 - View iControlLX management is now available via the GUI<a class="headerlink" href="#task-3-view-icontrollx-management-is-now-available-via-the-gui" title="Permalink to this headline">¶</a></h2>
-<p>Perform the following steps to complete this task:</p>
+<div class="section" id="task-2-view-asm-policies-and-view-there-are-no-asm-policies-associated-with-hackazon-virtual-virtual-server">
+<h2>Task 2 - View ASM policies and view there are no ASM policies associated with hackazon_virtual virtual server<a class="headerlink" href="#task-2-view-asm-policies-and-view-there-are-no-asm-policies-associated-with-hackazon-virtual-virtual-server" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">In your web browser, navigate to BIG-IP: <code class="docutils literal notranslate"><span class="pre">https://10.1.10.20/</span></code></p>
 </li>
-<li><p class="first">Navigate to Main &gt; iApps</p>
-<ul class="simple">
-<li>You’ll notice that iControlLX extension management is now available.</li>
-</ul>
-<a class="reference internal image-reference" href="../../_images/lab1-image0024.png"><img alt="../../_images/lab1-image0024.png" class="align-center" src="../../_images/lab1-image0024.png" style="width: 264.0px; height: 272.0px;" /></a>
+<li><p class="first">Navigate to Main &gt; Security &gt; Application Security &gt; Security Policies</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image0024.png"><img alt="../../_images/lab1-image0024.png" class="align-center" src="../../_images/lab1-image0024.png" style="width: 747.0px; height: 388.0px;" /></a>
+<p>You’ll notice the only policy that exists is the one you created in Lab5, iControlLX_Agility2018.</p>
+</li>
+<li><p class="first">Navigate to Main &gt; Local Traffic &gt; Virtual Servers &gt; Virtual Server List</p>
+</li>
+<li><p class="first">Select <code class="docutils literal notranslate"><span class="pre">hackazon_virtual</span></code> then navigate to Security &gt; Policies</p>
+<a class="reference internal image-reference" href="../../_images/lab1-image0031.png"><img alt="../../_images/lab1-image0031.png" class="align-center" src="../../_images/lab1-image0031.png" style="width: 558.0px; height: 201.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You’ll see there is no security policy attached to the virtual server. In the following
+sections we will attach a policy to the virtual server using Ansible.</p>
+</div>
 </li>
 </ol>
 </div>
@@ -92,8 +101,7 @@ policy, if any, are associated with <code class="docutils literal notranslate"><
   <ul>
 <li><a class="reference internal" href="#">Lab 6.1 - Brief overview of our Ansible setup</a><ul>
 <li><a class="reference internal" href="#task-1-inventory-playbooks-ansible-cfg">Task 1 - Inventory, playbooks, ansible.cfg</a></li>
-<li><a class="reference internal" href="#task-2-ssh-to-big-ip-to-enable-icontrollx-management-via-the-gui">Task 2 - SSH to BIG-IP to enable iControlLX management via the GUI</a></li>
-<li><a class="reference internal" href="#task-3-view-icontrollx-management-is-now-available-via-the-gui">Task 3 - View iControlLX management is now available via the GUI</a></li>
+<li><a class="reference internal" href="#task-2-view-asm-policies-and-view-there-are-no-asm-policies-associated-with-hackazon-virtual-virtual-server">Task 2 - View ASM policies and view there are no ASM policies associated with hackazon_virtual virtual server</a></li>
 </ul>
 </li>
 </ul>

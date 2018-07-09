@@ -19,41 +19,48 @@ Task 1 - Inventory, playbooks, ansible.cfg
 
    ``ls -l``
 
-   .. image:: ../../_static/class1/module5/lab1-image001.png
+   You'll see output similar to the following screenshot:
+
+   .. image:: ../../_static/class1/module6/lab1-image001.png
       :align: center
       :scale: 50%
 
-
-Task 2 - SSH to BIG-IP to enable iControlLX management via the GUI
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Perform the following steps to complete this task:
-
-#. Using putty SSH to the BIG-IP_A.
-
-#. At the bash shell enter the following command:
-
-   ``touch /var/config/rest/iapps/enable``
-
-#. Once the above command is issued, the BIG-IP can now manage iControlLX extensions via the GUI.
+#. You'll see the inventory directory, the playbooks directory, and the ansible.cfg file.
+   
+   * Inventory_ - this is where we store our ``hosts`` file. The ``hosts`` file is where 
+     you store the hosts that we will target when executing our playbooks. In our case this 
+     is the BIG-IP, 10.1.1.245.
+   .. _Inventory: https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html
+   * Playbooks_ - this is where we store our ``playbooks`` which are used to deploy the code
+     we've written to execute on our BIG-IP.
+   .. _Playbooks: https://docs.ansible.com/ansible/latest/user_guide/playbooks.html
+   * ansible.cfg_ - this is the configuration file for various settings to use with Ansible.  
+   .. _ansible.cfg : https://docs.ansible.com/ansible/latest/reference_appendices/config.html#ansible-configuration-settings-locations
 
 
-Task 3 - View iControlLX management is now available via the GUI
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Perform the following steps to complete this task:
+Task 2 - View ASM policies and view there are no ASM policies associated with hackazon_virtual virtual server
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 #. In your web browser, navigate to BIG-IP: ``https://10.1.10.20/``
 
-#. Navigate to Main > iApps
+#. Navigate to Main > Security > Application Security > Security Policies
 
-   * You'll notice that iControlLX extension management is now available.
-
-   .. image:: ../../_static/class1/module5/lab1-image002.png
+   .. image:: ../../_static/class1/module6/lab1-image002.png
       :align: center
       :scale: 50%
 
+   You'll notice the only policy that exists is the one you created in Lab5, iControlLX_Agility2018.
 
+#. Navigate to Main > Local Traffic > Virtual Servers > Virtual Server List
+
+#. Select ``hackazon_virtual`` then navigate to Security > Policies 
+
+   .. image:: ../../_static/class1/module6/lab1-image003.png
+      :align: center
+      :scale: 50%
+
+   .. NOTE:: You'll see there is no security policy attached to the virtual server. In the following
+      sections we will attach a policy to the virtual server using Ansible. 
 
 
 

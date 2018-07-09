@@ -34,28 +34,21 @@
             
   <div class="section" id="lab-6-2-run-playbook-to-create-asm-policy-and-associate-with-virtual-server">
 <h1>Lab 6.2 - Run playbook to create ASM policy and associate with virtual server<a class="headerlink" href="#lab-6-2-run-playbook-to-create-asm-policy-and-associate-with-virtual-server" title="Permalink to this headline">¶</a></h1>
-<p>Now that the GUI is able to manage the iControLX Extensions rpm packages.
-Let’s upload the rpm package from the desktop to the BIG-IP.</p>
-<div class="section" id="task-1-upload-rpm-package-to-big-ip">
-<h2>Task 1 - Upload rpm package to BIG-IP<a class="headerlink" href="#task-1-upload-rpm-package-to-big-ip" title="Permalink to this headline">¶</a></h2>
+<p>In this lesson we will use Ansible to deploy a new ASM policy and attach that policy
+to an existing virtual server.</p>
+<div class="section" id="task-1-run-playbook-from-the-ubuntu-host">
+<h2>Task 1 - Run playbook from the Ubuntu host<a class="headerlink" href="#task-1-run-playbook-from-the-ubuntu-host" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p class="first">In your web browser, navigate to BIG-IP: <code class="docutils literal notranslate"><span class="pre">https://10.1.10.20/</span></code></p>
+<li><p class="first">On your ubuntu host you should be at a prompt that looks like this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">external_user&#64;xubuntu-vm:~/f5-ansible$</span></code></p>
+<p>You should be in the “f5-ansible” directory.</p>
 </li>
-<li><p class="first">Navigate to Main &gt; iApps &gt; Package Management LX then select Import from the right.</p>
-<a class="reference internal image-reference" href="../../_images/lab2-image0012.png"><img alt="../../_images/lab2-image0012.png" class="align-center" src="../../_images/lab2-image0012.png" style="width: 999.0px; height: 310.0px;" /></a>
-</li>
-<li><p class="first">Select “Choose File” and navigate to Desktop and select:</p>
-<p><code class="docutils literal notranslate"><span class="pre">SecurityAdd-0.2-002.noarch.rpm</span></code></p>
-</li>
-<li><p class="first">Select “Upload” and the rpm package will be added to the BIG-IP.</p>
-<a class="reference internal image-reference" href="../../_images/lab2-image0022.png"><img alt="../../_images/lab2-image0022.png" class="align-center" src="../../_images/lab2-image0022.png" style="width: 992.0px; height: 308.0px;" /></a>
+<li><p class="first">At the prompt type the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">ansible-playbook</span> <span class="pre">playbooks/ASM_create_apply.ym</span></code></p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">You can also create and upload rpm packages using BIG-IP iControl
-REST. See the following article on DevCentral: <a class="reference external" href="https://devcentral.f5.com/Wiki/iControlLX.HowToSamples_deploy_icontrol_extension.ashx">Deploying an iControl Extension</a></p>
+<p class="last">information</p>
 </div>
-</li>
-<li><p class="first">You will now see the package installed on the BIG-IP.</p>
 <a class="reference internal image-reference" href="../../_images/lab2-image0032.png"><img alt="../../_images/lab2-image0032.png" class="align-center" src="../../_images/lab2-image0032.png" style="width: 994.0px; height: 313.0px;" /></a>
 </li>
 </ol>
@@ -72,7 +65,7 @@ REST. See the following article on DevCentral: <a class="reference external" hre
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Lab 6.2 - Run playbook to create ASM policy and associate with virtual server</a><ul>
-<li><a class="reference internal" href="#task-1-upload-rpm-package-to-big-ip">Task 1 - Upload rpm package to BIG-IP</a></li>
+<li><a class="reference internal" href="#task-1-run-playbook-from-the-ubuntu-host">Task 1 - Run playbook from the Ubuntu host</a></li>
 </ul>
 </li>
 </ul>
