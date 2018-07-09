@@ -8,7 +8,7 @@ to an existing virtual server.
 Task 1 - Run playbook from the Ubuntu host
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-#. On your ubuntu host you should be at a prompt that looks like this: 
+#. On your Xubuntu host you should be at a prompt that looks like this: 
    
    ``external_user@xubuntu-vm:~/f5-ansible$``
    
@@ -21,9 +21,11 @@ Task 1 - Run playbook from the Ubuntu host
 
    Once you execute the above command you will see the playbook executing, you'll be able
    to view each task executing and the status of each task.  The last two lines will give
-   you a summary of the playbook execution and will indicate if it was ok or failed. 
+   you a summary of the playbook execution and will indicate if it was ok or failed. The 
+   playbook will take up to 30 seconds to complete.  Also note you will see some comments 
+   about some ``DEPRECATION WARNING`` messages, this can be ignored for this lab.
 
-   .. Note:: To view the contents of the playbook you can use the following command
+   .. Note:: If you wish To view the contents of the playbook you can use the following command
 
       ``cat playbooks/ASM_create_apply.yml``
 

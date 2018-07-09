@@ -15,7 +15,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Module 5 - Installing and Using iControlLX extension to create an ASM policy" href="../module6/module5.html" />
+    <link rel="next" title="Module 6 - Using Ansible to create an ASM policy and associate it with a Virtual Server" href="../module6/module6.html" />
     <link rel="prev" title="Lab 5.3 - Setup Postman to interact with the iControlLX extension" href="lab3.html" />
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
@@ -60,19 +60,20 @@ call to the BIG-IP.</p>
 </li>
 <li><p class="first">This will generate a token used to authenticate future REST calls from Postman.</p>
 </li>
-<li><p class="first">Select <code class="docutils literal notranslate"><span class="pre">Step2:</span> <span class="pre">Increase</span> <span class="pre">token</span> <span class="pre">from</span> <span class="pre">BIG-IP</span></code> from the collections tab, which will
-extend the token timeout to 36000 seconds.</p>
+<li><p class="first">Select <code class="docutils literal notranslate"><span class="pre">Step2:</span> <span class="pre">Increase</span> <span class="pre">token</span> <span class="pre">from</span> <span class="pre">BIG-IP</span></code> from the collections tab, then select
+<code class="docutils literal notranslate"><span class="pre">Send</span></code>. This will extend the token timeout to 36000 seconds.</p>
 <a class="reference internal image-reference" href="../../_images/lab4-image003.png"><img alt="../../_images/lab4-image003.png" class="align-center" src="../../_images/lab4-image003.png" style="width: 1173.0px; height: 317.0px;" /></a>
 </li>
-<li><p class="first">Select <code class="docutils literal notranslate"><span class="pre">iControl</span> <span class="pre">LX</span> <span class="pre">ASM</span> <span class="pre">Create</span> <span class="pre">Policy</span> <span class="pre">POST</span></code> from the collections tab, which will
-create an ASM polciy.  Note the POST body contains only a name for the policy, in this
-case the name is “iControlLX_Agility2018”.  This will be the name of the ASM policy that’s
-created on the BIG-IP.</p>
+<li><p class="first">Select <code class="docutils literal notranslate"><span class="pre">iControl</span> <span class="pre">LX</span> <span class="pre">ASM</span> <span class="pre">Create</span> <span class="pre">Policy</span> <span class="pre">POST</span></code> from the collections tab, then select <code class="docutils literal notranslate"><span class="pre">Send</span></code>.
+This will create an ASM polciy using the iControlLX RPM package uploaded earlier.  Note the
+POST body contains only a name for the policy, in this case the name is “iControlLX_Agility2018”.
+This will be the name of the ASM policy that’s created on the BIG-IP.</p>
 <a class="reference internal image-reference" href="../../_images/lab4-image004.png"><img alt="../../_images/lab4-image004.png" class="align-center" src="../../_images/lab4-image004.png" style="width: 1172.0px; height: 302.0px;" /></a>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">It will take about 15-20 seconds to generate the policy after hitting the
-<code class="docutils literal notranslate"><span class="pre">Send</span></code> button in Postman.</p>
+<code class="docutils literal notranslate"><span class="pre">Send</span></code> button in Postman. Wait this amount of time before proceeding with the following
+instructions.</p>
 </div>
 </li>
 </ol>
@@ -83,8 +84,8 @@ created on the BIG-IP.</p>
 using Postman and will also check via the GUI.</p>
 <ol class="arabic">
 <li><p class="first">To check if the policy has been created using Postman. Select <code class="docutils literal notranslate"><span class="pre">iControl</span> <span class="pre">LX</span> <span class="pre">ASM</span> <span class="pre">Create</span> <span class="pre">Policy</span> <span class="pre">GET</span></code>
-from the collections tab. Look for the field <code class="docutils literal notranslate"><span class="pre">id:&lt;unique_id&gt;</span></code> in the response. This will tell you
-the policy has been created.</p>
+from the collections tab, then select <code class="docutils literal notranslate"><span class="pre">Send</span></code>. Look for the field <code class="docutils literal notranslate"><span class="pre">id:&lt;unique_id&gt;</span></code> in
+the response. This will tell you the policy has been created.</p>
 <a class="reference internal image-reference" href="../../_images/lab4-image005.png"><img alt="../../_images/lab4-image005.png" class="align-center" src="../../_images/lab4-image005.png" style="width: 873.0px; height: 197.0px;" /></a>
 </li>
 <li><p class="first">To check if the policy has been created using the GUI. In your web browser,
@@ -126,7 +127,7 @@ The policy is now ready to be associated with a Virtual Server.</p>
   <li><a href="../class1.html">Class 1 - F5 iControl LX extensions</a><ul>
   <li><a href="module5.html">Module 5 - Installing and Using iControlLX extension to create an ASM policy</a><ul>
       <li>Previous: <a href="lab3.html" title="previous chapter">Lab 5.3 - Setup Postman to interact with the iControlLX extension</a></li>
-      <li>Next: <a href="../module6/module5.html" title="next chapter">Module 5 - Installing and Using iControlLX extension to create an ASM policy</a></li>
+      <li>Next: <a href="../module6/module6.html" title="next chapter">Module 6 - Using Ansible to create an ASM policy and associate it with a Virtual Server</a></li>
   </ul></li>
   </ul></li>
   </ul></li>

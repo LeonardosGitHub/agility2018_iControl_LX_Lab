@@ -8,7 +8,7 @@ policy, if any, are associated with ``hackazon_virtual`` virtual server.
 Task 1 - Inventory, playbooks, ansible.cfg
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-#. SSH to the Ubuntu host using the putty shorcut that can be found on the Desktop.
+#. SSH to the Xubuntu host using the ``putty`` shorcut that can be found on the desktop.
 
 #. Perform the following command to change the directory to the ``f5-ansible`` directory.
 

@@ -39,7 +39,7 @@ to an existing virtual server.</p>
 <div class="section" id="task-1-run-playbook-from-the-ubuntu-host">
 <h2>Task 1 - Run playbook from the Ubuntu host<a class="headerlink" href="#task-1-run-playbook-from-the-ubuntu-host" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p class="first">On your ubuntu host you should be at a prompt that looks like this:</p>
+<li><p class="first">On your Xubuntu host you should be at a prompt that looks like this:</p>
 <p><code class="docutils literal notranslate"><span class="pre">external_user&#64;xubuntu-vm:~/f5-ansible$</span></code></p>
 <p>You should be in the “f5-ansible” directory.</p>
 </li>
@@ -47,10 +47,12 @@ to an existing virtual server.</p>
 <p><code class="docutils literal notranslate"><span class="pre">ansible-playbook</span> <span class="pre">playbooks/ASM_create_apply.yml</span></code></p>
 <p>Once you execute the above command you will see the playbook executing, you’ll be able
 to view each task executing and the status of each task.  The last two lines will give
-you a summary of the playbook execution and will indicate if it was ok or failed.</p>
+you a summary of the playbook execution and will indicate if it was ok or failed. The
+playbook will take up to 30 seconds to complete.  Also note you will see some comments
+about some <code class="docutils literal notranslate"><span class="pre">DEPRECATION</span> <span class="pre">WARNING</span></code> messages, this can be ignored for this lab.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>To view the contents of the playbook you can use the following command</p>
+<p>If you wish To view the contents of the playbook you can use the following command</p>
 <p class="last"><code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">playbooks/ASM_create_apply.yml</span></code></p>
 </div>
 </li>

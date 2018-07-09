@@ -30,7 +30,8 @@ Task 2 - SSH to BIG-IP to enable iControlLX management via the GUI
 
 Perform the following steps to complete this task:
 
-#. Using putty SSH to the BIG-IP_A.
+#. Find and open the application ``putty`` on the desktop, using the saved session 
+   SSH to the BIG-IP_A.
 
 #. At the bash shell enter the following command:
 

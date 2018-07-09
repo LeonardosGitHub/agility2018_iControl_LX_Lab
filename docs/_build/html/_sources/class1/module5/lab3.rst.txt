@@ -28,7 +28,7 @@ Perform the following steps to complete this task:
       :scale: 50%
 
 
-#. In this collection you have four items to launch:
+#. In the ``iControl LX Lab`` Collection you have four available items:
 
    * Authenticating to the BIG-IP and obtaining a token
    * Extending the timeout of the token

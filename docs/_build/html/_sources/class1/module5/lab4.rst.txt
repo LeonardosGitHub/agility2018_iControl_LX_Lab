@@ -37,24 +37,25 @@ First we have to authenticate to the BIG-IP and obtain a token using Postman.
 
 #. This will generate a token used to authenticate future REST calls from Postman.
 
-#. Select ``Step2: Increase token from BIG-IP`` from the collections tab, which will 
-   extend the token timeout to 36000 seconds.
+#. Select ``Step2: Increase token from BIG-IP`` from the collections tab, then select 
+   ``Send``. This will extend the token timeout to 36000 seconds.
 
    .. image:: ../../_static/class1/module5/lab4-image003.png
       :align: center
       :scale: 50% 
 
-#. Select ``iControl LX ASM Create Policy POST`` from the collections tab, which will
-   create an ASM polciy.  Note the POST body contains only a name for the policy, in this
-   case the name is "iControlLX_Agility2018".  This will be the name of the ASM policy that's
-   created on the BIG-IP. 
+#. Select ``iControl LX ASM Create Policy POST`` from the collections tab, then select ``Send``.
+   This will create an ASM polciy using the iControlLX RPM package uploaded earlier.  Note the 
+   POST body contains only a name for the policy, in this case the name is "iControlLX_Agility2018".
+   This will be the name of the ASM policy that's created on the BIG-IP. 
 
    .. image:: ../../_static/class1/module5/lab4-image004.png
       :align: center
       :scale: 50%
 
    .. NOTE:: It will take about 15-20 seconds to generate the policy after hitting the
-      ``Send`` button in Postman.
+      ``Send`` button in Postman. Wait this amount of time before proceeding with the following
+      instructions.
 
 Task 3 - Verify ASM policy has been created
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -63,8 +64,8 @@ There are two different ways we will verify the ASM policy has been created. We 
 using Postman and will also check via the GUI.
 
 #. To check if the policy has been created using Postman. Select ``iControl LX ASM Create Policy GET`` 
-   from the collections tab. Look for the field ``id:<unique_id>`` in the response. This will tell you
-   the policy has been created.
+   from the collections tab, then select ``Send``. Look for the field ``id:<unique_id>`` in 
+   the response. This will tell you the policy has been created.
 
    .. image:: ../../_static/class1/module5/lab4-image005.png
       :align: center
