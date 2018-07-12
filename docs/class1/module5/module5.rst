@@ -1,5 +1,5 @@
 Module 5 - Installing and Using iControl LX Extension to create an ASM policy
-============================================================================
+=============================================================================
 
 In module 5, we are going to install an iControl LX extension that has already
 been written. Once installed we will use Postman to interact with the extension

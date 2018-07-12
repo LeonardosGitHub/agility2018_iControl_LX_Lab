@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Lab 5.4 - Creating an ASM Policy by calling the iControlLX extension &mdash; Agility18 iControlLX Extensions Lab  documentation</title>
+  <title>Lab 5.4 - Creating an ASM Policy by calling the iControl LX extension &mdash; Agility18 iControlLX Extensions Lab  documentation</title>
   
 
   
@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Module 6 - Using Ansible to create an ASM policy and associate it with a Virtual Server" href="../module6/module6.html" />
-    <link rel="prev" title="Lab 5.3 - Setup Postman to interact with the iControlLX extension" href="lab3.html" /> 
+    <link rel="prev" title="Lab 5.3 - Setup Postman to interact with the iControl LX Extension" href="lab3.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -86,11 +86,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Module 2 - Interacting with an iControl LX extension</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">Module 3 - Understanding iControl LX Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Module 4 - Installing the HelloWorld extension</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="module5.html">Module 5 - Installing and Using iControlLX extension to create an ASM policy</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="lab1.html">Lab 5.1 - Enable iControlLX extension management via GUI</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="module5.html">Module 5 - Installing and Using iControl LX Extension to create an ASM policy</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="lab1.html">Lab 5.1 - Enable iControl LX extension management via GUI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lab2.html">Lab 5.2 - Upload rpm package to BIG-IP using the GUI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="lab3.html">Lab 5.3 - Setup Postman to interact with the iControlLX extension</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Lab 5.4 -  Creating an ASM Policy by calling the iControlLX extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lab3.html">Lab 5.3 - Setup Postman to interact with the iControl LX Extension</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Lab 5.4 -  Creating an ASM Policy by calling the iControl LX extension</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#task-1-check-big-ip-for-existing-asm-policies">Task 1 - Check BIG-IP for existing ASM policies</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#task-2-perform-rest-call-using-postman-to-create-policy">Task 2 - Perform REST call using Postman to create policy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#task-3-verify-asm-policy-has-been-created">Task 3 - Verify ASM policy has been created</a></li>
@@ -148,9 +148,9 @@
         
           <li><a href="../class1.html">Class 1 - F5 iControl LX extensions</a> &raquo;</li>
         
-          <li><a href="module5.html">Module 5 - Installing and Using iControlLX extension to create an ASM policy</a> &raquo;</li>
+          <li><a href="module5.html">Module 5 - Installing and Using iControl LX Extension to create an ASM policy</a> &raquo;</li>
         
-      <li>Lab 5.4 -  Creating an ASM Policy by calling the iControlLX extension</li>
+      <li>Lab 5.4 -  Creating an ASM Policy by calling the iControl LX extension</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -169,8 +169,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="lab-5-4-creating-an-asm-policy-by-calling-the-icontrollx-extension">
-<h1>Lab 5.4 -  Creating an ASM Policy by calling the iControlLX extension<a class="headerlink" href="#lab-5-4-creating-an-asm-policy-by-calling-the-icontrollx-extension" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="lab-5-4-creating-an-asm-policy-by-calling-the-icontrol-lx-extension">
+<h1>Lab 5.4 -  Creating an ASM Policy by calling the iControl LX extension<a class="headerlink" href="#lab-5-4-creating-an-asm-policy-by-calling-the-icontrol-lx-extension" title="Permalink to this headline">¶</a></h1>
 <p>In this lab we will use the Postman client to create an ASM policy in a single
 call to the BIG-IP.</p>
 <div class="section" id="task-1-check-big-ip-for-existing-asm-policies">
@@ -201,7 +201,7 @@ call to the BIG-IP.</p>
 <a class="reference internal image-reference" href="../../_images/lab4-image003.png"><img alt="../../_images/lab4-image003.png" class="align-center" src="../../_images/lab4-image003.png" style="width: 1173.0px; height: 317.0px;" /></a>
 </li>
 <li><p class="first">Select <code class="docutils literal notranslate"><span class="pre">iControl</span> <span class="pre">LX</span> <span class="pre">ASM</span> <span class="pre">Create</span> <span class="pre">Policy</span> <span class="pre">POST</span></code> from the collections tab, then select <code class="docutils literal notranslate"><span class="pre">Send</span></code>.
-This will create an ASM polciy using the iControlLX RPM package uploaded earlier.  Note the
+This will create an ASM polciy using the iControl LX RPM package uploaded earlier.  Note the
 POST body contains only a name for the policy, in this case the name is “iControlLX_Agility2018”.
 This will be the name of the ASM policy that’s created on the BIG-IP.</p>
 <a class="reference internal image-reference" href="../../_images/lab4-image004.png"><img alt="../../_images/lab4-image004.png" class="align-center" src="../../_images/lab4-image004.png" style="width: 1172.0px; height: 302.0px;" /></a>
@@ -231,7 +231,7 @@ Main &gt; Security &gt; Application Security &gt; Security Policies.  You will s
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">What have we accomplished??  We used Postman to create an ASM policy by only sending the
-name of the policy. The iControlLX extension that we installed on the BIG-IP, <code class="docutils literal notranslate"><span class="pre">SecurityAdd-0.2-002.noarch.rpm</span></code>,
+name of the policy. The iControl LX Extension that we installed on the BIG-IP, <code class="docutils literal notranslate"><span class="pre">SecurityAdd-0.2-002.noarch.rpm</span></code>,
 accepts the name of the policy then executes the rest of the requirments to build the policy.
 The policy is now ready to be associated with a Virtual Server.</p>
 </div>
@@ -251,7 +251,7 @@ The policy is now ready to be associated with a Virtual Server.</p>
         <a href="../module6/module6.html" class="btn btn-neutral float-right" title="Module 6 - Using Ansible to create an ASM policy and associate it with a Virtual Server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="lab3.html" class="btn btn-neutral" title="Lab 5.3 - Setup Postman to interact with the iControlLX extension" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="lab3.html" class="btn btn-neutral" title="Lab 5.3 - Setup Postman to interact with the iControl LX Extension" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

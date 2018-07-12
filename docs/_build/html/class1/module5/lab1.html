@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Lab 5.1 - Enable iControlLX extension management via GUI &mdash; Agility18 iControlLX Extensions Lab  documentation</title>
+  <title>Lab 5.1 - Enable iControl LX extension management via GUI &mdash; Agility18 iControlLX Extensions Lab  documentation</title>
   
 
   
@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Lab 5.2 - Upload rpm package to BIG-IP using the GUI" href="lab2.html" />
-    <link rel="prev" title="Module 5 - Installing and Using iControlLX extension to create an ASM policy" href="module5.html" /> 
+    <link rel="prev" title="Module 5 - Installing and Using iControl LX Extension to create an ASM policy" href="module5.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -86,16 +86,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Module 2 - Interacting with an iControl LX extension</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">Module 3 - Understanding iControl LX Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Module 4 - Installing the HelloWorld extension</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="module5.html">Module 5 - Installing and Using iControlLX extension to create an ASM policy</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Lab 5.1 - Enable iControlLX extension management via GUI</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#task-1-view-icontrollx-management-is-not-available-via-the-gui">Task 1 - View iControlLX management is NOT available via the GUI</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#task-2-ssh-to-big-ip-to-enable-icontrollx-management-via-the-gui">Task 2 - SSH to BIG-IP to enable iControlLX management via the GUI</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#task-3-view-icontrollx-management-is-now-available-via-the-gui">Task 3 - View iControlLX management is now available via the GUI</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="module5.html">Module 5 - Installing and Using iControl LX Extension to create an ASM policy</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Lab 5.1 - Enable iControl LX extension management via GUI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#task-1-view-icontrol-lx-management-is-not-available-via-the-gui">Task 1 - View iControl LX management is NOT available via the GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#task-2-ssh-to-big-ip-to-enable-icontrol-lx-management-via-the-gui">Task 2 - SSH to BIG-IP to enable iControl LX management via the GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#task-3-view-icontrol-lx-management-is-now-available-via-the-gui">Task 3 - View iControl LX management is now available via the GUI</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lab2.html">Lab 5.2 - Upload rpm package to BIG-IP using the GUI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="lab3.html">Lab 5.3 - Setup Postman to interact with the iControlLX extension</a></li>
-<li class="toctree-l3"><a class="reference internal" href="lab4.html">Lab 5.4 -  Creating an ASM Policy by calling the iControlLX extension</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lab3.html">Lab 5.3 - Setup Postman to interact with the iControl LX Extension</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lab4.html">Lab 5.4 -  Creating an ASM Policy by calling the iControl LX extension</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../module6/module6.html">Module 6 - Using Ansible to create an ASM policy and associate it with a Virtual Server</a></li>
@@ -148,9 +148,9 @@
         
           <li><a href="../class1.html">Class 1 - F5 iControl LX extensions</a> &raquo;</li>
         
-          <li><a href="module5.html">Module 5 - Installing and Using iControlLX extension to create an ASM policy</a> &raquo;</li>
+          <li><a href="module5.html">Module 5 - Installing and Using iControl LX Extension to create an ASM policy</a> &raquo;</li>
         
-      <li>Lab 5.1 - Enable iControlLX extension management via GUI</li>
+      <li>Lab 5.1 - Enable iControl LX extension management via GUI</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -169,12 +169,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="lab-5-1-enable-icontrollx-extension-management-via-gui">
-<h1>Lab 5.1 - Enable iControlLX extension management via GUI<a class="headerlink" href="#lab-5-1-enable-icontrollx-extension-management-via-gui" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="lab-5-1-enable-icontrol-lx-extension-management-via-gui">
+<h1>Lab 5.1 - Enable iControl LX extension management via GUI<a class="headerlink" href="#lab-5-1-enable-icontrol-lx-extension-management-via-gui" title="Permalink to this headline">¶</a></h1>
 <p>iControl LX extensions are distributed as RPMs (RedHat Package Management
 system), in this lesson we will enable management of RPMs using the GUI.</p>
-<div class="section" id="task-1-view-icontrollx-management-is-not-available-via-the-gui">
-<h2>Task 1 - View iControlLX management is NOT available via the GUI<a class="headerlink" href="#task-1-view-icontrollx-management-is-not-available-via-the-gui" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="task-1-view-icontrol-lx-management-is-not-available-via-the-gui">
+<h2>Task 1 - View iControl LX management is NOT available via the GUI<a class="headerlink" href="#task-1-view-icontrol-lx-management-is-not-available-via-the-gui" title="Permalink to this headline">¶</a></h2>
 <p>iControl LX extensions can be installed on either the BIG-IP or iWorkflow
 platform. For this lab, we will use BIG-IP.</p>
 <p>Perform the following steps to complete this task:</p>
@@ -183,14 +183,14 @@ platform. For this lab, we will use BIG-IP.</p>
 </li>
 <li><p class="first">Navigate to Main &gt; iApps</p>
 <ul class="simple">
-<li>You’ll notice that iControlLX extension management is not available.</li>
+<li>You’ll notice that iControl LX extension management is not available.</li>
 </ul>
 <a class="reference internal image-reference" href="../../_images/lab1-image0014.png"><img alt="../../_images/lab1-image0014.png" class="align-center" src="../../_images/lab1-image0014.png" style="width: 256.0px; height: 281.0px;" /></a>
 </li>
 </ol>
 </div>
-<div class="section" id="task-2-ssh-to-big-ip-to-enable-icontrollx-management-via-the-gui">
-<h2>Task 2 - SSH to BIG-IP to enable iControlLX management via the GUI<a class="headerlink" href="#task-2-ssh-to-big-ip-to-enable-icontrollx-management-via-the-gui" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="task-2-ssh-to-big-ip-to-enable-icontrol-lx-management-via-the-gui">
+<h2>Task 2 - SSH to BIG-IP to enable iControl LX management via the GUI<a class="headerlink" href="#task-2-ssh-to-big-ip-to-enable-icontrol-lx-management-via-the-gui" title="Permalink to this headline">¶</a></h2>
 <p>Perform the following steps to complete this task:</p>
 <ol class="arabic">
 <li><p class="first">Find and open the application <code class="docutils literal notranslate"><span class="pre">putty</span></code> on the desktop, using the saved session
@@ -199,19 +199,19 @@ SSH to the BIG-IP_A.</p>
 <li><p class="first">At the bash shell enter the following command:</p>
 <p><code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">/var/config/rest/iapps/enable</span></code></p>
 </li>
-<li><p class="first">Once the above command is issued, the BIG-IP can now manage iControlLX extensions via the GUI.</p>
+<li><p class="first">Once the above command is issued, the BIG-IP can now manage iControl LX Extensions via the GUI.</p>
 </li>
 </ol>
 </div>
-<div class="section" id="task-3-view-icontrollx-management-is-now-available-via-the-gui">
-<h2>Task 3 - View iControlLX management is now available via the GUI<a class="headerlink" href="#task-3-view-icontrollx-management-is-now-available-via-the-gui" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="task-3-view-icontrol-lx-management-is-now-available-via-the-gui">
+<h2>Task 3 - View iControl LX management is now available via the GUI<a class="headerlink" href="#task-3-view-icontrol-lx-management-is-now-available-via-the-gui" title="Permalink to this headline">¶</a></h2>
 <p>Perform the following steps to complete this task:</p>
 <ol class="arabic">
 <li><p class="first">In your web browser, navigate to BIG-IP: <code class="docutils literal notranslate"><span class="pre">https://10.1.10.20/</span></code></p>
 </li>
 <li><p class="first">Navigate to Main &gt; iApps</p>
 <ul class="simple">
-<li>You’ll notice that iControlLX extension management is now available.</li>
+<li>You’ll notice that iControl LX Extension management is now available.</li>
 </ul>
 <a class="reference internal image-reference" href="../../_images/lab1-image0023.png"><img alt="../../_images/lab1-image0023.png" class="align-center" src="../../_images/lab1-image0023.png" style="width: 264.0px; height: 272.0px;" /></a>
 </li>
@@ -230,7 +230,7 @@ SSH to the BIG-IP_A.</p>
         <a href="lab2.html" class="btn btn-neutral float-right" title="Lab 5.2 - Upload rpm package to BIG-IP using the GUI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="module5.html" class="btn btn-neutral" title="Module 5 - Installing and Using iControlLX extension to create an ASM policy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="module5.html" class="btn btn-neutral" title="Module 5 - Installing and Using iControl LX Extension to create an ASM policy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
