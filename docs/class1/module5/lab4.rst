@@ -1,4 +1,4 @@
-Lab 5.4 -  Creating an ASM Policy by calling the iControlLX extension
+Lab 5.4 -  Creating an ASM Policy by calling the iControl LX extension
 ---------------------------------------------------------------------
 
 In this lab we will use the Postman client to create an ASM policy in a single
@@ -45,7 +45,7 @@ First we have to authenticate to the BIG-IP and obtain a token using Postman.
       :scale: 50% 
 
 #. Select ``iControl LX ASM Create Policy POST`` from the collections tab, then select ``Send``.
-   This will create an ASM polciy using the iControlLX RPM package uploaded earlier.  Note the 
+   This will create an ASM polciy using the iControl LX RPM package uploaded earlier.  Note the 
    POST body contains only a name for the policy, in this case the name is "iControlLX_Agility2018".
    This will be the name of the ASM policy that's created on the BIG-IP. 
 
@@ -80,7 +80,7 @@ using Postman and will also check via the GUI.
       :scale: 50%
 
    .. NOTE:: What have we accomplished??  We used Postman to create an ASM policy by only sending the
-      name of the policy. The iControlLX extension that we installed on the BIG-IP, ``SecurityAdd-0.2-002.noarch.rpm``, 
+      name of the policy. The iControl LX Extension that we installed on the BIG-IP, ``SecurityAdd-0.2-002.noarch.rpm``, 
       accepts the name of the policy then executes the rest of the requirments to build the policy. 
       The policy is now ready to be associated with a Virtual Server. 
 

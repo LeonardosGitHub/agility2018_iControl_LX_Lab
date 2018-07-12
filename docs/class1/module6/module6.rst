@@ -2,7 +2,7 @@ Module 6 - Using Ansible to create an ASM policy and associate it with a Virtual
 =======================================================================================
 
 In module 6, we are going to use Ansible_ and Ansible playbooks to deploy a new ASM policy 
-and attach the new policy to an existing virtual server. We will leverage the same iControlLX
+and attach the new policy to an existing virtual server. We will leverage the same iControl LX
 extension to build the ASM policy except this time Ansible will be the client. Ansible also
 has F5 modules that can be used to associate the newly created policy to a virtual server.
 

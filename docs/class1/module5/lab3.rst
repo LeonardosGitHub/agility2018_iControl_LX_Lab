@@ -1,8 +1,8 @@
-Lab 5.3 - Setup Postman to interact with the iControlLX extension
+Lab 5.3 - Setup Postman to interact with the iControl LX Extension
 -----------------------------------------------------------------
 
 In this lab we will setup the Postman client to be able to interact
-with the iControlLX Extension we installed in lab 2.
+with the iControl LX Extension we installed in lab 2.
 
 Task 1 - Setup Postman client
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -32,7 +32,7 @@ Perform the following steps to complete this task:
 
    * Authenticating to the BIG-IP and obtaining a token
    * Extending the timeout of the token
-   * Creating an ASM policy using the iControlLX extension
-   * Checking for the policy ID of a recently created ASM policy using the iControlLX extension
+   * Creating an ASM policy using the iControl LX Extension
+   * Checking for the policy ID of a recently created ASM policy using the iControl LX Extension
 
 
