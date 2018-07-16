@@ -35,4 +35,3 @@ Here is the lab topology:
    :maxdepth: 1
    :glob:
 
-   #lab*
