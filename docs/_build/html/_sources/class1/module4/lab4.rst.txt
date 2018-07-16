@@ -5,7 +5,7 @@ Let's try to install our iControl LX RPM on BIG-IP.
 
 To install the iControl LX Extension, you'll first need to copy the iControl LX
 package onto your BIG-IP device into the correct folder. It should be in the
-following directory: ``/var/config/rest/downloads``.
+following directory: ``/var/config/rest/downloads``. 
 
 Use your BIG-IP SSH session and run the following command:
 
