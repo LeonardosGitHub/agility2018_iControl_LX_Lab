@@ -121,7 +121,7 @@ Task 4 - Remove the iControl Extension
 
 Now that we have our RPM, we may want to remove what we create ourselves
 (the HelloWorld folder in `/var/config/rest/iapps` and also that it is loaded
-in restnoded). Since we started the iControl extension from scratch, we will
+in restnoded). Since we started the iControl Extension from scratch, we will
 need to remove it manually.
 
 Perform the following steps to complete this task:

@@ -1,7 +1,7 @@
 Lab 3.1 - Review the HelloWorld iControl LX Extension
 -----------------------------------------------------
 
-iControl LX extensions are provided as RPM (RedHat Package Manager) files.  An RPM is similar to a ``.tar`` or ``.zip`` file for installing application files.
+iControl LX Extensions are provided as RPM (RedHat Package Manager) files.  An RPM is similar to a ``.tar`` or ``.zip`` file for installing application files.
 
 Let's begin by reviewing the JavaScript contents of the HelloWorld RPM. 
 In this module we will be reviewing the contents of an extension. In the next module we will be creating our own.
@@ -21,7 +21,7 @@ The JavaScript code for the HelloWorld extension is as follows:
    :linenos:
 
    /**
-   * A simple iControl LX extension that handles only HTTP GET
+   * A simple iControl LX Extension that handles only HTTP GET
    */
    function HelloWorld() {}
 
@@ -58,7 +58,7 @@ Note the following line:
 
 ``HelloWorld.prototype.WORKER_URI_PATH = "ilxe_lab/hello_world";``
 
-This specifies where the iControl LX extension will appear within iControl REST.
+This specifies where the iControl LX Extension will appear within iControl REST.
 Adding the ``/mgmt`` prefix, this would result in:
 
 ``https://10.1.1.245/mgmt/ilxe_lab/hello_world``
@@ -97,7 +97,7 @@ iControl LX Example Transaction
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This is a special service that will come in handy in the next lab.
-If you have an iControl LX extension that supports an HTTP ``POST``, ``PATCH``,
+If you have an iControl LX Extension that supports an HTTP ``POST``, ``PATCH``,
 or ``PUT``, then the client will need to know what data to send and in what
 format.
 

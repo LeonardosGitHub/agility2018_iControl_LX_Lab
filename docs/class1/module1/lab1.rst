@@ -4,14 +4,14 @@ Lab 1.1 - The Daemons
 Understand the Two Primary Daemons
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When developing iControl LX extensions, there are two daemons to be aware of:
+When developing iControl LX Extensions, there are two daemons to be aware of:
 
 - ``restjavad``
 - ``restnoded``
 
 ``restjavad`` presents the F5 iControl REST API, the interface to the BIG-IP platform.
 
-``restnoded`` presents services for developing iControl LX extensions, in
+``restnoded`` presents services for developing iControl LX Extensions, in
 addition to acting as the interface to ``restjavad`` and the iControl REST API.
 
 .. image:: ../../_static/class1/module1/lab1-image001.png
@@ -20,7 +20,7 @@ addition to acting as the interface to ``restjavad`` and the iControl REST API.
 
 .. NOTE:: In the diagram above, the orange line represents an iControl REST
    resource that ships with the BIG-IP platform. The green line
-   represents a REST call to a custom iControl LX extension.
+   represents a REST call to a custom iControl LX Extension.
 
 
 Task 1 - Start/Stop/Restart the Daemons

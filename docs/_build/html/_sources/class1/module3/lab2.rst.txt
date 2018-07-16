@@ -51,7 +51,7 @@ If we were to perform the following ``PUT``, the ``role`` would no longer exist:
 Performing a ``PUT`` on a REST resource is like performing a 'select-all' and
 then 'replace'.
 
-For your iControl LX extension to handle an HTTP ``PUT``, you must implement the
+For your iControl LX Extension to handle an HTTP ``PUT``, you must implement the
 ``onPut()`` HTTP Method processor.
 
 PATCH is for Editing Parts of a REST Resource
@@ -70,7 +70,7 @@ resource. For example, let's say I want to change the ``role`` of our
 
 The other properties of the REST resource, in this case ``name`` and ``password``, would be unchanged.
 
-For your iControl LX extension to handle an HTTP ``PATCH``, you must implement
+For your iControl LX Extension to handle an HTTP ``PATCH``, you must implement
 the ``onPatch()`` HTTP Method processor.
 
 DELETE a REST Resource

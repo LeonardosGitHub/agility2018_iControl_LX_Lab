@@ -275,7 +275,7 @@ edit the file.</p>
 </li>
 <li><p class="first">Below the first comment,</p>
 <div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
- <span class="o">*</span> <span class="n">A</span> <span class="n">simple</span> <span class="n">iControl</span> <span class="n">LX</span> <span class="n">extension</span> <span class="n">that</span> <span class="n">handles</span> <span class="n">only</span> <span class="n">HTTP</span> <span class="n">GET</span>
+ <span class="o">*</span> <span class="n">A</span> <span class="n">simple</span> <span class="n">iControl</span> <span class="n">LX</span> <span class="n">Extension</span> <span class="n">that</span> <span class="n">handles</span> <span class="n">only</span> <span class="n">HTTP</span> <span class="n">GET</span>
  <span class="o">*/</span>
 </pre></div>
 </div>
@@ -377,7 +377,7 @@ handle <code class="docutils literal notranslate"><span class="pre">POST</span><
 </li>
 <li><p class="first">Let’s review the code we have now, it should look like this:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
-<span class="cm">* A simple iControl LX extension that handles only HTTP GET</span>
+<span class="cm">* A simple iControl LX Extension that handles only HTTP GET</span>
 <span class="cm">*/</span>
 
 <span class="kd">var</span> <span class="nx">logger</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;f5-logger&#39;</span><span class="p">).</span><span class="nx">getInstance</span><span class="p">();</span>
@@ -519,12 +519,12 @@ the POST payload):</p>
 </div>
 </li>
 </ol>
-<p>We now have an iControl LX extension that is able to handle <code class="docutils literal notranslate"><span class="pre">GET</span></code> and <code class="docutils literal notranslate"><span class="pre">POST</span></code>
+<p>We now have an iControl LX Extension that is able to handle <code class="docutils literal notranslate"><span class="pre">GET</span></code> and <code class="docutils literal notranslate"><span class="pre">POST</span></code>
 requests as well as provide debugging information.</p>
 </div>
 <div class="section" id="task-2-update-our-icontrol-lx-extension-perform-a-rest-api-call">
 <h2>Task 2 - Update our iControl LX Extension - Perform a REST API Call<a class="headerlink" href="#task-2-update-our-icontrol-lx-extension-perform-a-rest-api-call" title="Permalink to this headline">¶</a></h2>
-<p>Right now, our iControl LX extension provides a default message that is set at
+<p>Right now, our iControl LX Extension provides a default message that is set at
 the beginning of our code. If this “content” is owned by someone else, it may
 be inefficient to have it directly in the code. Let’s see how we could leverage
 an HTTP request to retrieve our default message.</p>
@@ -547,7 +547,7 @@ top of your code</p>
 </div>
 </li>
 <li><p class="first">The prototype <code class="docutils literal notranslate"><span class="pre">onStart</span></code> is something you can leverage to do some
-processing when your iControl LX extension is loaded in <code class="docutils literal notranslate"><span class="pre">restnoded</span></code>. It
+processing when your iControl LX Extension is loaded in <code class="docutils literal notranslate"><span class="pre">restnoded</span></code>. It
 is triggered only once, when your extension is loaded. It’s a good prototype
 to leverage to retrieve our default message.</p>
 </li>
@@ -664,7 +664,7 @@ the <code class="docutils literal notranslate"><span class="pre">POST</span></co
 <div class="section" id="task-3-take-a-5-minute-break">
 <h2>Task 3 - Take a 5 minute break!<a class="headerlink" href="#task-3-take-a-5-minute-break" title="Permalink to this headline">¶</a></h2>
 <p>Congratulations!!!! You’ve just modified the behavior of the F5 iControl LX
-extension. Now take a moment to think about what workflows you could implement
+Extension. Now take a moment to think about what workflows you could implement
 to make life easier.</p>
 </div>
 </div>

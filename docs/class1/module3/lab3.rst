@@ -4,7 +4,7 @@ Lab 3.3 - Interacting with 3rd Party Systems
 iControl LX can be used to communicate with external 3rd party systems/APIs via REST.
 
 To achieve this, one must understand how to create REST API calls within an
-iControl LX extension.
+iControl LX Extension.
 
 There are two communication methods supported by the iControl LX Framework:
 
@@ -29,7 +29,7 @@ operating state from a JSON file in GitHub:
    :emphasize-lines: 17-41,50
 
    /**
-   * A simple iControl LX extension that handles only HTTP GET
+   * A simple iControl LX Extension that handles only HTTP GET
    */
    function HelloWorld() {}
 

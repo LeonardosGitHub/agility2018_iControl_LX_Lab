@@ -1,9 +1,9 @@
 Lab 2.1 - Interact with a REST Extension
 ----------------------------------------
 
-In this exercise, we are going to look at an iControl LX extension that ships
-with iControl. This is the iControl LX 'presentation' extension. This iControl
-LX extension present the REST API with a graphical interface. In this lab, we
+In this exercise, we are going to look at an iControl LX Extension that ships
+with iControl. This is the iControl LX 'presentation' Extension. This iControl
+LX Extension present the REST API with a graphical interface. In this lab, we
 will test it.
 
 Typically, when you login to BIG-IP via the Web Interface you are redirected
@@ -56,7 +56,7 @@ Perform the following steps to complete this task:
 .. NOTE::
 
    The current URI has ``/presentation#/`` appended to the end of it. This is an
-   iControl LX extension responsible for rendering the iControl REST resource in the
+   iControl LX Extension responsible for rendering the iControl REST resource in the
    web interface.
 
 #. Remove the appended ``presentation#/`` and note the raw JSON representation (you will be re-prompted to enter your user credentials ``admin/admin``):
@@ -82,7 +82,7 @@ Perform the following steps to complete this task:
       :scale: 50%
 
 #. This allows you to edit the value of the ``/mgmt/shared/echo`` REST
-   resource, via the ``presentation`` extension.
+   resource, via the ``presentation`` Extension.
 
 #. Click on the :guilabel:`Advanced` button. Now you can see the raw JSON
    representation of the REST resource.
@@ -101,6 +101,6 @@ Perform the following steps to complete this task:
       :scale: 50%
 
 #. You are now interacting with the iControl REST resource ``echo``, via the
-   iControl LX 'presentation' extension.
+   iControl LX 'presentation' Extension.
 
 #. Click the :guilabel:`Cancel` button to discard your changes.

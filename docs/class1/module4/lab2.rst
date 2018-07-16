@@ -27,7 +27,7 @@ Perform the following steps to complete this task:
    .. code::
 
       /**
-       * A simple iControl LX extension that handles only HTTP GET
+       * A simple iControl LX Extension that handles only HTTP GET
        */
 
    add the following: (``i, Paste, Enter`` if you use ``vi``)
@@ -140,7 +140,7 @@ Perform the following steps to complete this task:
    .. code-block:: javascript
 
       /**
-      * A simple iControl LX extension that handles only HTTP GET
+      * A simple iControl LX Extension that handles only HTTP GET
       */
 
       var logger = require('f5-logger').getInstance();
@@ -289,13 +289,13 @@ Perform the following steps to complete this task:
       }
       Tue, 17 Oct 2017 13:38:24 GMT - info: DEBUG: HelloWorld - onPost request, no name parameter provided... using default value
 
-We now have an iControl LX extension that is able to handle ``GET`` and ``POST``
+We now have an iControl LX Extension that is able to handle ``GET`` and ``POST``
 requests as well as provide debugging information.
 
 Task 2 - Update our iControl LX Extension - Perform a REST API Call
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Right now, our iControl LX extension provides a default message that is set at
+Right now, our iControl LX Extension provides a default message that is set at
 the beginning of our code. If this "content" is owned by someone else, it may
 be inefficient to have it directly in the code. Let's see how we could leverage
 an HTTP request to retrieve our default message.
@@ -322,7 +322,7 @@ Perform the following tasks to complete this task:
       var DEFAULT_MSG = {"value": "Hello World!"};
 
 #. The prototype ``onStart`` is something you can leverage to do some
-   processing when your iControl LX extension is loaded in ``restnoded``. It
+   processing when your iControl LX Extension is loaded in ``restnoded``. It
    is triggered only once, when your extension is loaded. It's a good prototype
    to leverage to retrieve our default message.
 
@@ -451,5 +451,5 @@ Task 3 - Take a 5 minute break!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Congratulations!!!! You've just modified the behavior of the F5 iControl LX
-extension. Now take a moment to think about what workflows you could implement
+Extension. Now take a moment to think about what workflows you could implement
 to make life easier.

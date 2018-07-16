@@ -3,7 +3,7 @@ Lab 4.4 - Install our iControl LX RPM
 
 Let's try to install our iControl LX RPM on BIG-IP.
 
-To install the iControl LX extension, you'll first need to copy the iControl LX
+To install the iControl LX Extension, you'll first need to copy the iControl LX
 package onto your BIG-IP device into the correct folder. It should be in the
 following directory: ``/var/config/rest/downloads``.
 
@@ -220,7 +220,7 @@ Perform the following steps to complete this task:
       Wed, 18 Oct 2017 13:27:21 GMT - config: [RestWorker] /ilxe_lab/hello_world has started. Name:HelloWorld
      Wed, 18 Oct 2017 13:27:21 GMT - info: DEBUG: HelloWorld - onStart - the default message body is: { "value": "Congratulations on your lab!" }
 
-#. We can see here that our iControl LX extension has been added to ``restnoded``.
+#. We can see here that our iControl LX Extension has been added to ``restnoded``.
 
 Task 3 - Test our iControl Extension
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

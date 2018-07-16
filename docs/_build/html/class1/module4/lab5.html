@@ -255,7 +255,7 @@
         
   <div class="section" id="lab-4-5-delete-the-package">
 <h1>Lab 4.5 - Delete the Package<a class="headerlink" href="#lab-4-5-delete-the-package" title="Permalink to this headline">¶</a></h1>
-<p>It’s important to know how to remove an iControl LX extension in case an
+<p>It’s important to know how to remove an iControl LX Extension in case an
 extension is not needed anymore.</p>
 <div class="section" id="task-1-verify-the-packagename">
 <h2>Task 1 - Verify the ‘packageName’<a class="headerlink" href="#task-1-verify-the-packagename" title="Permalink to this headline">¶</a></h2>
@@ -300,7 +300,7 @@ command:</p>
 <h2>Task 2 - Create the ‘delete’ Task<a class="headerlink" href="#task-2-create-the-delete-task" title="Permalink to this headline">¶</a></h2>
 <p>Perform the following steps to complete this task:</p>
 <ol class="arabic">
-<li><p class="first">To delete the HelloWorld iControl LX extension, perform the following POST to
+<li><p class="first">To delete the HelloWorld iControl LX Extension, perform the following POST to
 the ‘package-management-tasks’ REST resource.</p>
 <p><code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-H</span> <span class="pre">&quot;Content-Type:</span> <span class="pre">application/json&quot;</span> <span class="pre">-k</span> <span class="pre">-u</span> <span class="pre">admin:admin</span> <span class="pre">-X</span> <span class="pre">POST</span> <span class="pre">-d</span> <span class="pre">'{&quot;operation&quot;:</span> <span class="pre">&quot;UNINSTALL&quot;,&quot;packageName&quot;:</span> <span class="pre">&quot;HelloWorld-0.1-001.noarch&quot;}'</span> <span class="pre">https://10.1.1.245/mgmt/shared/iapp/package-management-tasks</span> <span class="pre">|</span> <span class="pre">jq</span></code></p>
 </li>
@@ -351,7 +351,7 @@ no longer there:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">You can also try to access the iControl LX extension:</p>
+<li><p class="first">You can also try to access the iControl LX Extension:</p>
 <p><code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-k</span> <span class="pre">-u</span> <span class="pre">admin:admin</span> <span class="pre">https://10.1.1.245/mgmt/ilxe_lab/hello_world</span> <span class="pre">|</span> <span class="pre">jq</span></code></p>
 <p>Here your request should fail and the output should be similar to this:</p>
 <div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>

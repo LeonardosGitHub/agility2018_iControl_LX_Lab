@@ -1,7 +1,7 @@
 Lab 4.5 - Delete the Package
 ----------------------------
 
-It's important to know how to remove an iControl LX extension in case an
+It's important to know how to remove an iControl LX Extension in case an
 extension is not needed anymore.
 
 Task 1 - Verify the 'packageName'
@@ -49,7 +49,7 @@ Task 2 - Create the 'delete' Task
 
 Perform the following steps to complete this task:
 
-#. To delete the HelloWorld iControl LX extension, perform the following POST to
+#. To delete the HelloWorld iControl LX Extension, perform the following POST to
    the 'package-management-tasks' REST resource.
 
    ``curl -H "Content-Type: application/json" -k -u admin:admin -X POST -d '{"operation": "UNINSTALL","packageName": "HelloWorld-0.1-001.noarch"}' https://10.1.1.245/mgmt/shared/iapp/package-management-tasks | jq``
@@ -104,7 +104,7 @@ Perform the following steps to complete this task:
         "selfLink": "https://localhost/mgmt/shared/iapp/global-installed-packages"
       }
 
-#. You can also try to access the iControl LX extension:
+#. You can also try to access the iControl LX Extension:
 
    ``curl -k -u admin:admin https://10.1.1.245/mgmt/ilxe_lab/hello_world | jq``
 

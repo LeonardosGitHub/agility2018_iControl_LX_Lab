@@ -260,7 +260,7 @@
         
   <div class="section" id="lab-3-1-review-the-helloworld-icontrol-lx-extension">
 <h1>Lab 3.1 - Review the HelloWorld iControl LX Extension<a class="headerlink" href="#lab-3-1-review-the-helloworld-icontrol-lx-extension" title="Permalink to this headline">¶</a></h1>
-<p>iControl LX extensions are provided as RPM (RedHat Package Manager) files.  An RPM is similar to a <code class="docutils literal notranslate"><span class="pre">.tar</span></code> or <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file for installing application files.</p>
+<p>iControl LX Extensions are provided as RPM (RedHat Package Manager) files.  An RPM is similar to a <code class="docutils literal notranslate"><span class="pre">.tar</span></code> or <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file for installing application files.</p>
 <p>Let’s begin by reviewing the JavaScript contents of the HelloWorld RPM.
 In this module we will be reviewing the contents of an extension. In the next module we will be creating our own.</p>
 <div class="section" id="overview-of-the-helloworld-extension">
@@ -298,7 +298,7 @@ In this module we will be reviewing the contents of an extension. In the next mo
 24
 25
 26</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/**</span>
-<span class="cm">* A simple iControl LX extension that handles only HTTP GET</span>
+<span class="cm">* A simple iControl LX Extension that handles only HTTP GET</span>
 <span class="cm">*/</span>
 <span class="kd">function</span> <span class="nx">HelloWorld</span><span class="p">()</span> <span class="p">{}</span>
 
@@ -332,7 +332,7 @@ In this module we will be reviewing the contents of an extension. In the next mo
 <h3>WORKER_URI_PATH<a class="headerlink" href="#worker-uri-path" title="Permalink to this headline">¶</a></h3>
 <p>Note the following line:</p>
 <p><code class="docutils literal notranslate"><span class="pre">HelloWorld.prototype.WORKER_URI_PATH</span> <span class="pre">=</span> <span class="pre">&quot;ilxe_lab/hello_world&quot;;</span></code></p>
-<p>This specifies where the iControl LX extension will appear within iControl REST.
+<p>This specifies where the iControl LX Extension will appear within iControl REST.
 Adding the <code class="docutils literal notranslate"><span class="pre">/mgmt</span></code> prefix, this would result in:</p>
 <p><code class="docutils literal notranslate"><span class="pre">https://10.1.1.245/mgmt/ilxe_lab/hello_world</span></code></p>
 </div>
@@ -366,7 +366,7 @@ that it should be publicly available using:</p>
 <div class="section" id="icontrol-lx-example-transaction">
 <h3>iControl LX Example Transaction<a class="headerlink" href="#icontrol-lx-example-transaction" title="Permalink to this headline">¶</a></h3>
 <p>This is a special service that will come in handy in the next lab.
-If you have an iControl LX extension that supports an HTTP <code class="docutils literal notranslate"><span class="pre">POST</span></code>, <code class="docutils literal notranslate"><span class="pre">PATCH</span></code>,
+If you have an iControl LX Extension that supports an HTTP <code class="docutils literal notranslate"><span class="pre">POST</span></code>, <code class="docutils literal notranslate"><span class="pre">PATCH</span></code>,
 or <code class="docutils literal notranslate"><span class="pre">PUT</span></code>, then the client will need to know what data to send and in what
 format.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">getExampleState</span></code> function responds when the user appends <code class="docutils literal notranslate"><span class="pre">/example</span></code> to

@@ -1,7 +1,7 @@
 Lab 4.1 - Creating the HelloWorld iControl LX Extension
 -------------------------------------------------------
 
-iControl LX extensions are distributed as RPMs (RedHat Package Management
+iControl LX Extensions are distributed as RPMs (RedHat Package Management
 system) when you want to leverage something existing. However when you start
 from scratch, you'll need to create your extension and then build a RPM that
 you can distribute accordingly.
@@ -9,7 +9,7 @@ you can distribute accordingly.
 Task 1 - Create our iControl LX Extension on BIG-IP
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-iControl LX extensions can be installed on either the BIG-IP or iWorkflow
+iControl LX Extensions can be installed on either the BIG-IP or iWorkflow
 platform. For this lab, we will use BIG-IP.
 
 Perform the following steps to complete this task:
@@ -17,8 +17,8 @@ Perform the following steps to complete this task:
 #. Connect to your BIG-IP via SSH/Putty(``10.1.1.245``).
 
 
-#. iControl LX extensions reside in ``/var/config/rest/iapps/``. This is where
-   you need to create your iControl LX extension. Usually you will create:
+#. iControl LX Extensions reside in ``/var/config/rest/iapps/``. This is where
+   you need to create your iControl LX Extension. Usually you will create:
 
    * A folder that is the name of your app: ``HelloWorld``
 
@@ -45,7 +45,7 @@ Perform the following steps to complete this task:
    .. code-block:: javascript
 
       /**
-      * A simple iControl LX extension that handles only HTTP GET
+      * A simple iControl LX Extension that handles only HTTP GET
       */
       function HelloWorld() {}
 

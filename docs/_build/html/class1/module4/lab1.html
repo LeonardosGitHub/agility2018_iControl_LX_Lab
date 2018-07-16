@@ -254,20 +254,20 @@
         
   <div class="section" id="lab-4-1-creating-the-helloworld-icontrol-lx-extension">
 <h1>Lab 4.1 - Creating the HelloWorld iControl LX Extension<a class="headerlink" href="#lab-4-1-creating-the-helloworld-icontrol-lx-extension" title="Permalink to this headline">¶</a></h1>
-<p>iControl LX extensions are distributed as RPMs (RedHat Package Management
+<p>iControl LX Extensions are distributed as RPMs (RedHat Package Management
 system) when you want to leverage something existing. However when you start
 from scratch, you’ll need to create your extension and then build a RPM that
 you can distribute accordingly.</p>
 <div class="section" id="task-1-create-our-icontrol-lx-extension-on-big-ip">
 <h2>Task 1 - Create our iControl LX Extension on BIG-IP<a class="headerlink" href="#task-1-create-our-icontrol-lx-extension-on-big-ip" title="Permalink to this headline">¶</a></h2>
-<p>iControl LX extensions can be installed on either the BIG-IP or iWorkflow
+<p>iControl LX Extensions can be installed on either the BIG-IP or iWorkflow
 platform. For this lab, we will use BIG-IP.</p>
 <p>Perform the following steps to complete this task:</p>
 <ol class="arabic">
 <li><p class="first">Connect to your BIG-IP via SSH/Putty(<code class="docutils literal notranslate"><span class="pre">10.1.1.245</span></code>).</p>
 </li>
-<li><p class="first">iControl LX extensions reside in <code class="docutils literal notranslate"><span class="pre">/var/config/rest/iapps/</span></code>. This is where
-you need to create your iControl LX extension. Usually you will create:</p>
+<li><p class="first">iControl LX Extensions reside in <code class="docutils literal notranslate"><span class="pre">/var/config/rest/iapps/</span></code>. This is where
+you need to create your iControl LX Extension. Usually you will create:</p>
 <ul class="simple">
 <li>A folder that is the name of your app: <code class="docutils literal notranslate"><span class="pre">HelloWorld</span></code></li>
 </ul>
@@ -295,7 +295,7 @@ preferred editor and create a file named <code class="docutils literal notransla
 </li>
 <li><p class="first">Copy/Paste the following content into your file:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
-<span class="cm">* A simple iControl LX extension that handles only HTTP GET</span>
+<span class="cm">* A simple iControl LX Extension that handles only HTTP GET</span>
 <span class="cm">*/</span>
 <span class="kd">function</span> <span class="nx">HelloWorld</span><span class="p">()</span> <span class="p">{}</span>
 
