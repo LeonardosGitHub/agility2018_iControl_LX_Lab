@@ -1,8 +1,8 @@
-Module 2 - Interacting with an iControl LX extension
+Module 2 - Interacting with an iControl LX Extension
 ====================================================
 
 In this module, we are going to introduce the basic themes and then review an
-iControl LX extension.
+iControl LX Extension.
 
 The following exercises will be performed on the BIG-IP platform
 (``https://10.1.1.245``).
@@ -14,7 +14,7 @@ The following exercises will be performed on the BIG-IP platform
    * `F5 BIG-IP <https://support.f5.com/csp/knowledge-center/software/BIG-IP?module=BIG-IP%20LTM>`_
 
 .. NOTE:: This lab is ``OPTIONAL``. It gives you an example of what you can build/
-   implement with an iControl LX extension. It won't give you any knowledge on
+   implement with an iControl LX Extension. It won't give you any knowledge on
    how to build your own extension or install one.
 
 **Exercises in this Module**

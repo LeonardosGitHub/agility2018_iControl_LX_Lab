@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Agility18 iControlLX Extensions Lab's documentation!
+Welcome to Single Call Security iControl LX REST API Lab
 ===============================================================
 
 .. toctree::

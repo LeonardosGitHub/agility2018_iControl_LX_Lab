@@ -1,25 +1,38 @@
-Module 0 - Accessing the Lab Environment
-========================================
+Module 0 - Lab Environment
+==========================
 
-Before we start playing with iControl LX extension, you need to have access to your lab.
-
-In this section we will review how to access it.
+Instructions will be given on how to access the lab.
 
 
-**Exercises in this Module**
+- Lab Topology
 
-- Lab 1 - Access UDF and start your lab
+Here is the lab topology:
 
-  - Task 1 - Start your deployment
-  - Task 2 - Wait for it to be started
+.. list-table::
+   :widths: 30 30 30
+   :header-rows: 1
+   :stub-columns: 1
 
-- Lab 2 - Access your lab
 
-  - Task 1 - Launch your RDP session
+   * - **Component**
+     - **IP**
+     - **Credentials**
+   * - BIG-IP
+     - 10.1.1.245
+     - ``admin/admin``
+
+       ``root/default``
+   * - xUbuntu Server
+     - 10.1.1.252
+     - ``external_user/P@ssw0rd!``
+
+   * - Windows Jumphost
+     - 10.1.1.199
+     - ``external_user/P@ssw0rd!``
 
 
 .. toctree::
    :maxdepth: 1
    :glob:
 
-   lab*
+   #lab*

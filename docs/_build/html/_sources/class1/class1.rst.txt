@@ -1,9 +1,9 @@
-***********************************
-Class 1 - F5 iControl LX extensions
-***********************************
+*******************************************************
+Class 1 - Single Call Security iControl LX REST API Lab
+*******************************************************
 
 
-This class will teach you how to create F5 iControl REST API extensions. If you
+This class will teach you how to create F5 iControl REST API Extensions. If you
 are NOT familiar with the iControl REST API, here are the labs you are looking
 for the `Introduction to Automation & Orchestration
 <http://clouddocs.f5.com/training/community/programmability/html/class1/class1.html>`_
@@ -36,15 +36,15 @@ diagram:
     :align: center
 
 
-**What is an iControl LX extension?**
+**What is an iControl LX Extension?**
 
-An iControl LX extension represents additional functionality built upon the
+An iControl LX Extension represents additional functionality built upon the
 iControl LX framework, and presented through the iControl REST API.
 
 .. image:: ../_static/class1/image002.png
     :align: center
 
-F5 has already developed some iControl LX extensions to simplify operational
+F5 has already developed some iControl LX Extensions to simplify operational
 processes. These extensions are available on `DevCentral
 <https://devcentral.f5.com/wiki/DevOps.Default.aspx>`_ and are built to address
 the following use cases:
@@ -53,7 +53,7 @@ the following use cases:
 * Create BIG-IP Cluster
 
 This training lab concerns itself with teaching you how to develop your own
-iControl LX extensions.
+iControl LX Extensions.
 
 .. image:: ../_static/class1/image003.png
     :align: center
