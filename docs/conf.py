@@ -20,7 +20,7 @@ import f5_sphinx_theme
 
 # -- Project information -----------------------------------------------------
 
-project = u'Agility18 iControlLX Extensions Lab'
+project = u'Single Call Security iControl LX REST API Lab'
 copyright = u'2018, F5 Networks'
 author = u'F5 Networks'
 
