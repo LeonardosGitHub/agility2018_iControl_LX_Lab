@@ -11,13 +11,13 @@ REST and iControl LX Extensions. The two logs for these daemons are:
 
 ``/var/log/restnoded/restnoded.log``
 
-Its important to be familiar with both of these logs while developing
+It is important to be familiar with both of these logs while developing
 iControl LX Extensions. You will get to know ``restnoded.log`` very well!
 
 Task 1 - Streaming the log output
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can open these logs with any text editor/reader. However, its far more
+You can open these logs with any text editor/reader. However, it is far more
 efficient to stream the output while operations such as starting the restnoded
 daemon are taking place.
 

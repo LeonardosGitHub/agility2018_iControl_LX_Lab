@@ -3,12 +3,12 @@ Lab 6.1 - Brief overview of our Ansible setup
 
 In this lesson we will look at a high-level overview of our Ansible setup. 
 We'll also view what ASM policies currently exist on the BIG-IP and what ASM
-policy, if any, are associated with ``hackazon_virtual`` virtual server. 
+policy, if any, is associated with the ``hackazon_virtual`` virtual server. 
 
 Task 1 - Inventory, playbooks, ansible.cfg
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-#. SSH to the Xubuntu host using the ``putty`` shorcut that can be found on the desktop.
+#. SSH to the Xubuntu Server using the ``PuTTY`` shortcut that can be found on the desktop.
 
 #. Perform the following command to change the directory to the ``f5-ansible`` directory.
 
@@ -29,7 +29,7 @@ Task 1 - Inventory, playbooks, ansible.cfg
    
    * Inventory_ - this is where we store our ``hosts`` file. The ``hosts`` file is where 
      you store the hosts that we will target when executing our playbooks. In our case this 
-     is the BIG-IP, 10.1.1.245.
+     is the BIG-IP at 10.1.1.245.
 
    .. _Inventory: https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html
 
@@ -46,7 +46,7 @@ Task 1 - Inventory, playbooks, ansible.cfg
 Task 2 - View ASM policies and view there are no ASM policies associated with hackazon_virtual virtual server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-#. In your web browser, navigate to BIG-IP: ``https://10.1.10.20/``
+#. In your web browser, navigate to BIG-IP: ``https://10.1.1.245/``
 
 #. Navigate to Main > Security > Application Security > Security Policies
 

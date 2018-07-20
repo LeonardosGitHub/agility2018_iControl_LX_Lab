@@ -2,18 +2,18 @@ Lab 5.1 - Enable iControl LX extension management via GUI
 ---------------------------------------------------------
 
 iControl LX extensions are distributed as RPMs (RedHat Package Management
-system), in this lesson we will enable management of RPMs using the GUI. 
+system). In this lesson we will enable management of RPMs using the GUI. 
 
 
 Task 1 - View iControl LX management is NOT available via the GUI
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 iControl LX extensions can be installed on either the BIG-IP or iWorkflow
-platform. For this lab, we will use BIG-IP.
+platforms. For this lab, we will use BIG-IP.
 
 Perform the following steps to complete this task:
 
-#. In your web browser, navigate to BIG-IP: ``https://10.1.10.20/``
+#. In your web browser, navigate to BIG-IP: ``https://10.1.1.245/``
 
 
 #. Navigate to Main > iApps
@@ -30,7 +30,7 @@ Task 2 - SSH to BIG-IP to enable iControl LX management via the GUI
 
 Perform the following steps to complete this task:
 
-#. Find and open the application ``putty`` on the desktop, using the saved session 
+#. Find and open the application ``PuTTY`` on the desktop, using the saved session 
    SSH to the BIG-IP_A.
 
 #. At the bash shell enter the following command:
@@ -45,7 +45,7 @@ Task 3 - View iControl LX management is now available via the GUI
 
 Perform the following steps to complete this task:
 
-#. In your web browser, navigate to BIG-IP: ``https://10.1.10.20/``
+#. In your web browser, navigate to BIG-IP: ``https://10.1.1.245/``. If it is already open, refresh the page.
 
 #. Navigate to Main > iApps
 

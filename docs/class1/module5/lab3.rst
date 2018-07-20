@@ -2,7 +2,7 @@ Lab 5.3 - Setup Postman to interact with the iControl LX Extension
 ------------------------------------------------------------------
 
 In this lab we will setup the Postman client to be able to interact
-with the iControl LX Extension we installed in lab 2.
+with the iControl LX Extension we installed in the previous step.
 
 Task 1 - Setup Postman client
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -12,8 +12,8 @@ Use Postman
 
 Perform the following steps to complete this task:
 
-#. Open your Postman application on your jumphost and select the environment labeled
-   ``ASM_ENVIRONMENT`` in the upper-right hand side of Postman application.
+#. Open the Postman application on your Windows jumphost. An icon for Postman can be found on the Desktop. If you are prompted to update, click Remind me later. Click X to close the modal launch screen window. Select the environment labeled
+   ``ASM_ENVIRONMENT`` in the upper-right hand side of Postman application if it is not already selected. 
 
    .. image:: ../../_static/class1/module5/lab3-image001.png
       :align: center

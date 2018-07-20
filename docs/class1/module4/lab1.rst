@@ -14,7 +14,7 @@ platform. For this lab, we will use BIG-IP.
 
 Perform the following steps to complete this task:
 
-#. Connect to your BIG-IP via SSH/Putty(``10.1.1.245``).
+#. Connect to your BIG-IP via SSH/PuTTY(``10.1.1.245``).
 
 
 #. iControl LX Extensions reside in ``/var/config/rest/iapps/``. This is where
@@ -33,10 +33,10 @@ Perform the following steps to complete this task:
    ``mkdir -p /var/config/rest/iapps/HelloWorld/nodejs/``
 
 #. Now that we have our directory, we need to create our extension. Use your
-   preferred editor and create a file named ``hello_world.js`` in
+   preferred text editor and create a file named ``hello_world.js`` in
    ``/var/config/rest/iapps/HelloWorld/nodejs/``:
 
-   ``nano /var/config/rest/iapps/HelloWorld/nodejs/hello_world.js``
+   For example, using nano the command would be ``nano /var/config/rest/iapps/HelloWorld/nodejs/hello_world.js``
 
    .. NOTE:: If you have not used nano before:  After you paste in the contents below, you will type ``CTRL-X`` to exit the editor.  You will then be prompted to save the file, type ``Y`` to confirm.
 
@@ -71,7 +71,7 @@ Perform the following steps to complete this task:
 
       module.exports = HelloWorld;
 
-#. Save the changes (``ESC ESC :wq`` if you use ``vi``).
+#. Save the changes (``CTRL-X``, ``Y`` if you use ``nano``, ``ESC ESC :wq`` if you use ``vi``).
 
 #. Once our extension is created, we need to load it into ``restnoded``. When
    an extension is loaded from an RPM, it is done automatically. However in this case
@@ -145,6 +145,6 @@ Perform the following steps to complete this task:
 
    ``curl -k -u admin:admin https://10.1.1.245/mgmt/ilxe_lab/hello_world/example``
 
-.. NOTE:: You may NOT want to use admin privileges to leverage an extension.
-   In many situations an extension may only be needed by specific users, in which case you would be able to enforce RBAC policies. BIG-IP version 13.1 provides this capability.
+.. NOTE:: You may not want to use admin privileges to leverage an extension.
+   In many situations an extension may only be needed by specific users, in which case you would be able to enforce RBAC (Role-Based Access Control) policies. BIG-IP version 13.1 and later provides this capability.
 

@@ -22,9 +22,9 @@ First let's take a look at the packages installed on the BIG-IP.
 
 Perform the following steps to complete this task:
 
-#. From your Linux Server run the following command:
+#. From your Xubuntu Server run the following command:
 
-   ``curl -k -u admin:admin https://10.1.1.245/mgmt/shared/iapp/global-installed-packages | jq``
+   ``curl -k -u admin:admin https://10.1.1.245/mgmt/shared/iapp/global-installed-packages | jq .``
 
    Response:
 
@@ -61,9 +61,9 @@ Here is the syntax:
 Perform the following steps to complete this task:
 
 
-#. Let's use your terminal to run the following command:
+#. From your Xubuntu Server run the following command:
 
-   ``curl -H "Content-Type: application/json" -k -u admin:admin -X POST -d '{"operation": "INSTALL","packageFilePath": "/var/config/rest/downloads/HelloWorld-0.1-001.noarch.rpm"}' https://10.1.1.245/mgmt/shared/iapp/package-management-tasks | jq``
+   ``curl -H "Content-Type: application/json" -k -u admin:admin -X POST -d '{"operation": "INSTALL","packageFilePath": "/var/config/rest/downloads/HelloWorld-0.1-001.noarch.rpm"}' https://10.1.1.245/mgmt/shared/iapp/package-management-tasks | jq .``
 
 #. The output should look like this:
 
@@ -94,9 +94,9 @@ Perform the following steps to complete this task:
 
    From your terminal:
 
-   ``curl -k -u admin:admin  https://10.1.1.245/mgmt/shared/iapp/package-management-tasks/4d62ae98-5302-41ee-8057-479b28372b9f | jq``
+   ``curl -k -u admin:admin  https://10.1.1.245/mgmt/shared/iapp/package-management-tasks/4d62ae98-5302-41ee-8057-479b28372b9f | jq .``
 
-   .. NOTE::  Replace the ID in the curl command
+   .. NOTE::  Once again be sure to replace the ID in the curl command
       (``4d62ae98-5302-41ee-8057-479b28372b9f``) with your own ``id``
 
    Output:
@@ -131,7 +131,7 @@ Perform the following steps to complete this task:
         "selfLink": "https://localhost/mgmt/shared/iapp/package-management-tasks/4d62ae98-5302-41ee-8057-479b28372b9f"
       }
 
-#. Check the status field in the output to know if everything happened as
+#. Check the status field in the output to see if the installation completed as
    expected. If the package is already installed, you will see ``FAILED``. For
    example:
 
@@ -164,45 +164,44 @@ Perform the following steps to complete this task:
 
 #. You can check the installation by:
 
-   * reviewing the folder ``/var/config/rest/iapps/``
-   * check the output of the command (from your Linux Server)
-
-     ``curl -k -u admin:admin https://10.1.1.245/mgmt/shared/iapp/global-installed-packages | jq``
+   * Viewing the contents of the folder ``/var/config/rest/iapps/`` on the BIG-IP:
 
      .. code::
 
         $ ls /var/config/rest/iapps/
         HelloWorld  RPMS
 
-#. We can see that the HelloWorld folder is back here.
+   * Checking the output of the command (from your Xubuntu Server):
 
-   ``curl -k -u admin:admin https://10.1.1.245/mgmt/shared/iapp/global-installed-packages | jq``
+     ``curl -k -u admin:admin https://10.1.1.245/mgmt/shared/iapp/global-installed-packages | jq .``
 
-   .. code::
+     You should see something like this:
+     
+     .. code::
 
-      {
-        "items": [
-          {
-            "id": "68e109f0-f40c-372a-95e0-5cc22786f8e6",
-            "appName": "HelloWorld",
-            "packageName": "HelloWorld-0.1-001.noarch",
-            "version": "0.1",
-            "release": "001",
-            "arch": "noarch",
-            "tags": [
-              "IAPP"
-            ],
-            "generation": 1,
-            "lastUpdateMicros": 1508331598882884,
-            "kind": "shared:iapp:global-installed-packages:installedpackagestate",
-            "selfLink": "https://localhost/mgmt/shared/iapp/global-installed-packages/68e109f0-f40c-372a-95e0-5cc22786f8e6"
-          }
-        ],
-        "generation": 1,
-        "kind": "shared:iapp:global-installed-packages:installedpackagecollectionstate",
-        "lastUpdateMicros": 1508331598883142,
-        "selfLink": "https://localhost/mgmt/shared/iapp/global-installed-packages"
-      }
+        {
+          "items": [
+            {
+              "id": "68e109f0-f40c-372a-95e0-5cc22786f8e6",
+              "appName": "HelloWorld",
+              "packageName": "HelloWorld-0.1-001.noarch",
+              "version": "0.1",
+              "release": "001",
+              "arch": "noarch",
+              "tags": [
+                "IAPP"
+              ],
+              "generation": 1,
+              "lastUpdateMicros": 1508331598882884,
+              "kind": "shared:iapp:global-installed-packages:installedpackagestate",
+              "selfLink": "https://localhost/mgmt/shared/iapp/global-installed-packages/68e109f0-f40c-372a-95e0-5cc22786f8e6"
+            }
+          ],
+          "generation": 1,
+          "kind": "shared:iapp:global-installed-packages:installedpackagecollectionstate",
+          "lastUpdateMicros": 1508331598883142,
+          "selfLink": "https://localhost/mgmt/shared/iapp/global-installed-packages"
+        }
 
 #. You can also check your restnoded.log file:
 

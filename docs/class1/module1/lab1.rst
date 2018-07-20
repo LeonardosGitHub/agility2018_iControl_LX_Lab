@@ -28,7 +28,7 @@ Task 1 - Start/Stop/Restart the Daemons
 
 Perform the following steps to complete this task:
 
-#. Connect via ssh to your BIG-IP platform (a shortcut already exists in
+#. Connect via SSH to your BIG-IP platform (a shortcut already exists in
    PuTTY - ``10.1.1.245``, ``root/default``). Execute the following:
 
    ``bigstart status restnoded``
@@ -46,7 +46,7 @@ Perform the following steps to complete this task:
 
       ``bigstart status restjavad restnoded``
 
-      To get the status of ALL F5 controlled daemons execute:
+      To get the status of all F5 controlled daemons execute:
 
       ``bigstart status``
   

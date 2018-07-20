@@ -8,9 +8,9 @@ call to the BIG-IP.
 Task 1 - Check BIG-IP for existing ASM policies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-First lets take a look at the existing policies on the BIG-IP
+First let's take a look at the existing policies on the BIG-IP.
 
-#. In your web browser, navigate to BIG-IP: ``https://10.1.10.20/``
+#. In your web browser, navigate to BIG-IP: ``https://10.1.1.245/``
 
 #. Navigate to Main > Security > Application Security > Security Policies
 
@@ -25,7 +25,7 @@ First lets take a look at the existing policies on the BIG-IP
 Task 2 - Perform REST call using Postman to create policy
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Now lets use Postman to create an ASM policy.
+Now let's use Postman to create an ASM policy.
 
 First we have to authenticate to the BIG-IP and obtain a token using Postman. 
 
@@ -45,7 +45,7 @@ First we have to authenticate to the BIG-IP and obtain a token using Postman.
       :scale: 50% 
 
 #. Select ``iControl LX ASM Create Policy POST`` from the collections tab, then select ``Send``.
-   This will create an ASM polciy using the iControl LX RPM package uploaded earlier.  Note the 
+   This will create an ASM policy using the iControl LX RPM package uploaded earlier.  Note the 
    POST body contains only a name for the policy, in this case the name is "iControlLX_Agility2018".
    This will be the name of the ASM policy that's created on the BIG-IP. 
 
@@ -54,16 +54,16 @@ First we have to authenticate to the BIG-IP and obtain a token using Postman.
       :scale: 50%
 
    .. NOTE:: It will take about 15-20 seconds to generate the policy after hitting the
-      ``Send`` button in Postman. Wait this amount of time before proceeding with the following
-      instructions.
+      ``Send`` button in Postman. Please wait this amount of time before proceeding to the following
+      task.
 
 Task 3 - Verify ASM policy has been created
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-There are two different ways we will verify the ASM policy has been created. We will check
+There are two different ways we will verify that the ASM policy has been created. We will check
 using Postman and will also check via the GUI.
 
-#. To check if the policy has been created using Postman. Select ``iControl LX ASM Create Policy GET`` 
+#. To check if the policy has been created using Postman, select ``iControl LX ASM Create Policy GET`` 
    from the collections tab, then select ``Send``. Look for the field ``id:<unique_id>`` in 
    the response. This will tell you the policy has been created.
 
@@ -71,15 +71,15 @@ using Postman and will also check via the GUI.
       :align: center
       :scale: 50%
 
-#. To check if the policy has been created using the GUI. In your web browser, 
-   navigate to BIG-IP: ``https://10.1.10.20/``.  Then navigate to 
+#. To check if the policy has been created using the GUI, in your web browser  
+   navigate to BIG-IP: ``https://10.1.1.245/``.  Then navigate to 
    Main > Security > Application Security > Security Policies.  You will see the newly created policy.
 
    .. image:: ../../_static/class1/module5/lab4-image006.png
       :align: center
       :scale: 50%
 
-   .. NOTE:: What have we accomplished??  We used Postman to create an ASM policy by only sending the
+   .. NOTE:: What have we accomplished?  We used Postman to create an ASM policy by only sending the
       name of the policy. The iControl LX Extension that we installed on the BIG-IP, ``SecurityAdd-0.2-002.noarch.rpm``, 
       accepts the name of the policy then executes the rest of the requirments to build the policy. 
       The policy is now ready to be associated with a Virtual Server. 
