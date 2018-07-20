@@ -4,10 +4,8 @@ Class 1 - Single Call Security iControl LX REST API Lab
 
 
 This class will teach you how to create F5 iControl REST API Extensions. If you
-are NOT familiar with the iControl REST API, here are the labs you are looking
-for the `Introduction to Automation & Orchestration
-<http://clouddocs.f5.com/training/community/programmability/html/class1/class1.html>`_
-Course.
+are not familiar with the iControl REST API, please review the `Introduction to Automation & Orchestration
+<http://clouddocs.f5.com/training/community/programmability/html/class1/class1.html>`_ lab.
 
 While this guide assumes no prior experience with the iControl LX framework, it
 does assume that the reader has obtained a basic understanding of REST APIs,
@@ -75,7 +73,7 @@ templating system.
 The iControl LX framework consists of a `Node.js
 <https://nodejs.org/>`_ implementation, in addition to supporting services that
 enable interaction with F5 technologies. For example, developers can use
-`restOperation()` to communicate with a *trusted* BIG-IP device, instead of
+`restOperation()` to communicate with a *trusted* BIG-IP device instead of
 crafting an HTTP transaction and coding the auth/trust themselves.
 
 As the DevOps mantra says, "Fail Fast, Fail Forward!"

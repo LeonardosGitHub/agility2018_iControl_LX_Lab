@@ -11,9 +11,9 @@ has F5 modules that can be used to associate the newly created policy to a virtu
 Ansible F5 modules enable most common use cases, such as:
 
     * Automating the initial configurations on the BIG-IP like DNS, NTP etc.
-    * Automation to Network the BIG-IP (VLANS, Self-Ips)
+    * Automation to network the BIG-IP (VLANS, Self-IPs)
     * Automated deployment of HTTP and HTTPS applications
-    * Managing Virtual-Servers, Pools, Monitors and other configuration objects
+    * Managing Virtual Servers, Pools, Monitors and other configuration objects
 
 **Exercises in this Module**
 

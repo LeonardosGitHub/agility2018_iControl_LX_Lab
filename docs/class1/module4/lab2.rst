@@ -4,8 +4,7 @@ Lab 4.2 - Updating the HelloWorld iControl LX Extension
 Now that we have an initial version of our extension up and running, let's enhance it by adding the following capabilities:
 
 * Handle ``POST`` requests
-* Add logging information. Always useful to add logging information to track
-  behaviour and help troubleshooting any issue
+* Add logging information (It's always useful to have detailed logs, especially when troubleshooting)
 * Send a REST API call to a 3rd system
 
 Task 1 - Update our iControl LX Extension - Handle POST Requests
@@ -19,8 +18,7 @@ The first thing we must do is enable our ``f5-logger``. This will log messages t
 
 Perform the following steps to complete this task:
 
-#. Execute ``vi /var/config/rest/iapps/HelloWorld/nodejs/hello_world.js`` to
-   edit the file.
+#. Launch your preferred text editor once again to edit the file ``/var/config/rest/iapps/HelloWorld/nodejs/hello_world.js``.
 
 #. Below the first comment,
 
@@ -30,14 +28,16 @@ Perform the following steps to complete this task:
        * A simple iControl LX Extension that handles only HTTP GET
        */
 
-   add the following: (``i, Paste, Enter`` if you use ``vi``)
+   add the following code: (``i, Paste, Enter`` if you use ``vi``)
 
    .. code-block:: javascript
 
       var logger = require('f5-logger').getInstance();
       var DEBUG = true;
 
-#. Save the changes (``ESC ESC :w`` if you use ``vi``).  
+   .. Hint:: You can Paste by right-clicking in the text editor window.
+
+#. Save the changes (``CTRL-X``, ``Y`` if you use ``nano``, ``ESC ESC :wq`` if you use ``vi``).
 
 #. Now we will be able to use the ``logger`` statement to print information to the
    `/var/log/restnoded/restnoded.log` log file.  We can also enable/disable all
@@ -306,27 +306,22 @@ For this task, we will do 3 things:
 * Add a new prototype ``onStart`` to our code
 * Perform an HTTP request to GitHub to retrieve our default message
 
-Perform the following tasks to complete this task:
+Perform the following steps to complete this task:
 
-#. To add the http module to our extension, we need to add the following at the
-   top of your code
+#. To add the http module to our extension, we'll need to add a bit of code. If your text editor has been closed, please reopen it. Below the line ``var DEFAULT_MSG = {"value": "Hello World!"};``
+
+   add the following code:
 
    .. code-block:: javascript
 
       var http = require('http');
-
-   Add this below this existing line:
-
-   .. code-block:: javascript
-
-      var DEFAULT_MSG = {"value": "Hello World!"};
 
 #. The prototype ``onStart`` is something you can leverage to do some
    processing when your iControl LX Extension is loaded in ``restnoded``. It
    is triggered only once, when your extension is loaded. It's a good prototype
    to leverage to retrieve our default message.
 
-#. Under the line ``HelloWorld.prototype.isPublic = true;``, add the following
+#. Under the line ``HelloWorld.prototype.isPublic = true;`` add the following
    code:
 
    .. code-block:: javascript
@@ -377,12 +372,9 @@ Perform the following tasks to complete this task:
       };
 
 #. The purpose of this code is to retrieve the file
-   `helloworld_resp <http://s3-eu-west-1.amazonaws.com/nicolas-labs/helloworld_resp.json>`_.
+   `helloworld_resp <http://s3-eu-west-1.amazonaws.com/nicolas-labs/helloworld_resp.json>`_. This file will give us the default payload we should return when we receive a request.
 
-#. This file will give us the default payload we should return when we receive
-   a request.
-
-#. Make sure you save your updated file. Then run the following
+#. Make sure you save your updated code. Then run the following
    command:
 
    ``bigstart restart restnoded ; tail -f /var/log/restnoded/restnoded.log``

@@ -8,7 +8,7 @@ to an existing virtual server.
 Task 1 - Run playbook from the Ubuntu host
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-#. On your Xubuntu host you should be at a prompt that looks like this: 
+#. On your Xubuntu Server you should be at a prompt that looks like this: 
    
    ``external_user@xubuntu-vm:~/f5-ansible$``
    
@@ -19,17 +19,15 @@ Task 1 - Run playbook from the Ubuntu host
    
    ``ansible-playbook playbooks/ASM_create_apply.yml``
 
-   Once you execute the above command you will see the playbook executing, you'll be able
-   to view each task executing and the status of each task.  The last two lines will give
+   Once you run the above command, you will see the playbook execute. You will see each task executing and the status of each task.  The last two lines will give
    you a summary of the playbook execution and will indicate if it was ok or failed. The 
-   playbook will take up to 30 seconds to complete.  Also note you will see some comments 
-   about some ``DEPRECATION WARNING`` messages, this can be ignored for this lab.
+   playbook will take up to 30 seconds to complete.  Also note you will see some ``DEPRECATION WARNING`` messages which can be ignored for this lab.
 
-   .. Note:: If you wish To view the contents of the playbook you can use the following command
+   .. Note:: If you wish to view the contents of the playbook you can use the following command:
 
       ``cat playbooks/ASM_create_apply.yml``
 
-#. First lets look to see if an ASM policy has been created, it should have the name
+#. Now that we've run the playbook, let's look to see if an ASM policy has been created. It should have the name
    ``iControlLX_Agility2018_Ansible``. Navigate to Main > Security > Application Security >
    Security Policies to view the ASM policies.
 
@@ -37,7 +35,7 @@ Task 1 - Run playbook from the Ubuntu host
       :align: center
       :scale: 50%
 
-#. Now lets look at the virtual server to see if the policy has been associated. Navigate
+#. Now let's look at the virtual server to see if the policy has been associated. Navigate
    to Main > Local Traffic > Virtual Server > Virtual Server List then select ``hackazon_virtual``.
    Once selected navigate to Security > Policies.
 
@@ -45,6 +43,6 @@ Task 1 - Run playbook from the Ubuntu host
       :align: center
       :scale: 50%
 
-#. Congrats you've now created an ASM policy and associated it with a virtual server all in one step!!
+#. Congratulations! You've now created an ASM policy and associated it with a virtual server all in a single step!
 
 

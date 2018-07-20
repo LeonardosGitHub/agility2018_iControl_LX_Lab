@@ -22,7 +22,7 @@ Here is the lab topology:
      - ``admin/admin``
 
        ``root/default``
-   * - xUbuntu Server
+   * - Xubuntu Server
      - 10.1.1.252
      - ``external_user/P@ssw0rd!``
 

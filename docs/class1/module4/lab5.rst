@@ -9,12 +9,12 @@ Task 1 - Verify the 'packageName'
 
 Perform the following steps to complete this task:
 
-#. To verify the package name, from your Linux Server run the following
+#. To verify the package name, from your Xubuntu Server run the following
    command:
 
-   ``curl -k -u admin:admin https://10.1.1.245/mgmt/shared/iapp/global-installed-packages | jq``
+   ``curl -k -u admin:admin https://10.1.1.245/mgmt/shared/iapp/global-installed-packages | jq .``
 
-#. The output should be:
+#. The output should look like this:
 
    .. code::
 
@@ -52,7 +52,7 @@ Perform the following steps to complete this task:
 #. To delete the HelloWorld iControl LX Extension, perform the following POST to
    the 'package-management-tasks' REST resource.
 
-   ``curl -H "Content-Type: application/json" -k -u admin:admin -X POST -d '{"operation": "UNINSTALL","packageName": "HelloWorld-0.1-001.noarch"}' https://10.1.1.245/mgmt/shared/iapp/package-management-tasks | jq``
+   ``curl -H "Content-Type: application/json" -k -u admin:admin -X POST -d '{"operation": "UNINSTALL","packageName": "HelloWorld-0.1-001.noarch"}' https://10.1.1.245/mgmt/shared/iapp/package-management-tasks | jq .``
 
 #. A typical response looks like:
 
@@ -90,7 +90,7 @@ Perform the following steps to complete this task:
 #. Perform a ``GET`` request to ``global-installed-packages`` to confirm it is
    no longer there:
 
-   ``curl -k -u admin:admin https://10.1.1.245/mgmt/shared/iapp/global-installed-packages | jq``
+   ``curl -k -u admin:admin https://10.1.1.245/mgmt/shared/iapp/global-installed-packages | jq .``
 
 #. The output should look like:
 
@@ -106,7 +106,7 @@ Perform the following steps to complete this task:
 
 #. You can also try to access the iControl LX Extension:
 
-   ``curl -k -u admin:admin https://10.1.1.245/mgmt/ilxe_lab/hello_world | jq``
+   ``curl -k -u admin:admin https://10.1.1.245/mgmt/ilxe_lab/hello_world | jq .``
 
    Here your request should fail and the output should be similar to this:
 
