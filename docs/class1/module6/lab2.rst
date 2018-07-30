@@ -45,4 +45,5 @@ Task 1 - Run playbook from the Ubuntu host
 
 #. Congratulations! You've now created an ASM policy and associated it with a virtual server all in a single step!
 
+.. NOTE:: You have reached the end of this lab. In this lab, you have learned about iControl LX Extensions, including how to create, install and use them. You have also learned how to create an ASM policy in a single REST call. Lastly, you have learned how to associate an ASM policy with a virtual server in a single command using an Ansible playbook. Great job! 
 

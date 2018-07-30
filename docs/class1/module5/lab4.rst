@@ -35,6 +35,8 @@ First we have to authenticate to the BIG-IP and obtain a token using Postman.
       :align: center
       :scale: 50%
 
+   .. NOTE:: In this and subsequent steps, please take a moment to review the content of each request in Postman. This will help familiarize you with REST API syntax, as well as how to interact with the REST API from a third-party client. 
+
 #. This will generate a token used to authenticate future REST calls from Postman.
 
 #. Select ``Step2: Increase token from BIG-IP`` from the collections tab, then select 
@@ -81,7 +83,7 @@ using Postman and will also check via the GUI.
 
    .. NOTE:: What have we accomplished?  We used Postman to create an ASM policy by only sending the
       name of the policy. The iControl LX Extension that we installed on the BIG-IP, ``SecurityAdd-0.2-002.noarch.rpm``, 
-      accepts the name of the policy then executes the rest of the requirments to build the policy. 
+      accepts the name of the policy then executes the rest of the requirements to build the policy. 
       The policy is now ready to be associated with a Virtual Server. 
 
 
