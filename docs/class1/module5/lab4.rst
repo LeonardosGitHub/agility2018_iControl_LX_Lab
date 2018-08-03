@@ -39,7 +39,7 @@ First we have to authenticate to the BIG-IP and obtain a token using Postman.
 
 #. This will generate a token used to authenticate future REST calls from Postman.
 
-#. Select ``Step2: Increase Auth token timeout on BIG-IP`` from the collections tab, then select 
+#. Select ``Step2: Increase Auth token Timeout on BIG-IP`` from the collections tab, then select 
    ``Send``. This will extend the token timeout to 36000 seconds.
 
    .. image:: ../../_static/class1/module5/lab4-image003.png
