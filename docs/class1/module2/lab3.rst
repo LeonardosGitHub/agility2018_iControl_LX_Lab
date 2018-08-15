@@ -6,7 +6,7 @@ Task 1 - View the JSON Representation of a User Account
 
 Perform the following steps to complete this task:
 
-#. Navigate to your list of user accounts:
+#. Navigate to your list of user accounts: (You may need to login again as ``admin/admin``)
 
    ``https://10.1.1.245/mgmt/shared/authz/users/presentation#/``
 
