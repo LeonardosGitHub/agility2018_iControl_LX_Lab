@@ -7,9 +7,9 @@ To install the iControl LX Extension, you'll first need to copy the iControl LX
 package onto your BIG-IP device into the correct folder. It should be in the
 following directory: ``/var/config/rest/downloads``. 
 
-Use your BIG-IP SSH session and run the following command:
+.. NOTE:: Use your BIG-IP SSH session and run the following command:
 
-``mv /var/config/rest/iapps/RPMS/HelloWorld-0.1-001.noarch.rpm /var/config/rest/downloads/``
+          ``mv /var/config/rest/iapps/RPMS/HelloWorld-0.1-001.noarch.rpm /var/config/rest/downloads/``
 
 Since the RPM package was already on the BIG-IP we just had to move it to the correct folder. You can verify the transfer was successful by checking the
 folder ``/var/config/rest/downloads``.
